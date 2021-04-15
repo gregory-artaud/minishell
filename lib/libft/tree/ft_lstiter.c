@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gartaud <gartaud@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/17 12:01:49 by gartaud           #+#    #+#             */
-/*   Updated: 2021/04/02 10:54:13 by gartaud          ###   ########lyon.fr   */
+/*   Created: 2020/07/18 11:59:13 by gartaud           #+#    #+#             */
+/*   Updated: 2021/04/15 14:59:49 by gartaud          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "tree.h"
 
-void	ft_lstadd_back(t_list **alst, t_list *new)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	if (!*alst)
-		*alst = new;
-	else
-		ft_lstlast(*alst)->next = new;
-	new->next = NULL;
+	t_list	*current;
+
+	current = lst;
+	while (current)
+	{
+		f(current->content);
+		current = current->next;
+	}
 	return ;
 }

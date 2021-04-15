@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gartaud <gartaud@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/17 11:51:42 by gartaud           #+#    #+#             */
-/*   Updated: 2021/04/02 10:47:15 by gartaud          ###   ########lyon.fr   */
+/*   Created: 2020/07/17 12:01:49 by gartaud           #+#    #+#             */
+/*   Updated: 2021/04/15 14:59:18 by gartaud          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "tree.h"
 
-int	ft_lstsize(t_list *lst)
+void	ft_lstadd_back(t_list **alst, t_list *new)
 {
-	unsigned int	i;
-	t_list			*current;
-
-	if (!lst)
-		return (0);
-	current = lst->next;
-	i = 0;
-	while (current)
-	{
-		current = current->next;
-		i++;
-	}
-	return (i + 1);
+	if (!*alst)
+		*alst = new;
+	else
+		ft_lstlast(*alst)->next = new;
+	new->next = NULL;
+	return ;
 }

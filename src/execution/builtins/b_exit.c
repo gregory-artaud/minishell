@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	exec_cmd(t_shell *sh)
+int	b_exit(void *sh)
 {
 	(void)sh;
 	return (0);

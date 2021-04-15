@@ -6,7 +6,7 @@
 #    By: gartaud <gartaud@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/14 22:19:13 by gartaud           #+#    #+#              #
-#    Updated: 2021/04/15 09:21:06 by gartaud          ###   ########lyon.fr    #
+#    Updated: 2021/04/15 15:18:07 by gartaud          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LIBFT		= $(LIBFT_DIR)/libft.a
 CC			= gcc
 CFLAGS		= -Wall -Werror -Wextra -O3 \
 				-I ./$(DEPS_DIR) -I ./$(LIBFT_DIR)
-DEPS		= $(shell find includes *.h -type f 2> /dev/null)
+DEPS		= $(shell find includes %.h -type f 2> /dev/null)
 DEPS		+= $(addprefix $(LIB_DIR)/, \
 					libft/libft.h)
 SRC_DIR		= src/

@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gartaud <gartaud@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/17 11:58:01 by gartaud           #+#    #+#             */
-/*   Updated: 2021/04/02 10:53:39 by gartaud          ###   ########lyon.fr   */
+/*   Created: 2020/07/17 11:17:18 by gartaud           #+#    #+#             */
+/*   Updated: 2021/04/15 15:00:02 by gartaud          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "tree.h"
 
-t_list	*ft_lstlast(t_list *lst)
+t_list	*ft_lstnew(void *content)
 {
-	t_list	*current;
+	t_list	*new;
 
-	if (!lst)
+	new = malloc(sizeof(t_list));
+	if (!new)
 		return (0);
-	current = lst;
-	while (current->next)
-		current = current->next;
-	return (current);
+	new->content = content;
+	new->next = NULL;
+	return (new);
 }

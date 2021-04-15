@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gartaud <gartaud@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/18 11:40:16 by gartaud           #+#    #+#             */
-/*   Updated: 2021/04/02 10:53:56 by gartaud          ###   ########lyon.fr   */
+/*   Created: 2020/07/17 11:51:42 by gartaud           #+#    #+#             */
+/*   Updated: 2021/04/15 15:00:08 by gartaud          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "tree.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+int	ft_lstsize(t_list *lst)
 {
-	t_list	*next;
-	t_list	*current;
+	unsigned int	i;
+	t_list			*current;
 
-	current = *lst;
+	if (!lst)
+		return (0);
+	current = lst->next;
+	i = 0;
 	while (current)
 	{
-		next = current->next;
-		del(current->content);
-		free(current);
-		current = next;
+		current = current->next;
+		i++;
 	}
-	*lst = NULL;
-	return ;
+	return (i + 1);
 }
