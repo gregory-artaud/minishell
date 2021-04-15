@@ -6,7 +6,7 @@
 #    By: gartaud <gartaud@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/28 13:46:16 by gartaud           #+#    #+#              #
-#    Updated: 2021/04/05 09:02:35 by gartaud          ###   ########lyon.fr    #
+#    Updated: 2021/04/15 10:18:45 by gartaud          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,6 +71,7 @@ FILES		=	ft_memset.c \
 				ft_is_int.c \
 				ft_is_double.c \
 				ft_min.c \
+				ft_getchar.c \
 				gnl/get_next_line.c \
 				gnl/get_next_line_utils.c
 OBJ			= $(FILES:%.c=%.o)

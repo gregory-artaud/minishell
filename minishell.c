@@ -1,5 +1,11 @@
 #include "minishell.h"
 
+void	prompt(t_shell *sh)
+{
+	ft_putstr_fd(sh->current_dir, STDOUT_FILENO);
+	ft_putstr_fd(COMMAND_WAIT_TOKEN, STDOUT_FILENO);
+}
+
 int	main(int argc, char **env)
 {
 	t_shell	sh;
@@ -7,7 +13,7 @@ int	main(int argc, char **env)
 	init_shell(&sh, argc, env);
 	while (1)
 	{
-		printf("%s", sh.dir);
+		prompt(&sh);
 		read_cmd(&sh);
 		exec_cmd(&sh);
 	}
