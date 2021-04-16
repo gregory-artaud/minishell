@@ -3,7 +3,7 @@
 
 # include "libft.h"
 # define CMD_MAX_LENGTH 4096
-# define PWD_MAX_LENGTH 4096
+# define PWD_PATH_MAX_LENGTH 4096
 # define COMMAND_WAIT_TOKEN "$ "
 # define NO_BUILTINS 7
 # define B_STR "echo cd pwd export unset env exit"
@@ -20,14 +20,16 @@ enum e_builtins_id {
 
 typedef struct s_shell
 {
-	char		pwd[PWD_MAX_LENGTH];
+	char		pwd_path[PWD_PATH_MAX_LENGTH];
 	char		cmd[CMD_MAX_LENGTH];
-	char		*current_dir;
+	char		*pwd;
 	char		**env;
-	t_tree		*ast;
+	//t_tree		*ast;
+	char		**args;
 	int			status;
 	int			(*b_fct[NO_BUILTINS])(void *);
 	char		**b_str;
+	int			b_strlen[NO_BUILTINS];
 }				t_shell;
 
 #endif

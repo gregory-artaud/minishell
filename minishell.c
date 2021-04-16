@@ -2,7 +2,7 @@
 
 void	prompt(t_shell *sh)
 {
-	ft_putstr_fd(sh->current_dir, STDOUT_FILENO);
+	ft_putstr_fd(sh->pwd, STDOUT_FILENO);
 	ft_putstr_fd(COMMAND_WAIT_TOKEN, STDOUT_FILENO);
 }
 

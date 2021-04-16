@@ -11,7 +11,8 @@ void	read_cmd(t_shell *sh)
 	{
 		c = ft_getchar();
 		if (c == '\n')
-			return ;
+			break ;
 		sh->cmd[i++] = (char)c;
 	}
+	sh->args = ft_cs_split(sh->cmd, SPACES);
 }
