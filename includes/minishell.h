@@ -16,6 +16,7 @@ int		lexer(t_shell *sh);
 int		process_line(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j);
 int		no_env_var_name(char tmp[CMD_MAX_LENGTH], int *j);
 int		is_special(char c);
+int		tokenize(char s[CMD_MAX_LENGTH], t_shell *sh);
 /*
 ** parser/
 */

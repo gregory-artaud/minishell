@@ -31,9 +31,10 @@ enum e_builtins_id {
 };
 
 enum e_token_types {
-	PROGRAM,
+	EXECUTABLE,
 	ARGUMENT,
 	REDIRECT,
+	FILE_PATH,
 	SEPARATOR
 };
 

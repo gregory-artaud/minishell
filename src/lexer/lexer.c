@@ -30,6 +30,7 @@ int	lexer(t_shell *sh)
 
 	read_line(sh);
 	ft_bzero(tmp, CMD_MAX_LENGTH);
+	error = 0;
 	i = 0;
 	j = 0;
 	while (sh->cmd[i])
@@ -39,5 +40,6 @@ int	lexer(t_shell *sh)
 			return (error);
 	}
 	printf("%s\n", tmp);
-	return (EXIT_SUCCESS);
+	error = tokenize(tmp, sh);
+	return (error);
 }
