@@ -8,6 +8,7 @@ t_tree	*ft_tr_new(void *content)
 	if (!new)
 		return (NULL);
 	new->content = content;
+	new->parent = NULL;
 	new->branches = NULL;
 	return (new);
 }

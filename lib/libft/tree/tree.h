@@ -11,9 +11,10 @@ typedef struct s_list
 
 typedef struct s_tree
 {
-	void	*content;
-	t_list	*branches;
-}			t_tree;
+	void			*content;
+	struct s_tree	*parent;
+	t_list			*branches;
+}					t_tree;
 
 /*
 ** tree
@@ -21,7 +22,10 @@ typedef struct s_tree
 t_tree	*ft_tr_new(void *content);
 void	ft_tr_addleft(t_tree *root, t_tree *left);
 void	ft_tr_addright(t_tree *root, t_tree *right);
+int		ft_tr_isleaf(t_tree *tr);
 int		ft_tr_brsize(t_tree *tr);
+t_tree	*ft_tr_leftchild(t_tree *tr);
+t_tree	*ft_tr_next_sibling(t_tree *tr);
 
 /*
 ** list
