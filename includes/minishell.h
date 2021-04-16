@@ -10,12 +10,23 @@
 
 void	init_shell(t_shell *sh, char **env);
 /*
-** parsing/
+** lexer
 */
-void	read_cmd(t_shell *sh);
+int		lexer(t_shell *sh);
+int		process_line(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j);
+int		no_env_var_name(char tmp[CMD_MAX_LENGTH], int *j);
+int		is_special(char c);
+int		tokenize(char s[CMD_MAX_LENGTH], t_shell *sh);
+/*
+** parser/
+*/
+int		parser(t_shell *sh);
 /*
 ** execution/
 */
-int	exec_cmd(t_shell *sh);
-
+int		executer(t_shell *sh);
+/*
+** error_interpreter/
+*/
+void	print_error(int error);
 #endif
