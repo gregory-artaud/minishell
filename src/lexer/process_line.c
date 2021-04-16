@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	process_env(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j)
+int	process_env(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j)
 {
 	char	*name;
 	char	*value;
@@ -24,36 +24,43 @@ void	process_env(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j)
 		free(name);
 	}
 	ft_strlcpy(tmp + *j, value, ft_strlen(value) + 1);
+	*j += ft_strlen(value);
 	if (value)
 		free(value);
+	return (EXIT_SUCCESS);
 }
 
 
-void	process_backslash(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j)
+int	process_backslash(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j)
+{
+	(*i)++;
+	if (!sh->cmd[*i])
+		return (LEX_ERR_EOL_AFTER_ESCAPE);
+	tmp[(*j)++] = sh->cmd[(*i)++];
+	return (EXIT_SUCCESS);
+}
+
+int	process_double_quote(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j)
 {
 	(void)tmp;
 	(void)sh;
 	(void)i;
 	(void)j;
+	return (EXIT_SUCCESS);
 }
 
-void	process_double_quote(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j)
+int	process_single_quote(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j)
 {
-	(void)tmp;
-	(void)sh;
-	(void)i;
-	(void)j;
+	(*i)++;
+	while (sh->cmd[*i] && sh->cmd[*i] != SINGLE_QUOTE)
+		tmp[(*j)++] = sh->cmd[(*i)++];
+	if (sh->cmd[*i] != SINGLE_QUOTE)
+		return (LEX_ERR_OPEN_QUOTE);
+	(*i)++;
+	return (EXIT_SUCCESS);
 }
 
-void	process_single_quote(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j)
-{
-	(void)tmp;
-	(void)sh;
-	(void)i;
-	(void)j;
-}
-
-void	process_line(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j)
+int	process_line(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j)
 {
 	if (sh->cmd[*i] == BACKSLASH)
 		return (process_backslash(tmp, sh, i, j));
@@ -65,4 +72,5 @@ void	process_line(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j)
 		return (process_env(tmp, sh, i, j));
 	else
 		tmp[(*j)++] = sh->cmd[(*i)++];
+	return (EXIT_SUCCESS);
 }

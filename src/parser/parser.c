@@ -1,8 +1,7 @@
 #include "minishell.h"
 
-void	parser(t_shell *sh)
+int	parser(t_shell *sh)
 {
-	if (!sh)
-		return ;
-	return ;
+	(void)sh;
+	return (EXIT_SUCCESS);
 }

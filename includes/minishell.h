@@ -12,16 +12,19 @@ void	init_shell(t_shell *sh, char **env);
 /*
 ** lexer
 */
-void	lexer(t_shell *sh);
-void	process_line(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j);
-void	no_env_var_name(char tmp[CMD_MAX_LENGTH], int *j);
+int		lexer(t_shell *sh);
+int		process_line(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j);
+int		no_env_var_name(char tmp[CMD_MAX_LENGTH], int *j);
 /*
 ** parser/
 */
-void	parser(t_shell *sh);
+int		parser(t_shell *sh);
 /*
 ** execution/
 */
-int	executer(t_shell *sh);
-
+int		executer(t_shell *sh);
+/*
+** error_interpreter/
+*/
+void	print_error(int error);
 #endif

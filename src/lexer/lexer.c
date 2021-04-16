@@ -21,17 +21,23 @@ void	read_line(t_shell *sh)
 	}
 }
 
-void	lexer(t_shell *sh)
+int	lexer(t_shell *sh)
 {
 	char	tmp[CMD_MAX_LENGTH];
 	int		i;
 	int		j;
+	int		error;
 
 	read_line(sh);
 	ft_bzero(tmp, CMD_MAX_LENGTH);
 	i = 0;
 	j = 0;
 	while (sh->cmd[i])
-		process_line(tmp, sh, &i, &j);
+	{
+		error = process_line(tmp, sh, &i, &j);
+		if (error)
+			return (error);
+	}
 	printf("%s\n", tmp);
+	return (EXIT_SUCCESS);
 }
