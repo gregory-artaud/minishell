@@ -6,7 +6,7 @@
 #    By: gartaud <gartaud@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/28 13:46:16 by gartaud           #+#    #+#              #
-#    Updated: 2021/04/15 15:13:03 by gartaud          ###   ########lyon.fr    #
+#    Updated: 2021/04/16 08:51:45 by gartaud          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,8 @@ FILES		=	ft_memset.c \
 				tree/ft_tr_new.c \
 				tree/ft_tr_addleft.c \
 				tree/ft_tr_addright.c \
-				tree/ft_tr_brsize.c
+				tree/ft_tr_brsize.c \
+				tree/ft_tr_isleaf.c
 OBJ			= $(FILES:%.c=%.o)
 
 all: $(NAME)
