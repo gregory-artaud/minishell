@@ -3,14 +3,12 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <unistd.h>
 # include "libft.h"
+# include "defs.h"
+# include "execution.h"
 
-typedef struct s_shell
-{
-	char		*dir;
-}				t_shell;
-
-void	init_shell(t_shell *sh, int argc, char **env);
+void	init_shell(t_shell *sh, char **env);
 /*
 ** parsing/
 */
@@ -18,6 +16,6 @@ void	read_cmd(t_shell *sh);
 /*
 ** execution/
 */
-void	exec_cmd(t_shell *sh);
+int	exec_cmd(t_shell *sh);
 
 #endif
