@@ -14,7 +14,8 @@
 # define B_STR "echo cd pwd export unset env exit"
 
 enum e_errors {
-	LEX_ERR_OPEN_QUOTE = 1,
+	LEX_ERR_OPEN_SINGLE_QUOTE = 1,
+	LEX_ERR_OPEN_DOUBLE_QUOTE,
 	LEX_ERR_EOL_AFTER_ESCAPE,
 	EXE_ERR_MISSING_AST
 };

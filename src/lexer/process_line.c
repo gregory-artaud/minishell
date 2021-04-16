@@ -42,10 +42,27 @@ int	process_backslash(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j)
 
 int	process_double_quote(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j)
 {
-	(void)tmp;
-	(void)sh;
-	(void)i;
-	(void)j;
+	int	error;
+
+	(*i)++;
+	while (sh->cmd[*i] && sh->cmd[*i] != DOUBLE_QUOTE)
+		if (sh->cmd[*i] == BACKSLASH && is_special(sh->cmd[*i + 1]))
+		{
+			error = process_backslash(tmp, sh, i, j);
+			if (error)
+				return (error);
+		}
+		else if (sh->cmd[*i] == ENV_VARIABLE_TOKEN)
+		{
+			error = process_env(tmp, sh, i, j);
+			if (error)
+				return (error);
+		}
+		else
+			tmp[(*j)++] = sh->cmd[(*i)++];
+	if (sh->cmd[*i] != DOUBLE_QUOTE)
+		return (LEX_ERR_OPEN_DOUBLE_QUOTE);
+	(*i)++;
 	return (EXIT_SUCCESS);
 }
 
@@ -55,7 +72,7 @@ int	process_single_quote(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j)
 	while (sh->cmd[*i] && sh->cmd[*i] != SINGLE_QUOTE)
 		tmp[(*j)++] = sh->cmd[(*i)++];
 	if (sh->cmd[*i] != SINGLE_QUOTE)
-		return (LEX_ERR_OPEN_QUOTE);
+		return (LEX_ERR_OPEN_SINGLE_QUOTE);
 	(*i)++;
 	return (EXIT_SUCCESS);
 }
