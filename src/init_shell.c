@@ -35,8 +35,7 @@ void	init_builtins(t_shell *sh)
 void	init_shell(t_shell *sh, char **env)
 {
 	sh->status = 0;
-	//sh->ast = NULL;
-	sh->args = NULL;
+	sh->ast = NULL;
 	sh->env = env;
 	init_builtins(sh);
 	if (!getcwd(sh->pwd_path, PWD_PATH_MAX_LENGTH))

@@ -16,8 +16,9 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		prompt(&sh);
-		read_cmd(&sh);
-		sh.status = exec_cmd(&sh);
+		lexer(&sh);
+		parser(&sh);
+		sh.status = executer(&sh);
 	}
 	return (EXIT_SUCCESS);
 }
