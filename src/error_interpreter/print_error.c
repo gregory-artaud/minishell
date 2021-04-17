@@ -11,4 +11,10 @@ void	print_error(int error)
 		ft_putstr_fd("missing character after escape.\n", STDERR_FILENO);
 	else if (error == EXE_ERR_MISSING_AST)
 		ft_putstr_fd("error in syntax tree allocation.\n", STDERR_FILENO);
+	else if (error == MALLOC_BREAK)
+		ft_putstr_fd("error in memory allocation.\n", STDERR_FILENO);
+	else if (error == LEX_ERR_MISSING_REDIRECT_FILE)
+		ft_putstr_fd("missing redirect file.\n", STDERR_FILENO);
+	else if (error == LEX_ERR_UNKNOWN_COMMAND)
+		ft_putstr_fd("unknown command.\n", STDERR_FILENO);
 }

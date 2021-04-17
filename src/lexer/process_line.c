@@ -52,7 +52,7 @@ int	process_double_quote(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j)
 			if (error)
 				return (error);
 		}
-		else if (sh->cmd[*i] == ENV_VARIABLE_TOKEN)
+		else if (sh->cmd[*i] == ENV_VARIABLE_PREFIX)
 		{
 			error = process_env(tmp, sh, i, j);
 			if (error)
@@ -85,7 +85,7 @@ int	process_line(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j)
 		return (process_double_quote(tmp, sh, i, j));
 	else if (sh->cmd[*i] == SINGLE_QUOTE)
 		return (process_single_quote(tmp, sh, i, j));
-	else if (sh->cmd[*i] == ENV_VARIABLE_TOKEN)
+	else if (sh->cmd[*i] == ENV_VARIABLE_PREFIX)
 		return (process_env(tmp, sh, i, j));
 	else
 		tmp[(*j)++] = sh->cmd[(*i)++];
