@@ -70,8 +70,6 @@ int	lexer(t_shell *sh)
 		if (error)
 			return (error);
 	}
-	printf("%s\n", tmp);
 	error = tokenize(tmp, sh);
-	print_token(sh->tokens);
 	return (error);
 }
