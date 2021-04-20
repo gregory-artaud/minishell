@@ -21,6 +21,9 @@ int		tokenize(char s[CMD_MAX_LENGTH], t_shell *sh);
 ** parser/
 */
 int		parser(t_shell *sh);
+char	*my_strdup(char *src, int n);
+int		ft_strlen_sp(char *str, char c);
+void	ft_errorzsh(char *cmd);
 /*
 ** execution/
 */
