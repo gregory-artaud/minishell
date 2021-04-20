@@ -9,6 +9,7 @@
 # include "execution.h"
 
 void	init_shell(t_shell *sh, char **env);
+void	clear_shell(t_shell *sh);
 /*
 ** lexer
 */
@@ -17,6 +18,12 @@ int		process_line(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j);
 int		no_env_var_name(char tmp[CMD_MAX_LENGTH], int *j);
 int		is_special(char c);
 int		tokenize(char s[CMD_MAX_LENGTH], t_shell *sh);
+void	skip_spaces(char s[CMD_MAX_LENGTH], int *i);
+void	goto_space(char s[CMD_MAX_LENGTH], int *i);
+t_token	*create_token(int type, char *value);
+int		is_redirect(char s[CMD_MAX_LENGTH], int *i);
+int		is_separator(char s[CMD_MAX_LENGTH], int *i);
+void	free_token(void *t);
 /*
 ** parser/
 */

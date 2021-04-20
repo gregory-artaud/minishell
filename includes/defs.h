@@ -5,10 +5,20 @@
 # define CMD_MAX_LENGTH 4096
 # define PWD_PATH_MAX_LENGTH 4096
 # define COMMAND_WAIT_TOKEN "$ "
+# define REDIRECT_INPUT_TOKEN "<"
+# define R_I_T_LEN 1
+# define REDIRECT_OUTPUT_TOKEN ">"
+# define R_O_T_LEN 1
+# define REDIRECT_OUTPUT_APPEND_TOKEN ">>"
+# define R_O_A_T_LEN 2
+# define SEPARATOR_SEPARATOR_TOKEN ";"
+# define S_S_T_LEN 1
+# define SEPARATOR_PIPE_TOKEN "|"
+# define S_P_T_LEN 1
+# define ENV_VARIABLE_PREFIX '$'
 # define SINGLE_QUOTE '\''
 # define DOUBLE_QUOTE '\"'
 # define BACKSLASH '\\'
-# define ENV_VARIABLE_TOKEN '$'
 # define LAST_RETURN_CODE_VAR_NAME '?'
 # define NO_BUILTINS 7
 # define B_STR "echo cd pwd export unset env exit"
@@ -17,7 +27,11 @@ enum e_errors {
 	LEX_ERR_OPEN_SINGLE_QUOTE = 1,
 	LEX_ERR_OPEN_DOUBLE_QUOTE,
 	LEX_ERR_EOL_AFTER_ESCAPE,
-	EXE_ERR_MISSING_AST
+	LEX_ERR_MISSING_REDIRECT_FILE,
+	LEX_ERR_EXPECTED_SEPARATOR,
+	LEX_ERR_UNKNOWN_COMMAND,
+	EXE_ERR_MISSING_AST,
+	MALLOC_BREAK
 };
 
 enum e_builtins_id {

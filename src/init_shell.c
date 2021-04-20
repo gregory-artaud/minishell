@@ -32,13 +32,26 @@ void	init_builtins(t_shell *sh)
 		sh->b_strlen[i] = ft_strlen(sh->b_str[i]);
 }
 
+void	clear_shell(t_shell *sh)
+{
+	ft_lstclear(&(sh->tokens), free_token);
+	//free_ast(sh->ast);
+}
+
 void	init_shell(t_shell *sh, char **env)
 {
 	sh->status = 0;
 	sh->ast = NULL;
 	sh->env = env;
+	sh->tokens = NULL;
 	init_builtins(sh);
 	if (!getcwd(sh->pwd_path, PWD_PATH_MAX_LENGTH))
 		ft_bzero(sh->pwd_path, PWD_PATH_MAX_LENGTH);
 	set_current_dir(sh);
+}
+
+void	free_shell(t_shell *sh)
+{
+	ft_lstclear(&(sh->tokens), free_token);
+	
 }
