@@ -39,3 +39,23 @@ void	ft_errorzsh(char *cmd)
 {
 	printf("zsh: command not found: %s\n", cmd);
 }
+
+int	ft_verif_builtin(char *builtin, char *charset)
+{
+	int		len;
+	char	c;
+
+	if (charset == NULL)
+		c = ';';
+	else
+		c = *charset;
+	len = ft_strlen_sp(builtin, c);
+	if (ft_strncmp("echo", builtin, len) != 0 && ft_strncmp("cd", builtin, len)
+		!= 0 && ft_strncmp("pwd", builtin, len) != 0
+		&& ft_strncmp("export", builtin, len) != 0
+		&& ft_strncmp("unset", builtin, len) != 0
+		&& ft_strncmp("env", builtin, len) != 0
+		&& ft_strncmp("exit", builtin, len) != 0)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
