@@ -1,27 +1,5 @@
 #include "minishell.h"
 
-int	fill_separator(t_shell sh, t_tree *tree)
-{
-	t_token	*token;
-	int		i;
-
-	i = 1;
-	while (sh.tokens)
-	{
-		token = sh.tokens->content;
-		if (token->type == SEPARATOR)
-		{
-			if (tree->content == NULL)
-				tree->content = token->value;
-			else
-				ft_tr_addright(tree, ft_tr_new(token->value));
-			i++;
-		}
-		sh.tokens = sh.tokens->next;
-	}
-	return (i);
-}
-
 int	ft_nb_arg(t_shell sh, t_token *token)
 {
 	int	i;
@@ -44,8 +22,8 @@ int	fill_arg(t_shell *sh, t_tree *tree, t_token *token, char *charset)
 	char	c;
 
 	c = *charset;
-    if (c != ';' && c != '|')
-        c = ';';
+	if (c != ';' && c != '|')
+		c = ';';
 	nb_arg = ft_nb_arg(*sh, token);
 	arg = malloc(sizeof(char *) * nb_arg);
 	if (arg == NULL)
@@ -63,22 +41,47 @@ int	fill_arg(t_shell *sh, t_tree *tree, t_token *token, char *charset)
 	return (1);
 }
 
-int	fill_cmd(t_shell *sh, t_tree *tree)
+void	ft_fill_sep(t_tree **tree, char *sep)
 {
-	t_token	*token;
+	t_tree	*new;
 
-	token = sh->tokens->content;
+	if ((*tree)->content == NULL)
+		(*tree)->content = sep;
+	else
+	{
+		new = ft_tr_new(sep);
+		ft_tr_addright(*tree, new);
+		*tree = new;
+	}
+}
+
+void	fill_new_branche(t_token *token, t_tree **tree)
+{
+	t_tree		*new;
+
+	if ((*tree)->branches == NULL)
+	{
+		ft_tr_addleft(*tree, ft_tr_new(token->value));
+		(*tree) = (*tree)->branches->content;
+	}
+	else
+	{
+		new = ft_tr_new(token->value);
+		ft_tr_addright(*tree, new);
+		(*tree) = new;
+	}
+}
+
+int	fill_exec(t_token *token, t_tree **tree)
+{
 	if (token->type == EXECUTABLE)
 	{
-		if (!(ft_verif_builtin(token->value, tree->content)))
+		if (!(ft_verif_builtin(token->value, (*tree)->content)))
 		{
-			if (tree->content != NULL)
-			{
-				ft_tr_addleft(tree, ft_tr_new(token->value));
-				tree = tree->branches->content;
-			}
+			if ((*tree)->content != NULL)
+				fill_new_branche(token, tree);
 			else
-				tree->content = token->value;
+				(*tree)->content = token->value;
 		}
 		else
 		{
@@ -86,6 +89,20 @@ int	fill_cmd(t_shell *sh, t_tree *tree)
 			return (EXIT_FAILURE);
 		}
 	}
+	return (EXIT_SUCCESS);
+}
+
+int	fill_cmd(t_shell *sh, t_tree *tree, char **tab_sep, int i)
+{
+	t_token		*token;
+
+	if (tab_sep[i])
+		ft_fill_sep(&tree, tab_sep[i]);
+	token = sh->tokens->content;
+	if (token->type == SEPARATOR)
+		sh->tokens = sh->tokens->next;
+	token = sh->tokens->content;
+	fill_exec(token, &tree);
 	sh->tokens = sh->tokens->next;
 	if (sh->tokens)
 		token = sh->tokens->content;
