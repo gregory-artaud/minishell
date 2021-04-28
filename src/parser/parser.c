@@ -129,7 +129,6 @@ int	fill_tree(t_shell sh)
 			return (EXIT_FAILURE);
 		i++;
 	}
-	// print_cmd(begin);
 	return (EXIT_SUCCESS);
 }
 

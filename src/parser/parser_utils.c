@@ -40,22 +40,41 @@ void	ft_errorzsh(char *cmd)
 	printf("zsh: command not found: %s\n", cmd);
 }
 
-int	ft_verif_builtin(char *builtin, char *charset)
+int	my_strncmp(const char *s1, const char *s2, size_t n)
+{
+	unsigned int	i;
+    int             result;
+
+	i = 0;
+	while (s1[i] && ((s1[i] == s2[i] || (((unsigned char)s1[i])
+        - ((unsigned char)s2[i])) == 32)) && (i < n - 1))
+		i++;
+    if (s1[i + 1] != 0 || s2[i + 1] != 0)
+        return (-1);
+    result = ((unsigned char)s1[i]) - ((unsigned char)s2[i]);
+    if (result == 32)
+        result = 0;
+	if (n)
+		return (result);
+	return (0);
+}
+
+int	ft_verif_builtin(char *builtin)
 {
 	int		len;
-	char	c;
 
-	if (charset == NULL)
-		c = ';';
-	else
-		c = *charset;
-	len = ft_strlen_sp(builtin, c);
-	if (ft_strncmp("echo", builtin, len) != 0 && ft_strncmp("cd", builtin, len)
-		!= 0 && ft_strncmp("pwd", builtin, len) != 0
-		&& ft_strncmp("export", builtin, len) != 0
-		&& ft_strncmp("unset", builtin, len) != 0
-		&& ft_strncmp("env", builtin, len) != 0
-		&& ft_strncmp("exit", builtin, len) != 0)
-		return (EXIT_FAILURE);
+	len = ft_strlen(builtin);
+	if (my_strncmp("echo", builtin, len) != 0 && my_strncmp("cd", builtin, len)
+		!= 0 && my_strncmp("pwd", builtin, len) != 0
+		&& my_strncmp("export", builtin, len) != 0
+		&& my_strncmp("unset", builtin, len) != 0
+		&& my_strncmp("env", builtin, len) != 0
+		&& my_strncmp("exit", builtin, len) != 0)
+    {
+        if (ft_strncmp(builtin, "./", 2) == 0)
+            return (EXIT_SUCCESS);
+        else
+		    return (EXIT_FAILURE);
+    }
 	return (EXIT_SUCCESS);
 }
