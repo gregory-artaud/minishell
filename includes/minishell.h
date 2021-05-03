@@ -31,8 +31,8 @@ int		parser(t_shell *sh);
 char	*my_strdup(char *src, int n);
 int		ft_strlen_sp(char *str, char c);
 void	ft_errorzsh(char *cmd);
-int     ft_verif_builtin(char *builtin, char *charset);
-int		fill_cmd(t_shell *sh, t_tree *tree, char **tab_sep, int i);
+int     ft_verif_builtin(char *builtin);
+int		fill_cmd(t_shell *sh, t_tree *tree);
 
 /*
 ** execution/

@@ -55,6 +55,22 @@ void	ft_fill_sep(t_tree **tree, char *sep)
 	}
 }
 
+void    ft_verif_sep(t_tree **tree, t_shell sh)
+{
+    t_token *token;
+
+    if (sh.tokens)
+        token = sh.tokens->content;
+    while (sh.tokens && token->type != SEPARATOR)
+    {
+        sh.tokens = sh.tokens->next;
+        if (sh.tokens)
+            token = sh.tokens->content;
+    }
+    if (token->type == SEPARATOR)
+        ft_fill_sep(tree, token->value);
+}
+
 void	fill_new_branche(t_token *token, t_tree **tree)
 {
 	t_tree		*new;
@@ -113,17 +129,17 @@ void	fill_redirect(t_shell *sh, t_tree **tree)
 	}
 }
 
-int	fill_cmd(t_shell *sh, t_tree *tree, char **tab_sep, int i)
+int	fill_cmd(t_shell *sh, t_tree *tree)
 {
 	t_token		*token;
 
-	if (tab_sep[i])
-		ft_fill_sep(&tree, tab_sep[i]);
+    ft_verif_sep(&tree, *sh);
 	token = sh->tokens->content;
 	if (token->type == SEPARATOR)
 		sh->tokens = sh->tokens->next;
 	token = sh->tokens->content;
-	fill_exec(token, &tree);
+	if (fill_exec(token, &tree))
+        return (EXIT_FAILURE);
 	sh->tokens = sh->tokens->next;
 	if (sh->tokens)
 		token = sh->tokens->content;

@@ -10,19 +10,6 @@ char	brw_line(char *line)
 	return (line[i]);
 }
 
-char	*clear_isspace(char *line, char c)
-{
-	int	i;
-
-	i = ft_strlen_sp(line, c);
-	while (i--)
-		(line)++;
-	while (*line == '\t' || *line == '\n' || *line == '\v'
-		|| *line == '\f' || *line == '\r' || *line == ' ')
-		(line)++;
-	return (line);
-}
-
 int	count_separator(t_shell sh)
 {
 	t_token	*token;
@@ -56,7 +43,7 @@ void	print_cmd(t_tree *tree)
 	next = tree->branches->next;
 	right = next->content;
 	right = right->branches->content;
-	// right = right->branches->content;
+	right = right->branches->content;
 	test2 = *(char **)(right->content);
 	printf("content 2 : %s\n", test2);
 	// begin = tree;
@@ -68,30 +55,6 @@ void	print_cmd(t_tree *tree)
 	// tree = tree->branches->content;
 	// test = *(char **)(tree->content);
 	// printf("%s\n", test);
-}
-
-char	**ft_fill_tab_sep(t_shell sh)
-{
-	t_token	*token;
-	char	**tab;
-	int		i;
-	int		j;
-
-	i = count_separator(sh);
-	tab = malloc(sizeof(char *) * i);
-	j = 0;
-	while (sh.tokens)
-	{
-		token = sh.tokens->content;
-		if (token->type == SEPARATOR)
-		{
-			tab[j] = malloc(sizeof(char) * 2);
-			tab[j] = token->value;
-			j++;
-		}
-		sh.tokens = sh.tokens->next;
-	}
-	return (tab);
 }
 
 int	ft_count_exec(t_shell sh)
@@ -110,26 +73,35 @@ int	ft_count_exec(t_shell sh)
 	return (i);
 }
 
-int	fill_tree(t_shell sh)
+void    ft_brw_token(t_shell *sh, int *nb_sep)
+{
+    t_token *token;
+
+    if (sh->tokens)
+        token = sh->tokens->content;
+    while (sh->tokens && token->type != SEPARATOR)
+    {
+        sh->tokens = sh->tokens->next;
+        if (sh->tokens)
+            token = sh->tokens->content;
+        else 
+            *nb_sep = 0;
+    }
+}
+
+t_tree	*fill_tree(t_shell sh)
 {
 	t_tree	*root;
 	t_tree	*begin;
 	int		nb_sep;
-	char	**tab_sep;
-	int		i;
 
-	i = 0;
 	root = ft_tr_new(NULL);
 	begin = root;
-	tab_sep = ft_fill_tab_sep(sh);
 	nb_sep = ft_count_exec(sh);
 	while (nb_sep--)
-	{
-		if (fill_cmd(&sh, root, tab_sep, i))
-			return (EXIT_FAILURE);
-		i++;
-	}
-	return (EXIT_SUCCESS);
+		if (fill_cmd(&sh, root))
+			ft_brw_token(&sh, &nb_sep);
+	return (begin);
 }
 
 int	parser(t_shell *sh)
@@ -137,6 +109,6 @@ int	parser(t_shell *sh)
 	char	c;
 
 	c = brw_line(sh->cmd);
-	fill_tree(*sh);
+	sh->ast = fill_tree(*sh);
 	return (EXIT_SUCCESS);
 }
