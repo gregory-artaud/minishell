@@ -1,15 +1,5 @@
 #include "minishell.h"
 
-char	brw_line(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] && line[i] != ';' && line[i] != '|')
-		i++;
-	return (line[i]);
-}
-
 int	count_separator(t_shell sh)
 {
 	t_token	*token;
@@ -106,9 +96,6 @@ t_tree	*fill_tree(t_shell sh)
 
 int	parser(t_shell *sh)
 {
-	char	c;
-
-	c = brw_line(sh->cmd);
 	sh->ast = fill_tree(*sh);
 	return (EXIT_SUCCESS);
 }

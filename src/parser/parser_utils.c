@@ -52,7 +52,7 @@ int	my_strncmp(const char *s1, const char *s2, size_t n)
     if (s1[i + 1] != 0 || s2[i + 1] != 0)
         return (-1);
     result = ((unsigned char)s1[i]) - ((unsigned char)s2[i]);
-    if (result == 32)
+	if (result == 32)
         result = 0;
 	if (n)
 		return (result);

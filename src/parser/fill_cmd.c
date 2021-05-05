@@ -59,6 +59,7 @@ void    ft_verif_sep(t_tree **tree, t_shell sh)
 {
     t_token *token;
 
+	token = NULL;
     if (sh.tokens)
         token = sh.tokens->content;
     while (sh.tokens && token->type != SEPARATOR)
