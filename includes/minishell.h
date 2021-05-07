@@ -4,12 +4,16 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <fcntl.h>
+# include <signal.h>
 # include "libft.h"
 # include "defs.h"
 # include "execution.h"
 
-void	init_shell(t_shell *sh, char **env);
+int		init_shell(t_shell *sh, char **env);
 void	clear_shell(t_shell *sh);
+int		set_terminal_settings(t_shell *sh);
+void	restore_terminal_settings(t_shell *sh);
 /*
 ** lexer
 */
