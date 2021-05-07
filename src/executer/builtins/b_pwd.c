@@ -2,6 +2,9 @@
 
 int	b_pwd(void *sh)
 {
-	(void)sh;
+	t_shell	*shell;
+
+	shell = sh;
+	printf("%s\n", shell->pwd);
 	return (0);
 }
