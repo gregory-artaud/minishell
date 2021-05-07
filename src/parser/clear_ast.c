@@ -42,6 +42,8 @@ void	clear_ast(t_tree **tree)
 	t_tree	*next;
 	t_list	*new;
 
+	if (!(*tree))
+		return ;
 	clear_arg(*tree);
 	if ((*tree)->branches)
 	{
@@ -58,4 +60,5 @@ void	clear_ast(t_tree **tree)
 		free((*tree)->branches);
 	}
 	free(*tree);
+	*tree = NULL;
 }
