@@ -1,8 +1,8 @@
 #include "minishell.h"
 
-void	prompt(t_shell *sh)
+void	prompt()
 {
-	ft_putstr_fd(sh->pwd, STDOUT_FILENO);
+	ft_putstr_fd("minishell", STDOUT_FILENO);
 	ft_putstr_fd(COMMAND_WAIT_TOKEN, STDOUT_FILENO);
 }
 
@@ -26,17 +26,33 @@ int	run_parser(t_shell *sh)
 	return (error);
 }
 
+void	new_cmd(int i)
+{
+	(void)i;
+	write(1, "\n", 1);
+	prompt();
+	return ;
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_shell	sh;
+	int		error;
 
 	(void)argc;
 	(void)argv;
-	init_shell(&sh, env);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, new_cmd);
+	error = init_shell(&sh, env);
+	if (error)
+	{
+		print_error(error);
+		return (EXIT_FAILURE);
+	}
 	while (1)
 	{
 		clear_shell(&sh);
-		prompt(&sh);
+		prompt();
 		if (!run_lexer(&sh))
 		{
 			if (!run_parser(&sh))

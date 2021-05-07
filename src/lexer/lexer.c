@@ -3,7 +3,6 @@
 /*
 ** TO-DO HERE:
 **		- command historic with arrow keys up/down
-**		- handling CTRL-D, CTRL-C and CTRL-\
 */
 void	read_line(t_shell *sh)
 {
@@ -17,6 +16,13 @@ void	read_line(t_shell *sh)
 		c = ft_getchar();
 		if (c == '\n')
 			break ;
+		if (c == 4)
+		{
+			ft_bzero(sh->cmd, CMD_MAX_LENGTH);
+			ft_strlcpy(sh->cmd, "exit", CMD_MAX_LENGTH);
+			printf("\n");
+			break ;
+		}
 		sh->cmd[i++] = (char)c;
 	}
 }
@@ -60,6 +66,7 @@ int	lexer(t_shell *sh)
 	read_line(sh);
 	if (!sh->cmd[0] || ft_str_isspace(sh->cmd))
 		return (EXIT_SUCCESS);
+	if (!ft_memcmp(sh->cmd, "exit", 5)) exit(0); // TO REMOVE !
 	ft_bzero(tmp, CMD_MAX_LENGTH);
 	error = 0;
 	i = 0;

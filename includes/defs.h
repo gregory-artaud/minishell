@@ -1,6 +1,7 @@
 #ifndef DEFS_H
 # define DEFS_H
 
+# include <termios.h>
 # include "libft.h"
 # define CMD_MAX_LENGTH 4096
 # define PWD_PATH_MAX_LENGTH 4096
@@ -35,13 +36,13 @@ enum e_errors {
 };
 
 enum e_builtins_id {
-	ECHO,
-	CD,
-	PWD,
-	EXPORT,
-	UNSET,
-	ENV,
-	EXIT
+	B_ECHO,
+	B_CD,
+	B_PWD,
+	B_EXPORT,
+	B_UNSET,
+	B_ENV,
+	B_EXIT
 };
 
 enum e_token_types {
@@ -51,6 +52,8 @@ enum e_token_types {
 	FILE_PATH,
 	SEPARATOR
 };
+
+typedef struct termios t_termios;
 
 typedef struct s_token
 {
@@ -70,6 +73,7 @@ typedef struct s_shell
 	int			(*b_fct[NO_BUILTINS])(void *); // builtin functions
 	char		**b_str; // builtin functions names
 	int			b_strlen[NO_BUILTINS]; // builtin functions names length
+	t_termios	*old_settings;
 }				t_shell;
 
 #endif

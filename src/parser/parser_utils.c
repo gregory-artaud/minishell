@@ -35,11 +35,11 @@ int	my_strncmp(const char *s1, const char *s2, size_t n)
 	while (s1[i] && ((s1[i] == s2[i] || (((unsigned char)s1[i])
 					- ((unsigned char)s2[i])) == 32)) && (i < n - 1))
 		i++;
-	if (s1[i + 1] != 0 || s2[i + 1] != 0)
-		return (-1);
-	result = ((unsigned char)s1[i]) - ((unsigned char)s2[i]);
+    if (s1[i + 1] != 0 || s2[i + 1] != 0)
+        return (-1);
+    result = ((unsigned char)s1[i]) - ((unsigned char)s2[i]);
 	if (result == 32)
-		result = 0;
+        result = 0;
 	if (n)
 		return (result);
 	return (0);
