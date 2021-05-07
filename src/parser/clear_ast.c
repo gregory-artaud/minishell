@@ -2,38 +2,38 @@
 
 void	clear_arg(t_tree *next)
 {
-	char	**tab;
+	char	**tableau;
 	int		i;
 
-	tab = (char **)(next->content);
+	tableau = (char **)(next->content);
 	if (next->type == ARGUMENT)
 	{
 		i = 0;
 		while (i < next->size)
 		{
-			free(tab[i]);
-			tab[i] = NULL;
+			free(tableau[i]);
+			tableau[i] = NULL;
 			i++;
 		}
-		free(tab);
-		tab = NULL;
+		free(tableau);
+		tableau = NULL;
 	}
 }
 
 void	clear_redirect(t_tree *root)
 {
-	char	**tab;
+	char	**tableau;
 	t_tree	*redir;
 	int		i;
 
 	redir = root->branches->next->content;
-	tab = (char **)(redir->content);
+	tableau = (char **)(redir->content);
 	if (redir->type == REDIRECT || redir->type == FILE_PATH)
 	{
 		i = 2;
 		while (i--)
-			free(tab[i]);
-		free(tab);
+			free(tableau[i]);
+		free(tableau);
 	}
 }
 
