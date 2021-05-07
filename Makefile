@@ -6,7 +6,7 @@
 #    By: gartaud <gartaud@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/14 22:19:13 by gartaud           #+#    #+#              #
-#    Updated: 2021/04/15 15:18:07 by gartaud          ###   ########lyon.fr    #
+#    Updated: 2021/05/07 11:46:51 by gartaud          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ LIBFT		= $(LIBFT_DIR)/libft.a
 CC			= gcc
 CFLAGS		= -Wall -Werror -Wextra -O3 \
 				-I ./$(DEPS_DIR) -I ./$(LIBFT_DIR)
+LFLAGS		= -ltermcap
 DEPS		= $(shell find includes %.h -type f 2> /dev/null)
 DEPS		+= $(addprefix $(LIB_DIR)/, \
 					libft/libft.h)
@@ -26,10 +27,10 @@ FILES		= $(shell find src *.c -type f)
 OBJ 		= $(FILES:%.c=%.o)
 VFLAGS		= --leak-check=full --track-origins=yes
 
-all: $(LIBFT) $(MLX) $(NAME)
+all: $(LIBFT) $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $^ $(LIBFT) $(MLX) $(LFLAGS) -o $@
+	$(CC) $(CFLAGS) $^ $(LIBFT) $(LFLAGS) -o $@
 
 $(LIBFT):
 	make -sC $(LIBFT_DIR)

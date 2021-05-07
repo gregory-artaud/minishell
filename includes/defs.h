@@ -3,6 +3,9 @@
 
 # include <termios.h>
 # include "libft.h"
+# define EOT 4
+# define ARROW_UP 'A'
+# define ARROW_DOWN 'B'
 # define CMD_MAX_LENGTH 4096
 # define PWD_PATH_MAX_LENGTH 4096
 # define COMMAND_WAIT_TOKEN "$ "
@@ -25,7 +28,10 @@
 # define B_STR "echo cd pwd export unset env exit"
 
 enum e_errors {
-	LEX_ERR_OPEN_SINGLE_QUOTE = 1,
+	INIT_ERR_TERM_ENV = 1,
+	INIT_ERR_TERM_DB,
+	INIT_ERR_TERM_UNKNOWN_NAME,
+	LEX_ERR_OPEN_SINGLE_QUOTE,
 	LEX_ERR_OPEN_DOUBLE_QUOTE,
 	LEX_ERR_EOL_AFTER_ESCAPE,
 	LEX_ERR_MISSING_REDIRECT_FILE,
@@ -73,7 +79,8 @@ typedef struct s_shell
 	int			(*b_fct[NO_BUILTINS])(void *); // builtin functions
 	char		**b_str; // builtin functions names
 	int			b_strlen[NO_BUILTINS]; // builtin functions names length
-	t_termios	*old_settings;
+	t_termios	*old_settings; // previous terminal settings
+	t_list		*cmd_history; // list of previous commands
 }				t_shell;
 
 #endif

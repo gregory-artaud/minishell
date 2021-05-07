@@ -1,6 +1,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <term.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -12,8 +13,11 @@
 
 int		init_shell(t_shell *sh, char **env);
 void	clear_shell(t_shell *sh);
-int		set_terminal_settings(t_shell *sh);
+void	free_shell(t_shell *sh);
+void	set_terminal_settings(t_shell *sh);
 void	restore_terminal_settings(t_shell *sh);
+int		init_terminal(void);
+void	push_to_history(t_shell *sh);
 /*
 ** lexer
 */

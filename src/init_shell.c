@@ -47,7 +47,9 @@ int		init_shell(t_shell *sh, char **env)
 	sh->ast = NULL;
 	sh->env = env;
 	sh->tokens = NULL;
-	error = set_terminal_settings(sh);
+	sh->cmd_history = NULL;
+	set_terminal_settings(sh);
+	error = init_terminal();
 	if (error)
 		return (error);
 	init_builtins(sh);
@@ -61,5 +63,5 @@ void	free_shell(t_shell *sh)
 {
 	restore_terminal_settings(sh);
 	ft_lstclear(&(sh->tokens), free_token);
-	
+	ft_lstclear(&(sh->cmd_history), free);
 }
