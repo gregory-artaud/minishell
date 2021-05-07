@@ -54,8 +54,13 @@ int	main(int argc, char **argv, char **env)
 		clear_shell(&sh);
 		prompt();
 		if (!run_lexer(&sh))
+		{
 			if (!run_parser(&sh))
+			{
 				sh.status = executer(&sh);
+				clear_ast(&sh.ast);
+			}
+		}
 	}
 	return (EXIT_SUCCESS);
 }

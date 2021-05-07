@@ -1,6 +1,6 @@
 #include "tree.h"
 
-t_tree	*ft_tr_new(void *content)
+t_tree	*ft_tr_new(void *content, int type, int size)
 {
 	t_tree	*new;
 
@@ -8,6 +8,8 @@ t_tree	*ft_tr_new(void *content)
 	if (!new)
 		return (NULL);
 	new->content = content;
+	new->type = type;
+	new->size = size;
 	new->parent = NULL;
 	new->branches = NULL;
 	return (new);

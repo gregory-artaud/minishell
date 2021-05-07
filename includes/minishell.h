@@ -37,10 +37,13 @@ void	free_token(void *t);
 */
 int		parser(t_shell *sh);
 char	*my_strdup(char *src, int n);
-int		ft_strlen_sp(char *str, char c);
 void	ft_errorzsh(char *cmd);
-int     ft_verif_builtin(char *builtin);
-int		fill_cmd(t_shell *sh, t_tree *tree);
+int		ft_verif_builtin(char *builtin);
+int		fill_cmd(t_shell *sh, t_tree *tree, t_list **tk);
+void	clear_ast(t_tree **tree);
+void	ft_fill_sep(t_shell sh, t_tree *tree);
+int		ft_nb_arg(t_shell sh, t_token *token);
+void	fill_new_branche(t_token *token, t_tree **tree);
 
 /*
 ** execution/

@@ -1,6 +1,5 @@
 #include "tree.h"
 
-
 t_list	*get_node(t_tree *tr)
 {
 	t_list	*node;

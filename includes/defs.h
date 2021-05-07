@@ -1,5 +1,5 @@
-#ifndef TYPEDEFS_H
-# define TYPEDEFS_H
+#ifndef DEFS_H
+# define DEFS_H
 
 # include <termios.h>
 # include "libft.h"
