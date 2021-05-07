@@ -1,5 +1,5 @@
-#ifndef TYPEDEFS_H
-# define TYPEDEFS_H
+#ifndef DEFS_H
+# define DEFS_H
 
 # include "libft.h"
 # define CMD_MAX_LENGTH 4096
