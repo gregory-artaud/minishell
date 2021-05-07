@@ -1,37 +1,21 @@
 #include "minishell.h"
 
-int	controller(char c, t_shell *sh, int *i)
-{
-	if (c == '\n')
-		return (1);
-	else if (c == EOF && !(*i))
-	{
-		ft_bzero(sh->cmd, CMD_MAX_LENGTH);
-		ft_strlcpy(sh->cmd, sh->b_str[B_EXIT], sh->b_strlen[B_EXIT] + 1);
-		return (1);
-	}
-	if (c > 0)
-		sh->cmd[(*i)++] = (char)c;
-	return (0);
-}
-
-/*
-** TO-DO HERE:
-**		- command historic with arrow keys up/down
-*/
 void	read_line(t_shell *sh)
 {
-	int	c;
-	int	i;
+	char	tmp[CMD_MAX_LENGTH];
+	int		c;
+	int		i;
 
 	ft_bzero(sh->cmd, CMD_MAX_LENGTH);
+	ft_bzero(tmp, CMD_MAX_LENGTH);
 	i = 0;
 	while (1)
 	{
 		c = ft_getchar();
-		if (controller(c, sh, &i))
+		if (controller(c, tmp, &i))
 			break ;
 	}
+	ft_strlcpy(sh->cmd, tmp, CMD_MAX_LENGTH);
 }
 
 void	print_token(t_list *lst)

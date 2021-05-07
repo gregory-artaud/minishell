@@ -1,6 +1,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <sys/ioctl.h>
 # include <term.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -22,6 +23,12 @@ void	push_to_history(t_shell *sh);
 ** lexer
 */
 int		lexer(t_shell *sh);
+void	termcap(char c, char *tmp, int *i);
+int		controller(char c, char *tmp, int *i);
+void	term_up(char c, char *tmp, int *i);
+void	term_down(char c, char *tmp, int *i);
+void	term_right(char c, char *tmp, int *i);
+void	term_left(char c, char *tmp, int *i);
 int		process_line(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j);
 int		no_env_var_name(char tmp[CMD_MAX_LENGTH], int *j);
 int		is_special(char c);

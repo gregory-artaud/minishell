@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsimon <tsimon@student.42lyon.fr>          +#+  +:+       +#+         #
+#    By: gartaud <gartaud@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/28 13:46:16 by gartaud           #+#    #+#              #
-#    Updated: 2021/05/07 11:11:06 by tsimon           ###   ########lyon.fr    #
+#    Updated: 2021/05/07 16:25:27 by gartaud          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,6 +75,7 @@ FILES		=	ft_memset.c \
 				ft_getchar.c \
 				ft_str_isspace.c \
 				ft_strncpy.c \
+				ft_putchar.c \
 				gnl/get_next_line.c \
 				gnl/get_next_line_utils.c \
 				tree/ft_tr_new.c \
