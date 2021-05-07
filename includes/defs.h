@@ -74,7 +74,6 @@ typedef struct s_shell
 	char		**b_str; // builtin functions names
 	int			b_strlen[NO_BUILTINS]; // builtin functions names length
 	t_termios	*old_settings;
-	t_termios	*new_settings;
 }				t_shell;
 
 #endif
