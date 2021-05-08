@@ -2,7 +2,7 @@
 
 void	set_current_dir(t_shell *sh)
 {
-	char 	**array;
+	char	**array;
 	int		len;
 	int		i;
 
@@ -38,7 +38,7 @@ void	clear_shell(t_shell *sh)
 	//free_ast(sh->ast);
 }
 
-int		init_shell(t_shell *sh, char **env)
+int	init_shell(t_shell *sh, char **env)
 {
 	int	error;
 
@@ -61,7 +61,9 @@ int		init_shell(t_shell *sh, char **env)
 
 void	free_shell(t_shell *sh)
 {
-	restore_terminal_settings(sh);
+	//restore_terminal_settings(sh);
 	ft_lstclear(&(sh->tokens), free_token);
 	ft_lstclear(&(sh->cmd_history), free);
+	ft_free_strarray(sh->b_str);
+	free(sh->pwd);
 }

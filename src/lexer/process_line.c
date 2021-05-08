@@ -30,7 +30,6 @@ int	process_env(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j)
 	return (EXIT_SUCCESS);
 }
 
-
 int	process_backslash(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j)
 {
 	(*i)++;
@@ -46,6 +45,7 @@ int	process_double_quote(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j)
 
 	(*i)++;
 	while (sh->cmd[*i] && sh->cmd[*i] != DOUBLE_QUOTE)
+	{
 		if (sh->cmd[*i] == BACKSLASH && is_special(sh->cmd[*i + 1]))
 		{
 			error = process_backslash(tmp, sh, i, j);
@@ -60,6 +60,7 @@ int	process_double_quote(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j)
 		}
 		else
 			tmp[(*j)++] = sh->cmd[(*i)++];
+	}
 	if (sh->cmd[*i] != DOUBLE_QUOTE)
 		return (LEX_ERR_OPEN_DOUBLE_QUOTE);
 	(*i)++;

@@ -1,14 +1,15 @@
 #include "minishell.h"
 
-int		init_terminal(void)
+int	init_terminal(void)
 {
 	char	*name;
 	int		ret;
 
+	ret = 1;
 	name = getenv("TERM");
 	if (!name)
 		return (INIT_ERR_TERM_ENV);
-	ret = tgetent(NULL, name);
+	//ret = tgetent(NULL, name);
 	if (ret == -1)
 		return (INIT_ERR_TERM_DB);
 	if (ret == 0)
@@ -20,8 +21,8 @@ void	set_terminal_settings(t_shell *sh)
 {
 	(void)sh;
 	/*
-	static t_termios	old;
-	t_termios			new;
+	static struct termios	old;
+	struct termios			new;
 
 	tcgetattr(STDIN_FILENO, &old);
 	new = old;

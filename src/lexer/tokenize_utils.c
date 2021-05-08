@@ -38,5 +38,5 @@ int	is_redirect(char s[CMD_MAX_LENGTH], int *i)
 int	is_separator(char s[CMD_MAX_LENGTH], int *i)
 {
 	return (!ft_memcmp(s + *i, SEPARATOR_SEPARATOR_TOKEN, S_S_T_LEN)
-			|| !ft_memcmp(s + *i, SEPARATOR_PIPE_TOKEN, S_P_T_LEN));
+		|| !ft_memcmp(s + *i, SEPARATOR_PIPE_TOKEN, S_P_T_LEN));
 }
