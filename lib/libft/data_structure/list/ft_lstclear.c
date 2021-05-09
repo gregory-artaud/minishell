@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsimon <tsimon@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: gartaud <gartaud@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/17 12:01:49 by gartaud           #+#    #+#             */
-/*   Updated: 2021/05/07 11:38:37 by tsimon           ###   ########lyon.fr   */
+/*   Created: 2020/07/18 11:40:16 by gartaud           #+#    #+#             */
+/*   Updated: 2021/05/09 14:39:11 by gartaud          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tree.h"
+#include "data_structure.h"
 
-void	ft_lstadd_back(t_list **alst, t_list *new)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	t_list	*maillon;
+	t_list	*next;
+	t_list	*current;
 
-	if (*alst == 0)
-		*alst = new;
-	else
+	current = *lst;
+	while (current)
 	{
-		maillon = *alst;
-		while (maillon->next != 0)
-			maillon = maillon->next;
-		maillon->next = new;
+		next = current->next;
+		del(current->content);
+		free(current);
+		current = next;
 	}
+	*lst = NULL;
+	return ;
 }

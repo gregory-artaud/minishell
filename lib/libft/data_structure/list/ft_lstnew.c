@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gartaud <gartaud@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/18 11:27:44 by gartaud           #+#    #+#             */
-/*   Updated: 2021/04/15 14:59:45 by gartaud          ###   ########lyon.fr   */
+/*   Created: 2020/07/17 11:17:18 by gartaud           #+#    #+#             */
+/*   Updated: 2021/05/09 14:39:30 by gartaud          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tree.h"
+#include "data_structure.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
+t_list	*ft_lstnew(void *content)
 {
-	del(lst->content);
-	free(lst);
-	return ;
+	t_list	*new;
+
+	new = malloc(sizeof(t_list));
+	if (!new)
+		return (0);
+	new->content = content;
+	new->next = NULL;
+	return (new);
 }

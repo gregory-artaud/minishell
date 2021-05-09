@@ -79,7 +79,7 @@ typedef struct s_shell
 	int				(*b_fct[NO_BUILTINS])(void *); // builtin functions
 	char			**b_str; // builtin functions names
 	int				b_strlen[NO_BUILTINS]; // builtin functions names length
-	t_list			*cmd_history; // list of previous commands
+	t_dlist			*cmd_history; // double list of previous commands
 }				t_shell;
 
 #endif

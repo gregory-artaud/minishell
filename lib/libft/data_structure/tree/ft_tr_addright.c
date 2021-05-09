@@ -1,4 +1,4 @@
-#include "tree.h"
+#include "data_structure.h"
 
 void	ft_tr_addright(t_tree *root, t_tree *right)
 {

@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gartaud <gartaud@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/17 11:17:18 by gartaud           #+#    #+#             */
-/*   Updated: 2021/04/15 15:00:02 by gartaud          ###   ########lyon.fr   */
+/*   Created: 2020/07/17 12:01:49 by gartaud           #+#    #+#             */
+/*   Updated: 2021/05/09 14:51:43 by gartaud          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tree.h"
+#include "data_structure.h"
 
-t_list	*ft_lstnew(void *content)
+void	ft_lstadd_back(t_list **alst, t_list *new)
 {
-	t_list	*new;
+	t_list	*maillon;
 
-	new = malloc(sizeof(t_list));
-	if (!new)
-		return (0);
-	new->content = content;
-	new->next = NULL;
-	return (new);
+	if (*alst == 0)
+		*alst = new;
+	else
+	{
+		maillon = *alst;
+		while (maillon->next != 0)
+			maillon = maillon->next;
+		maillon->next = new;
+	}
 }

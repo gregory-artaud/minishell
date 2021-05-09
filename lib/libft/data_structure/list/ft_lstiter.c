@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gartaud <gartaud@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/17 11:58:01 by gartaud           #+#    #+#             */
-/*   Updated: 2021/04/15 14:59:54 by gartaud          ###   ########lyon.fr   */
+/*   Created: 2020/07/18 11:59:13 by gartaud           #+#    #+#             */
+/*   Updated: 2021/05/09 14:39:15 by gartaud          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tree.h"
+#include "data_structure.h"
 
-t_list	*ft_lstlast(t_list *lst)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
 	t_list	*current;
 
-	if (!lst)
-		return (0);
 	current = lst;
-	while (current->next)
+	while (current)
+	{
+		f(current->content);
 		current = current->next;
-	return (current);
+	}
+	return ;
 }

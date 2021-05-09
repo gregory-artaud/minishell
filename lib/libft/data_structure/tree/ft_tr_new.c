@@ -1,4 +1,4 @@
-#include "tree.h"
+#include "data_structure.h"
 
 t_tree	*ft_tr_new(void *content, int type, int size)
 {

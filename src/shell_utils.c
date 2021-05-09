@@ -43,5 +43,5 @@ void	push_to_history(t_shell *sh)
 	char	*cmd;
 
 	cmd = ft_strdup(sh->cmd);
-	ft_lstadd_front(&(sh->cmd_history), ft_lstnew(cmd));
+	ft_dlstadd_front(&(sh->cmd_history), ft_dlstnew(cmd));
 }

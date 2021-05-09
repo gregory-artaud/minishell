@@ -6,11 +6,11 @@
 /*   By: gartaud <gartaud@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 12:05:42 by gartaud           #+#    #+#             */
-/*   Updated: 2021/04/15 14:59:58 by gartaud          ###   ########lyon.fr   */
+/*   Updated: 2021/05/09 14:39:27 by gartaud          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tree.h"
+#include "data_structure.h"
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
