@@ -2,22 +2,20 @@
 
 void	refresh_input(void)
 {
-	int	i;
-	int	len;
+	int		i;
+	int		len;
+	char	*s;
 
-	len = ft_strlen(g_sh->cmd);
+	s = (char *)g_sh->current_line->content;
+	len = ft_strlen(s);
 	i = g_sh->i;
 	while (--i > 0)
 		ft_putchar_fd('\b', 1);
-	ft_putstr_fd(g_sh->cmd, 1);
+	ft_putstr_fd(s, 1);
 	//printf("len:%d;i:%d\n", len, g_sh->i);
 	move_cursor_left(len - g_sh->i);
 }
 
-/*
-** TO-DO HERE:
-**		- command historic with arrow keys up/down
-*/
 int	termcap(char c)
 {
 	(void)ft_getchar();
@@ -33,26 +31,6 @@ int	termcap(char c)
 	return (0);
 }
 
-int	del(void)
-{
-	int	i;
-	int	len;
-
-	len = ft_strlen(g_sh->cmd);
-	i = g_sh->i - 1;
-	if (i < 0)
-		return (0);
-	i--;
-	while (++i < len)
-		g_sh->cmd[i] = g_sh->cmd[i + 1];
-	move_cursor_left(1);
-	(g_sh->i)--;
-	ft_putstr_fd(g_sh->cmd + g_sh->i, 1);
-	ft_putchar_fd(' ', 1);
-	move_cursor_left(len - g_sh->i);
-	return (0);
-}
-
 void	ft_strinsert_fixed(char *s, int size, char c, int index)
 {
 	if (!s || size < 1 || index >= size || index < 0)
@@ -63,14 +41,30 @@ void	ft_strinsert_fixed(char *s, int size, char c, int index)
 	return ;
 }
 
+void	print_history()
+{
+	t_dlist	*current;
+
+	current = g_sh->cmd_history;
+	ft_putchar_fd('\n',1 );
+	while (current)
+	{
+		ft_putendl_fd(current->content, 1);
+		current = current->next;
+	}
+}
 
 int	controller(char c)
 {
 	//printf(" = %d\n", c);
-	if (c == 'e')
-		exit(0);
+	if (c == 'h')
+		print_history();
 	if (c == 13) // carriage return
+	{
+		ft_strlcpy(g_sh->cmd_history->content, g_sh->current_line->content,
+			CMD_MAX_LENGTH);
 		return (1);
+	}
 	if (c == EOT)
 		return (ctrl_d());
 	if (c == 3)
@@ -79,8 +73,8 @@ int	controller(char c)
 		return (termcap(c));
 	if (c == 127)
 		return (del());
-	ft_strinsert_fixed(g_sh->cmd, CMD_MAX_LENGTH, c, g_sh->i);
-	g_sh->cmd[(g_sh->i)++] = c;
+	ft_strinsert_fixed(g_sh->current_line->content, CMD_MAX_LENGTH, c, g_sh->i);
+	((char *)g_sh->current_line->content)[(g_sh->i)++] = c;
 	refresh_input();
 	return (0);
 }

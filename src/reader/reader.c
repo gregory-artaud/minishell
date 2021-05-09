@@ -5,7 +5,8 @@ void	read_line(t_shell *sh)
 	int		c;
 
 	set_terminal_settings();
-	ft_bzero(sh->cmd, CMD_MAX_LENGTH);
+	ft_bzero(sh->cmd_history->content, CMD_MAX_LENGTH);
+	g_sh->current_line = g_sh->cmd_history;
 	sh->i = 0;
 	while (1)
 	{

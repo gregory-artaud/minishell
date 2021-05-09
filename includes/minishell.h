@@ -34,6 +34,7 @@ void	term_right(void);
 void	term_left(void);
 void	move_cursor_right(int i);
 void	move_cursor_left(int i);
+int		del(void);
 /*
 ** lexer
 */

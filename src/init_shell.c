@@ -45,7 +45,8 @@ void	init_shell(t_shell *sh, char **env)
 	sh->ast = NULL;
 	sh->env = env;
 	sh->tokens = NULL;
-	sh->cmd_history = NULL;
+	sh->cmd_history = ft_dlstnew(ft_calloc(CMD_MAX_LENGTH, sizeof(char)));
+	sh->current_line = sh->cmd_history;
 	init_terminal();
 	init_builtins(sh);
 	if (!getcwd(sh->pwd_path, PWD_PATH_MAX_LENGTH))
@@ -56,7 +57,7 @@ void	init_shell(t_shell *sh, char **env)
 void	free_shell(t_shell *sh)
 {
 	ft_lstclear(&(sh->tokens), free_token);
-	ft_lstclear(&(sh->cmd_history), free);
+	ft_dlstclear(&(sh->cmd_history), free);
 	ft_free_strarray(sh->b_str);
 	free(sh->pwd);
 }

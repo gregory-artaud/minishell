@@ -71,7 +71,7 @@ typedef struct s_shell
 	char			**env;	// environnement variables
 	char			pwd_path[PWD_PATH_MAX_LENGTH]; // path to current directory
 	char			*pwd; // current directory name
-	char			cmd[CMD_MAX_LENGTH]; // command as written by user
+	char			*cmd; // current cmd
 	int				i; // index of read in cmd
 	t_list			*tokens; // command after lexer
 	t_tree			*ast; // command after parser
@@ -80,6 +80,7 @@ typedef struct s_shell
 	char			**b_str; // builtin functions names
 	int				b_strlen[NO_BUILTINS]; // builtin functions names length
 	t_dlist			*cmd_history; // double list of previous commands
+	t_dlist			*current_line;
 }				t_shell;
 
 #endif
