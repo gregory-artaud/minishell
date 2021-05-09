@@ -2,6 +2,7 @@
 
 int	ctrl_d(void)
 {
+	ft_putstr_fd("^D", 1);
 	if (g_sh->i == 0)
 	{
 		ft_strlcpy(g_sh->cmd, "exit", 5);
@@ -14,7 +15,7 @@ int	ctrl_c(void)
 {
 	ft_bzero(g_sh->cmd, CMD_MAX_LENGTH);
 	g_sh->i = 0;
-	write(1, "\n", 1);
+	ft_putstr_fd("^C\n", 1);
 	prompt();
 	return (0);
 }

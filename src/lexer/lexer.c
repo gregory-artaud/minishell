@@ -41,7 +41,7 @@ int	lexer(t_shell *sh)
 		return (EXIT_SUCCESS);
 	push_to_history(sh);
 	if (!ft_memcmp(sh->cmd, "exit", 5)) { // TO REMOVE !
-		printf("\nexit\n");
+		printf("exit\n");
 		free_shell(sh);
 		exit(0);
 	}

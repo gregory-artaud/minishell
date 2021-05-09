@@ -1,5 +1,19 @@
 #include "minishell.h"
 
+void	refresh_input(void)
+{
+	int	i;
+	int	len;
+
+	len = ft_strlen(g_sh->cmd);
+	i = g_sh->i;
+	while (--i > 0)
+		ft_putchar_fd('\b', 1);
+	ft_putstr_fd(g_sh->cmd, 1);
+	//printf("len:%d;i:%d\n", len, g_sh->i);
+	move_cursor_left(len - g_sh->i);
+}
+
 /*
 ** TO-DO HERE:
 **		- command historic with arrow keys up/down
@@ -22,12 +36,20 @@ int	termcap(char c)
 int	del(void)
 {
 	int	i;
+	int	len;
 
+	len = ft_strlen(g_sh->cmd);
 	i = g_sh->i - 1;
 	if (i < 0)
-		i = 0;
-	g_sh->cmd[i] = 0;
-	g_sh->i = i;
+		return (0);
+	i--;
+	while (++i < len)
+		g_sh->cmd[i] = g_sh->cmd[i + 1];
+	move_cursor_left(1);
+	(g_sh->i)--;
+	ft_putstr_fd(g_sh->cmd + g_sh->i, 1);
+	ft_putchar_fd(' ', 1);
+	move_cursor_left(len - g_sh->i);
 	return (0);
 }
 
@@ -41,18 +63,6 @@ void	ft_strinsert_fixed(char *s, int size, char c, int index)
 	return ;
 }
 
-void	refresh_input(void)
-{
-	int	i;
-	int	len;
-
-	len = ft_strlen(g_sh->cmd);
-	i = g_sh->i;
-	while (--i > 0)
-		ft_putchar_fd('\b', 1);
-	ft_putstr_fd(g_sh->cmd, 1);
-	move_cursor_left(len - g_sh->i);
-}
 
 int	controller(char c)
 {
