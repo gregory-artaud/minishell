@@ -5,11 +5,10 @@ int	init_terminal(void)
 	char	*name;
 	int		ret;
 
-	ret = 1;
 	name = getenv("TERM");
 	if (!name)
 		return (INIT_ERR_TERM_ENV);
-	//ret = tgetent(NULL, name);
+	ret = tgetent(NULL, name);
 	if (ret == -1)
 		return (INIT_ERR_TERM_DB);
 	if (ret == 0)
@@ -17,24 +16,26 @@ int	init_terminal(void)
 	return (EXIT_SUCCESS);
 }
 
-void	set_terminal_settings(t_shell *sh)
+void	set_terminal_settings(void)
 {
-	(void)sh;
-	/*
-	static struct termios	old;
-	struct termios			new;
+	struct termios	settings;
 
-	tcgetattr(STDIN_FILENO, &old);
-	new = old;
-	new.c_lflag &= ~(ICANON);
-	tcsetattr(STDIN_FILENO, TCSANOW, &new);
-	sh->old_settings = &old;
-	*/
+	tcgetattr(STDIN_FILENO, &settings);
+	settings.c_lflag &= ~(ICANON);
+	settings.c_cc[VMIN] = 1;
+	settings.c_cc[VTIME] = 0;
+	tcsetattr(STDIN_FILENO, TCSANOW, &settings);
 }
 
-void	restore_terminal_settings(t_shell *sh)
+void	restore_terminal_settings(void)
 {
-	tcsetattr(STDIN_FILENO, TCSANOW, sh->old_settings);
+	struct termios	settings;
+
+	tcgetattr(STDIN_FILENO, &settings);
+	settings.c_lflag |= ~(ICANON);
+	settings.c_cc[VMIN] = 1;
+	settings.c_cc[VTIME] = 0;
+	tcsetattr(STDIN_FILENO, TCSANOW, &settings);
 }
 
 void	push_to_history(t_shell *sh)

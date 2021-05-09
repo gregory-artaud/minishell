@@ -27,6 +27,7 @@
 # define NO_BUILTINS 7
 # define B_STR "echo cd pwd export unset env exit"
 
+
 enum e_errors {
 	INIT_ERR_TERM_ENV = 1,
 	INIT_ERR_TERM_DB,
@@ -71,13 +72,13 @@ typedef struct s_shell
 	char			pwd_path[PWD_PATH_MAX_LENGTH]; // path to current directory
 	char			*pwd; // current directory name
 	char			cmd[CMD_MAX_LENGTH]; // command as written by user
+	int				i; // index of read in cmd
 	t_list			*tokens; // command after lexer
 	t_tree			*ast; // command after parser
 	int				status; // status after execution
 	int				(*b_fct[NO_BUILTINS])(void *); // builtin functions
 	char			**b_str; // builtin functions names
 	int				b_strlen[NO_BUILTINS]; // builtin functions names length
-	struct termios	*old_settings; // previous terminal settings
 	t_list			*cmd_history; // list of previous commands
 }				t_shell;
 

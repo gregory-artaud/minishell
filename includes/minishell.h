@@ -12,23 +12,32 @@
 # include "defs.h"
 # include "execution.h"
 
-int		init_shell(t_shell *sh, char **env);
+extern t_shell	*g_sh;
+
+void	init_shell(t_shell *sh, char **env);
 void	clear_shell(t_shell *sh);
 void	free_shell(t_shell *sh);
-void	set_terminal_settings(t_shell *sh);
-void	restore_terminal_settings(t_shell *sh);
+void	set_terminal_settings(void);
+void	restore_terminal_settings(void);
 int		init_terminal(void);
 void	push_to_history(t_shell *sh);
+void	prompt(void);
+/*
+** reader
+*/
+void	read_line(t_shell *sh);
+int		termcap(char c);
+int		controller(char c);
+void	term_up(void);
+void	term_down(void);
+void	term_right(void);
+void	term_left(void);
+void	move_cursor_right(int i);
+void	move_cursor_left(int i);
 /*
 ** lexer
 */
 int		lexer(t_shell *sh);
-void	termcap(char c, char *tmp, int *i);
-int		controller(char c, char *tmp, int *i);
-void	term_up(char c, char *tmp, int *i);
-void	term_down(char c, char *tmp, int *i);
-void	term_right(char c, char *tmp, int *i);
-void	term_left(char c, char *tmp, int *i);
 int		process_line(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j);
 int		no_env_var_name(char tmp[CMD_MAX_LENGTH], int *j);
 int		is_special(char c);
@@ -60,4 +69,11 @@ int		executer(t_shell *sh);
 ** error_interpreter/
 */
 void	print_error(int error);
+/*
+** signal
+*/
+int		ctrl_d(void);
+int		ctrl_c(void);
+void	new_cmd(int i);
+
 #endif

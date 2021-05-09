@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+t_shell	*g_sh;
+
 void	prompt()
 {
 	ft_putstr_fd("minishell", STDOUT_FILENO);
@@ -26,29 +28,16 @@ int	run_parser(t_shell *sh)
 	return (error);
 }
 
-void	new_cmd(int i)
-{
-	(void)i;
-	write(1, "\n", 1);
-	prompt();
-	return ;
-}
-
 int	main(int argc, char **argv, char **env)
 {
 	t_shell	sh;
-	int		error;
 
 	(void)argc;
 	(void)argv;
+	g_sh = &sh;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, new_cmd);
-	error = init_shell(&sh, env);
-	if (error)
-	{
-		print_error(error);
-		return (EXIT_FAILURE);
-	}
+	init_shell(&sh, env);
 	while (1)
 	{
 		clear_shell(&sh);

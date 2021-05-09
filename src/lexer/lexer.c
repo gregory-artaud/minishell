@@ -1,23 +1,5 @@
 #include "minishell.h"
 
-void	read_line(t_shell *sh)
-{
-	char	tmp[CMD_MAX_LENGTH];
-	int		c;
-	int		i;
-
-	ft_bzero(sh->cmd, CMD_MAX_LENGTH);
-	ft_bzero(tmp, CMD_MAX_LENGTH);
-	i = 0;
-	while (1)
-	{
-		c = ft_getchar();
-		if (controller(c, tmp, &i))
-			break ;
-	}
-	ft_strlcpy(sh->cmd, tmp, CMD_MAX_LENGTH);
-}
-
 void	print_token(t_list *lst)
 {
 	t_list	*current;
