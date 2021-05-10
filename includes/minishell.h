@@ -61,7 +61,7 @@ void	clear_ast(t_tree **tree);
 void	ft_fill_sep(t_shell sh, t_tree *tree);
 int		ft_nb_arg(t_shell sh, t_token *token);
 void	fill_new_branche(t_token *token, t_tree **tree);
-
+int		ft_nb_redirect(t_list *tk);
 /*
 ** execution/
 */

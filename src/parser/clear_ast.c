@@ -28,11 +28,15 @@ void	clear_redirect(t_tree *root)
 
 	redir = root->branches->next->content;
 	tableau = (char **)(redir->content);
-	if (redir->type == REDIRECT || redir->type == FILE_PATH)
+	if (redir->type == REDIRECT)
 	{
-		i = 2;
-		while (i--)
+		i = 0;
+		while (i < redir->size)
+		{
 			free(tableau[i]);
+			tableau[i] = NULL;
+			i++;
+		}
 		free(tableau);
 	}
 }

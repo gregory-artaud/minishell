@@ -15,6 +15,22 @@ int	ft_nb_arg(t_shell sh, t_token *token)
 	return (i);
 }
 
+int	ft_nb_redirect(t_list *tk)
+{
+	t_token	*token;
+	int		nb_redirect;
+
+	nb_redirect = 0;
+	while (tk)
+	{
+		token = tk->content;
+		if (token->type == REDIRECT)
+			nb_redirect += 2;
+		tk = tk->next;
+	}
+	return (nb_redirect);
+}
+
 char	*my_strdup(char *src, int n)
 {
 	char	*str;
