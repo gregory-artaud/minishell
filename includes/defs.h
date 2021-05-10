@@ -27,6 +27,7 @@
 # define NO_BUILTINS 7
 # define B_STR "echo cd pwd export unset env exit"
 
+
 enum e_errors {
 	INIT_ERR_TERM_ENV = 1,
 	INIT_ERR_TERM_DB,
@@ -59,8 +60,6 @@ enum e_token_types {
 	SEPARATOR
 };
 
-typedef struct termios t_termios;
-
 typedef struct s_token
 {
 	int		type;
@@ -69,18 +68,19 @@ typedef struct s_token
 
 typedef struct s_shell
 {
-	char		**env;	// environnement variables
-	char		pwd_path[PWD_PATH_MAX_LENGTH]; // path to current directory
-	char		*pwd; // current directory name
-	char		cmd[CMD_MAX_LENGTH]; // command as written by user
-	t_list		*tokens; // command after lexer
-	t_tree		*ast; // command after parser
-	int			status; // status after execution
-	int			(*b_fct[NO_BUILTINS])(void *); // builtin functions
-	char		**b_str; // builtin functions names
-	int			b_strlen[NO_BUILTINS]; // builtin functions names length
-	t_termios	*old_settings; // previous terminal settings
-	t_list		*cmd_history; // list of previous commands
+	char			**env;	// environnement variables
+	char			pwd_path[PWD_PATH_MAX_LENGTH]; // path to current directory
+	char			*pwd; // current directory name
+	char			*cmd; // current cmd
+	int				i; // index of read in cmd
+	t_list			*tokens; // command after lexer
+	t_tree			*ast; // command after parser
+	int				status; // status after execution
+	int				(*b_fct[NO_BUILTINS])(void *); // builtin functions
+	char			**b_str; // builtin functions names
+	int				b_strlen[NO_BUILTINS]; // builtin functions names length
+	t_dlist			*cmd_history; // double list of previous commands
+	t_dlist			*current_line;
 }				t_shell;
 
 #endif

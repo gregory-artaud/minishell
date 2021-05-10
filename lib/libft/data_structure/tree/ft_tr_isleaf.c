@@ -1,4 +1,4 @@
-#include "tree.h"
+#include "data_structure.h"
 
 int	ft_tr_isleaf(t_tree *tr)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsimon <tsimon@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: gartaud <gartaud@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/28 13:57:05 by gartaud           #+#    #+#             */
-/*   Updated: 2021/05/07 11:10:20 by tsimon           ###   ########lyon.fr   */
+/*   Updated: 2021/05/09 14:40:13 by gartaud          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include "gnl/get_next_line.h"
-# include "tree/tree.h"
+# include "data_structure/data_structure.h"
 # define LFT_LEFT 0
 # define LFT_RIGHT 1
 # define SPACES " \n\t\r\v\f"
@@ -80,4 +80,5 @@ int					ft_min(int a, int b);
 int					ft_getchar(void);
 int					ft_str_isspace(char *s);
 char				*ft_strncpy(char *dest, char *src, int n);
+void				ft_putchar(char c);
 #endif

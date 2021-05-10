@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int		init_terminal(void)
+int	init_terminal(void)
 {
 	char	*name;
 	int		ret;
@@ -16,30 +16,32 @@ int		init_terminal(void)
 	return (EXIT_SUCCESS);
 }
 
-void	set_terminal_settings(t_shell *sh)
+void	set_terminal_settings(void)
 {
-	(void)sh;
-	/*
-	static t_termios	old;
-	t_termios			new;
+	struct termios	settings;
 
-	tcgetattr(STDIN_FILENO, &old);
-	new = old;
-	new.c_lflag &= ~(ICANON);
-	tcsetattr(STDIN_FILENO, TCSANOW, &new);
-	sh->old_settings = &old;
-	*/
+	tcgetattr(STDIN_FILENO, &settings);
+	settings.c_lflag &= ~(ICANON);
+	settings.c_cc[VMIN] = 1;
+	settings.c_cc[VTIME] = 0;
+	tcsetattr(STDIN_FILENO, TCSANOW, &settings);
 }
 
-void	restore_terminal_settings(t_shell *sh)
+void	restore_terminal_settings(void)
 {
-	tcsetattr(STDIN_FILENO, TCSANOW, sh->old_settings);
+	struct termios	settings;
+
+	tcgetattr(STDIN_FILENO, &settings);
+	settings.c_lflag |= ~(ICANON);
+	settings.c_cc[VMIN] = 1;
+	settings.c_cc[VTIME] = 0;
+	tcsetattr(STDIN_FILENO, TCSANOW, &settings);
 }
 
 void	push_to_history(t_shell *sh)
 {
 	char	*cmd;
 
-	cmd = ft_strdup(sh->cmd);
-	ft_lstadd_front(&(sh->cmd_history), ft_lstnew(cmd));
+	cmd = ft_calloc(CMD_MAX_LENGTH, sizeof(char));
+	ft_dlstadd_front(&(sh->cmd_history), ft_dlstnew(cmd));
 }

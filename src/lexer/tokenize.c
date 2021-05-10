@@ -81,7 +81,7 @@ int	tokenize_redirect(char s[CMD_MAX_LENGTH], t_shell *sh, int *i)
 	if (!token)
 		return (MALLOC_BREAK);
 	ft_lstadd_back(&(sh->tokens), ft_lstnew(token));
-	return (EXIT_SUCCESS);
+	return (tokenize_redirect(s, sh, i));
 }
 
 int	tokenize_separator(char s[CMD_MAX_LENGTH], t_shell *sh, int *i)
@@ -113,6 +113,9 @@ int	tokenize_cmd(char s[CMD_MAX_LENGTH], t_shell *sh, int *i)
 
 	if (!s[*i])
 		return (EXIT_SUCCESS);
+	error = tokenize_redirect(s, sh, i);
+	if (error)
+		return (error);
 	word = extract_word(s, i);
 	if (!word)
 		return (LEX_ERR_UNKNOWN_COMMAND);

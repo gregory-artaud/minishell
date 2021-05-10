@@ -1,4 +1,4 @@
-#include "tree.h"
+#include "data_structure.h"
 
 t_tree	*ft_tr_leftchild(t_tree *tr)
 {

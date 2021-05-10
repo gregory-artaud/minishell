@@ -1,4 +1,4 @@
-#include "tree.h"
+#include "data_structure.h"
 
 t_list	*get_node(t_tree *tr)
 {

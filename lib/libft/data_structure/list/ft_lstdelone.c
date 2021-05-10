@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gartaud <gartaud@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/18 11:40:16 by gartaud           #+#    #+#             */
-/*   Updated: 2021/04/15 14:59:40 by gartaud          ###   ########lyon.fr   */
+/*   Created: 2020/07/18 11:27:44 by gartaud           #+#    #+#             */
+/*   Updated: 2021/05/09 14:39:13 by gartaud          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tree.h"
+#include "data_structure.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	t_list	*next;
-	t_list	*current;
-
-	current = *lst;
-	while (current)
-	{
-		next = current->next;
-		del(current->content);
-		free(current);
-		current = next;
-	}
-	*lst = NULL;
+	del(lst->content);
+	free(lst);
 	return ;
 }

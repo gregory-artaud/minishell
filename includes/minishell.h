@@ -1,6 +1,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <sys/ioctl.h>
 # include <term.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -11,13 +12,29 @@
 # include "defs.h"
 # include "execution.h"
 
-int		init_shell(t_shell *sh, char **env);
+extern t_shell	*g_sh;
+
+void	init_shell(t_shell *sh, char **env);
 void	clear_shell(t_shell *sh);
 void	free_shell(t_shell *sh);
-void	set_terminal_settings(t_shell *sh);
-void	restore_terminal_settings(t_shell *sh);
+void	set_terminal_settings(void);
+void	restore_terminal_settings(void);
 int		init_terminal(void);
 void	push_to_history(t_shell *sh);
+void	prompt(void);
+/*
+** reader
+*/
+void	read_line(t_shell *sh);
+int		termcap(char c);
+int		controller(char c);
+void	term_up(void);
+void	term_down(void);
+void	term_right(void);
+void	term_left(void);
+void	move_cursor_right(int i);
+void	move_cursor_left(int i);
+int		del(void);
 /*
 ** lexer
 */
@@ -53,4 +70,11 @@ int		executer(t_shell *sh);
 ** error_interpreter/
 */
 void	print_error(int error);
+/*
+** signal
+*/
+int		ctrl_d(void);
+int		ctrl_c(void);
+void	new_cmd(int i);
+
 #endif
