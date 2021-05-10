@@ -76,7 +76,7 @@ typedef struct s_shell
 	t_list			*tokens; // command after lexer
 	t_tree			*ast; // command after parser
 	int				status; // status after execution
-	int				(*b_fct[NO_BUILTINS])(void *); // builtin functions
+	int				(*b_fct[NO_BUILTINS])(void *, t_tree *); // builtin functions
 	char			**b_str; // builtin functions names
 	int				b_strlen[NO_BUILTINS]; // builtin functions names length
 	t_dlist			*cmd_history; // double list of previous commands
