@@ -8,9 +8,10 @@ int	b_env(void *sh, t_tree *root)
 	(void)root;
 	shell = sh;
 	i = 0;
-	while (shell->env[i])
+	while (i < shell->size_env)
 	{
-		printf("%s\n", shell->env[i]);
+		if (shell->env[i])
+			printf("%s\n", shell->env[i]);
 		i++;
 	}
 	return (0);

@@ -38,12 +38,23 @@ void	clear_shell(t_shell *sh)
 	//free_ast(sh->ast);
 }
 
+int	ft_size_env(char **env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i])
+		i++;
+	return (i);
+}
+
 void	init_shell(t_shell *sh, char **env)
 {
 	sh->i = 0;
 	sh->status = 0;
 	sh->ast = NULL;
 	sh->env = env;
+	sh->size_env = ft_size_env(env);
 	sh->tokens = NULL;
 	sh->cmd_history = ft_dlstnew(ft_calloc(CMD_MAX_LENGTH, sizeof(char)));
 	sh->current_line = sh->cmd_history;
