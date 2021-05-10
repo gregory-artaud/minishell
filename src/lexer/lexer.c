@@ -40,7 +40,7 @@ int	lexer(t_shell *sh)
 	sh->cmd = (char *)sh->cmd_history->content;
 	if (!sh->cmd[0] || ft_str_isspace(sh->cmd))
 		return (EXIT_SUCCESS);
-	push_to_history(sh);
+	//push_to_history(sh);
 	if (!ft_memcmp(sh->cmd, "exit", 5)) { // TO REMOVE !
 		printf("exit\n");
 		free_shell(sh);
@@ -57,6 +57,6 @@ int	lexer(t_shell *sh)
 			return (error);
 	}
 	error = tokenize(tmp, sh);
-	print_token(sh->tokens);
+	//print_token(sh->tokens);
 	return (error);
 }

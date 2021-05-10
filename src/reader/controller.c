@@ -57,7 +57,7 @@ void	print_history()
 int	controller(char c)
 {
 	//printf(" = %d\n", c);
-	if (c == 13) // carriage return
+	if (c == 13 || c == '\n') // carriage return
 	{
 		ft_strlcpy(g_sh->cmd_history->content, g_sh->current_line->content,
 			CMD_MAX_LENGTH);
@@ -73,6 +73,6 @@ int	controller(char c)
 		return (del());
 	ft_strinsert_fixed(g_sh->current_line->content, CMD_MAX_LENGTH, c, g_sh->i);
 	((char *)g_sh->current_line->content)[(g_sh->i)++] = c;
-	refresh_input();
+	//refresh_input();
 	return (0);
 }
