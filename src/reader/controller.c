@@ -63,7 +63,7 @@ int	controller(char c)
 			CMD_MAX_LENGTH);
 		return (1);
 	}
-	if (c == EOT)
+	if (c == EOT || c == EOF)
 		return (ctrl_d());
 	if (c == 3)
 		return (ctrl_c());
