@@ -57,8 +57,6 @@ void	print_history()
 int	controller(char c)
 {
 	//printf(" = %d\n", c);
-	if (c == 'h')
-		print_history();
 	if (c == 13) // carriage return
 	{
 		ft_strlcpy(g_sh->cmd_history->content, g_sh->current_line->content,
