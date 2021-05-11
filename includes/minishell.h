@@ -71,6 +71,9 @@ int		ft_nb_redirect(t_list *tk);
 ** execution/
 */
 int		executer(t_shell *sh);
+int		ft_strncmpsep(char *s1, char *s2, unsigned int n, char sep);
+int		ft_strlen_sep(char *str, char sep);
+
 /*
 ** error_interpreter/
 */

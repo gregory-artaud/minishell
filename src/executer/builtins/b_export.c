@@ -14,26 +14,84 @@ int	ft_verif_var_env(char *str)
 	return (0);
 }
 
-int	b_export(void *sh, t_tree *root)
+int	brw_env(t_list *env, char *var)
 {
-	t_shell	*shell;
-	char	**tableau;
+	while (env)
+	{
+		if (ft_strlen_sep(env->content, '=') == ft_strlen_sep(var, '='))
+		{
+			if (!ft_strncmp(env->content, var, ft_strlen_sep(var, '=')))
+			{
+				env->content = ft_strncpy(env->content, var, ft_strlen(var));
+				return (EXIT_SUCCESS);
+			}
+		}
+		env = env->next;
+	}
+	return (EXIT_FAILURE);
+}
+
+void	new_env(t_shell *sh, t_tree *root)
+{
+	char	**var;
 	int		i;
 	char	*content;
 
-	shell = sh;
 	root = root->branches->content;
-	tableau = root->content;
+	var = root->content;
 	i = 0;
 	while (i < root->size)
 	{
-		if (ft_verif_var_env(tableau[i]))
+		if (ft_verif_var_env(var[i]))
 		{
-			content = malloc(sizeof(char) * (ft_strlen(tableau[i]) + 1));
-			content = ft_strncpy(content, tableau[i], ft_strlen(tableau[i]));
-			ft_lstadd_back(&shell->env, ft_lstnew(content));
+			if (brw_env(sh->env, var[i]))
+			{
+				content = malloc(sizeof(char) * (ft_strlen(var[i]) + 1));
+				content = ft_strncpy(content, var[i], ft_strlen(var[i]));
+				ft_lstadd_back(&sh->env, ft_lstnew(content));
+			}
 		}
 		i++;
 	}
+}
+
+void	display_export(t_list *env)
+{
+	char	*str;
+
+	while (env)
+	{
+		printf("declare -x ");
+		str = env->content;
+		while (*str != '=')
+		{
+			printf("%c", *str);
+			str++;
+		}
+		printf("%c", *str);
+		str++;
+		printf("\"%s\"\n", str);
+		env = env->next;
+	}
+}
+
+int	b_export(void *sh, t_tree *root)
+{
+	t_shell	*shell;
+	t_tree	*tmp;
+
+	shell = sh;
+	if (root->branches)
+	{
+			tmp = root->branches->content;
+			if (tmp->type == REDIRECT)
+				printf("REDIRECT\n");
+			else if (root->branches->next)
+				printf("ARG + REDIRECT\n");
+			else
+				new_env(shell, root); //TODO ASCII
+	}
+	else
+		display_export(shell->env);
 	return (0);
 }
