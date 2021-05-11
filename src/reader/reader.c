@@ -15,5 +15,6 @@ void	read_line(t_shell *sh)
 		if (controller(c))
 			break ;
 	}
+	ft_putchar_fd('\n', 1);
 	restore_terminal_settings();
 }

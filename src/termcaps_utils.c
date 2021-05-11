@@ -25,3 +25,10 @@ void	delete_l(void)
 	tc = tgetstr("dl", NULL);
 	tputs(tc, 1, ft_putchar);
 }
+
+void	cursor_to_begin(void)
+{
+	char	*tc;
+	tc = tgetstr("cr", NULL);
+	tputs(tc, 1, ft_putchar);
+}

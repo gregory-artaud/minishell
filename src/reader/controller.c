@@ -8,6 +8,7 @@ void	refresh_input(void)
 	s = (char *)g_sh->current_line->content;
 	len = ft_strlen(s);
 	delete_l();
+	cursor_to_begin();
 	prompt();
 	ft_putstr_fd(s, 1);
 	move_cursor_left(len - g_sh->i);
