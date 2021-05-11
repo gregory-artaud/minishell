@@ -14,6 +14,11 @@
 
 extern t_shell	*g_sh;
 
+/*
+** TO REMOVE
+*/
+void	generate_dot(t_tree *tr);
+
 void	init_shell(t_shell *sh, char **env);
 void	clear_shell(t_shell *sh);
 void	free_shell(t_shell *sh);
