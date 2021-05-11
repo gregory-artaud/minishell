@@ -53,13 +53,7 @@ void	print_history()
 
 int	controller(char c)
 {
-	if (c == 'h')
-	{
-		print_history();
-		prompt();
-		return (0);
-	}
-	else if (c == '\t')
+	if (c == '\t')
 		return (0);
 	else if (c == 13 || c == '\n')
 	{
@@ -69,8 +63,6 @@ int	controller(char c)
 	}
 	else if (c == EOT)
 		return (ctrl_d());
-	else if (c == 3)
-		return (ctrl_c());
 	else if (c == 27)
 		termcap(c);
 	else if (c == 127)

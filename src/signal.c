@@ -2,7 +2,6 @@
 
 int	ctrl_d(void)
 {
-	ft_putstr_fd("^D", 1);
 	if (g_sh->i == 0)
 	{
 		ft_strlcpy(g_sh->cmd_history->content, "exit", 5);
