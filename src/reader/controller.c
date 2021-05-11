@@ -2,17 +2,14 @@
 
 void	refresh_input(void)
 {
-	int		i;
 	int		len;
 	char	*s;
 
 	s = (char *)g_sh->current_line->content;
 	len = ft_strlen(s);
-	i = g_sh->i;
-	while (--i > 0)
-		ft_putchar_fd('\b', 1);
+	delete_l();
+	prompt();
 	ft_putstr_fd(s, 1);
-	//printf("len:%d;i:%d\n", len, g_sh->i);
 	move_cursor_left(len - g_sh->i);
 }
 
@@ -56,10 +53,16 @@ void	print_history()
 
 int	controller(char c)
 {
-	//printf(" = %d\n", c);
+	//printf("c = %d\n", c);
 	if (c == 'h')
+	{
 		print_history();
-	if (c == 13) // carriage return
+		prompt();
+		return (0);
+	}
+	if (c == '\t')
+		return (0);
+	if (c == 13 || c == '\n') // carriage return
 	{
 		ft_strlcpy(g_sh->cmd_history->content, g_sh->current_line->content,
 			CMD_MAX_LENGTH);
@@ -72,9 +75,10 @@ int	controller(char c)
 	if (c == 27) // escape
 		return (termcap(c));
 	if (c == 127)
-		return (del());
-	ft_strinsert_fixed(g_sh->current_line->content, CMD_MAX_LENGTH, c, g_sh->i);
-	((char *)g_sh->current_line->content)[(g_sh->i)++] = c;
+		del();
+	else
+		ft_strinsert_fixed(g_sh->current_line->content, CMD_MAX_LENGTH, c,
+			(g_sh->i)++);
 	refresh_input();
 	return (0);
 }

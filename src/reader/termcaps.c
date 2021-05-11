@@ -46,10 +46,12 @@ void	term_down(void)
 
 void	term_right(void)
 {
+	int	len;
 	int	i;
 
+	len = ft_strlen((char *)g_sh->current_line->content);
 	i = g_sh->i;
-	if (((char *)g_sh->current_line->content)[i] == 0)
+	if (i >= len)
 		return ;
 	move_cursor_right(1);
 	g_sh->i = i + 1;
@@ -60,7 +62,7 @@ void	term_left(void)
 	int	i;
 
 	i = g_sh->i;
-	if (i == 0)
+	if (i <= 0)
 		return ;
 	move_cursor_left(1);
 	g_sh->i = i - 1;

@@ -8,6 +8,7 @@ void	read_line(t_shell *sh)
 	ft_bzero(sh->cmd_history->content, CMD_MAX_LENGTH);
 	g_sh->current_line = g_sh->cmd_history;
 	sh->i = 0;
+	prompt();
 	while (1)
 	{
 		c = ft_getchar();

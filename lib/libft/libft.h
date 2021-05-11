@@ -6,7 +6,7 @@
 /*   By: gartaud <gartaud@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/28 13:57:05 by gartaud           #+#    #+#             */
-/*   Updated: 2021/05/09 14:40:13 by gartaud          ###   ########lyon.fr   */
+/*   Updated: 2021/05/11 09:00:32 by gartaud          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,5 @@ int					ft_min(int a, int b);
 int					ft_getchar(void);
 int					ft_str_isspace(char *s);
 char				*ft_strncpy(char *dest, char *src, int n);
-void				ft_putchar(char c);
+int					ft_putchar(int c);
 #endif

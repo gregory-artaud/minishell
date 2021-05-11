@@ -2,12 +2,34 @@
 
 void	move_cursor_right(int i)
 {
+	char	*tc;
+	
+	tc = tgetstr("nd", NULL);
 	while (i-- > 0)
-		ft_putstr_fd("\033[1C", 1);
+		tputs (tc, 1, ft_putchar);
 }
 
 void	move_cursor_left(int i)
 {
-	while (i-- > 0)
-		ft_putstr_fd("\033[1D", 1);
+	char	*tc;
+	
+	tc = tgetstr("le", NULL);
+	while (--i >= 0)
+		tputs(tc, 1, ft_putchar);
+}
+
+void	delete_c(void)
+{
+	char	*tc;
+
+	tc = tgetstr("dc", NULL);
+	tputs(tc, 1, ft_putchar);
+}
+
+void	delete_l(void)
+{
+	char	*tc;
+
+	tc = tgetstr("dl", NULL);
+	tputs(tc, 1, ft_putchar);
 }
