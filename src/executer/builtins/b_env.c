@@ -3,16 +3,15 @@
 int	b_env(void *sh, t_tree *root)
 {
 	t_shell	*shell;
-	int i;
+	t_list	*tmp;
 
 	(void)root;
 	shell = sh;
-	i = 0;
-	while (i < shell->size_env)
+	tmp = shell->env;
+	while (tmp)
 	{
-		if (shell->env[i])
-			printf("%s\n", shell->env[i]);
-		i++;
+		printf("%s\n", tmp->content);
+		tmp = tmp->next;
 	}
 	return (0);
 }
