@@ -36,7 +36,7 @@ void	restore_terminal_settings(void)
 	settings.c_lflag |= (ICANON | ECHO);
 	settings.c_cc[VMIN] = 1;
 	settings.c_cc[VTIME] = 0;
-	//tcsetattr(STDIN_FILENO, TCSANOW, &settings);
+	tcsetattr(STDIN_FILENO, TCSANOW, &settings);
 }
 
 void	push_to_history(t_shell *sh)
