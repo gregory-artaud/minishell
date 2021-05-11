@@ -18,14 +18,6 @@ void	move_cursor_left(int i)
 		tputs(tc, 1, ft_putchar);
 }
 
-void	delete_c(void)
-{
-	char	*tc;
-
-	tc = tgetstr("dc", NULL);
-	tputs(tc, 1, ft_putchar);
-}
-
 void	delete_l(void)
 {
 	char	*tc;

@@ -14,7 +14,6 @@ void	read_line(t_shell *sh)
 		c = ft_getchar();
 		if (controller(c))
 			break ;
-		//printf("\ncurrent: %s\n", sh->cmd);
 	}
 	ft_putchar_fd('\n', 1);
 	restore_terminal_settings();

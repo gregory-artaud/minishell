@@ -57,6 +57,6 @@ int	lexer(t_shell *sh)
 			return (error);
 	}
 	error = tokenize(tmp, sh);
-	print_token(sh->tokens);
+	//print_token(sh->tokens);
 	return (error);
 }

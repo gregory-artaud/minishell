@@ -53,28 +53,27 @@ void	print_history()
 
 int	controller(char c)
 {
-	//printf("c = %d\n", c);
 	if (c == 'h')
 	{
 		print_history();
 		prompt();
 		return (0);
 	}
-	if (c == '\t')
+	else if (c == '\t')
 		return (0);
-	if (c == 13 || c == '\n') // carriage return
+	else if (c == 13 || c == '\n')
 	{
 		ft_strlcpy(g_sh->cmd_history->content, g_sh->current_line->content,
 			CMD_MAX_LENGTH);
 		return (1);
 	}
-	if (c == EOT)
+	else if (c == EOT)
 		return (ctrl_d());
-	if (c == 3)
+	else if (c == 3)
 		return (ctrl_c());
-	if (c == 27) // escape
-		return (termcap(c));
-	if (c == 127)
+	else if (c == 27)
+		termcap(c);
+	else if (c == 127)
 		del();
 	else
 		ft_strinsert_fixed(g_sh->current_line->content, CMD_MAX_LENGTH, c,
