@@ -41,7 +41,6 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		clear_shell(&sh);
-		prompt();
 		if (!run_lexer(&sh))
 		{
 			if (!run_parser(&sh))
