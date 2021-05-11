@@ -6,7 +6,7 @@
 #    By: tsimon <tsimon@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/28 13:46:16 by gartaud           #+#    #+#              #
-#    Updated: 2021/05/11 11:32:34 by tsimon           ###   ########lyon.fr    #
+#    Updated: 2021/05/11 15:11:30 by tsimon           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,6 @@ FILES		=	ft_memset.c \
 				data_structure/list/ft_lstclear.c \
 				data_structure/list/ft_lstiter.c \
 				data_structure/list/ft_lstmap.c \
-				data_structure/list/ft_lstdel.c \
 				ft_free_strarray.c \
 				ft_arrlen.c \
 				ft_atof.c \
