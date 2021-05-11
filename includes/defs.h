@@ -68,8 +68,7 @@ typedef struct s_token
 
 typedef struct s_shell
 {
-	char			**env;	// environnement variables
-	int				size_env;
+	t_list			*env; //environnement variables
 	char			pwd_path[PWD_PATH_MAX_LENGTH]; // path to current directory
 	char			*pwd; // current directory name
 	char			*cmd; // current cmd
