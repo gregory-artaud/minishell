@@ -54,8 +54,6 @@ void	print_history()
 
 int	controller(char c)
 {
-	if (c == 'h')
-		print_history();
 	if (c == '\t')
 		return (0);
 	else if (c == 13 || c == '\n')

@@ -4,7 +4,7 @@ t_shell	*g_sh;
 
 void	prompt()
 {
-	ft_putstr_fd("minishell", STDOUT_FILENO);
+	ft_putstr_fd(g_sh->pwd, STDOUT_FILENO);
 	ft_putstr_fd(COMMAND_WAIT_TOKEN, STDOUT_FILENO);
 }
 
