@@ -76,7 +76,7 @@ void	fill_redirect(t_tree **tree, t_list **tk)
 	nb_redirect = ft_nb_redirect(*tk);
 	if (nb_redirect)
 	{
-		redirec = malloc(sizeof(char *) * nb_redirect);
+		redirec = malloc(sizeof(char *) * (nb_redirect + 1));
 		i = 0;
 		token = (*tk)->content;
 		while (*tk && token->type != SEPARATOR)
@@ -90,6 +90,7 @@ void	fill_redirect(t_tree **tree, t_list **tk)
 			}
 			*tk = (*tk)->next;
 		}
+		redirec[i] = NULL;
 		ft_tr_addright(*tree, ft_tr_new(redirec, REDIRECT, i));
 	}
 }

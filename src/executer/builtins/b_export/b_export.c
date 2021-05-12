@@ -55,24 +55,22 @@ void	new_env(t_shell *sh, t_tree *root)
 	}
 }
 
-void	display_export(t_list *env)
+void	ft_export_red(t_tree *root, t_list *env, int display)
 {
-	char	*str;
+	char	**redirect;
+	int		i;
+	int		fd;
 
-	while (env)
+	redirect = root->content;
+	i = 0;
+	while (redirect[i])
 	{
-		printf("declare -x ");
-		str = env->content;
-		while (*str != '=')
-		{
-			printf("%c", *str);
-			str++;
-		}
-		printf("%c", *str);
-		str++;
-		printf("\"%s\"\n", str);
-		env = env->next;
+		i++;
+		fd = open(redirect[i], O_RDWR | O_CREAT, S_IRWXU);
+		i++;
 	}
+	if (display)
+		display_export(env, fd);
 }
 
 int	b_export(void *sh, t_tree *root)
@@ -85,13 +83,16 @@ int	b_export(void *sh, t_tree *root)
 	{
 			tmp = root->branches->content;
 			if (tmp->type == REDIRECT)
-				printf("REDIRECT\n");
+				ft_export_red(tmp, shell->env, 1);
 			else if (root->branches->next)
-				printf("ARG + REDIRECT\n");
+			{
+				new_env(shell, root);
+				ft_export_red(tmp, shell->env, 0);
+			}
 			else
-				new_env(shell, root); //TODO ASCII
+				new_env(shell, root);
 	}
 	else
-		display_export(shell->env);
+		display_export(shell->env, 1);
 	return (0);
 }
