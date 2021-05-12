@@ -57,18 +57,9 @@ void	new_env(t_shell *sh, t_tree *root)
 
 void	ft_export_red(t_tree *root, t_list *env, int display)
 {
-	char	**redirect;
-	int		i;
-	int		fd;
+	int	fd;
 
-	redirect = root->content;
-	i = 0;
-	while (redirect[i])
-	{
-		i++;
-		fd = open(redirect[i], O_RDWR | O_CREAT, S_IRWXU);
-		i++;
-	}
+	fd = create_file_redirect(root);
 	if (display)
 		display_export(env, fd);
 }

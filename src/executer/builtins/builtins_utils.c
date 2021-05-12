@@ -27,3 +27,20 @@ int	ft_strlen_sep(char *str, char sep)
 		i++;
 	return (i);
 }
+
+int	create_file_redirect(t_tree *root)
+{
+	char	**redirect;
+	int		i;
+	int		fd;
+
+	redirect = root->content;
+	i = 0;
+	while (redirect[i])
+	{
+		i++;
+		fd = open(redirect[i], O_RDWR | O_CREAT, S_IRWXU);
+		i++;
+	}
+	return (fd);
+}

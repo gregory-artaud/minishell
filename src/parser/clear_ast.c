@@ -6,7 +6,7 @@ void	clear_arg(t_tree *next)
 	int		i;
 
 	tableau = (char **)(next->content);
-	if (next->type == ARGUMENT)
+	if (next->type == ARGUMENT || next->type == REDIRECT)
 	{
 		i = 0;
 		while (i < next->size)
@@ -55,7 +55,7 @@ void	clear_ast(t_tree **tree)
 		clear_ast(&next);
 		if ((*tree)->branches->next)
 		{
-			clear_redirect(*tree);
+			// clear_redirect(*tree);
 			new = (*tree)->branches->next;
 			next = new->content;
 			free(new);
