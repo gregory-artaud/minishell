@@ -31,9 +31,21 @@ void	unset_var(t_shell *sh, t_tree *root)
 int	b_unset(void *sh, t_tree *root)
 {
 	t_shell	*shell;
+	t_tree	*tmp;
 
 	shell = sh;
 	if (root->branches)
-		unset_var(shell, root);
+	{
+		tmp = root->branches->content;
+		if (tmp->type == REDIRECT)
+			create_file_redirect(tmp);
+		else if (root->branches->next)
+		{
+			unset_var(shell, root);
+			create_file_redirect(tmp);
+		}
+		else
+			unset_var(shell, root);
+	}
 	return (0);
 }
