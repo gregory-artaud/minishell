@@ -66,28 +66,29 @@ int	fill_exec(t_token *token, t_tree **tree)
 	return (EXIT_SUCCESS);
 }
 
-void	fill_redirect(t_tree **tree, t_list *tk)
+void	fill_redirect(t_tree **tree, t_list **tk)
 {
 	t_token	*token;
 	char	**redirec;
 	int		nb_redirect;
 	int		i;
 
-	nb_redirect = ft_nb_redirect(tk);
+	nb_redirect = ft_nb_redirect(*tk);
 	if (nb_redirect)
 	{
 		redirec = malloc(sizeof(char *) * nb_redirect);
 		i = 0;
-		while (tk)
+		token = (*tk)->content;
+		while (*tk && token->type != SEPARATOR)
 		{
-			token = tk->content;
+			token = (*tk)->content;
 			if (token->type == REDIRECT || token->type == FILE_PATH)
 			{
 				redirec[i] = malloc(sizeof(char) * ft_strlen(token->value) + 1);
 				ft_strncpy(redirec[i], token->value, ft_strlen(token->value));
 				i++;
 			}
-			tk = tk->next;
+			*tk = (*tk)->next;
 		}
 		ft_tr_addright(*tree, ft_tr_new(redirec, REDIRECT, i));
 	}
@@ -112,6 +113,7 @@ int	fill_cmd(t_shell *sh, t_tree *tree, t_list **tk)
 		token = (*tk)->content;
 	if (token->type == ARGUMENT)
 		fill_arg(sh, tree, token);
-	fill_redirect(&tree, tk_begin);
+	fill_redirect(&tree, &tk_begin);
+	*tk = tk_begin;
 	return (EXIT_SUCCESS);
 }
