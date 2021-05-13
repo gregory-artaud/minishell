@@ -7,7 +7,7 @@ int	fill_arg(t_shell *sh, t_tree *tree, t_token *token)
 	int		i;
 
 	nb_arg = ft_nb_arg(*sh, token);
-	arg = malloc(sizeof(char *) * nb_arg);
+	arg = malloc(sizeof(char *) * (nb_arg + 1));
 	if (arg == NULL)
 		return (MALLOC_BREAK);
 	i = 0;
@@ -19,6 +19,7 @@ int	fill_arg(t_shell *sh, t_tree *tree, t_token *token)
 		i++;
 		sh->tokens = sh->tokens->next;
 	}
+	arg[i] = NULL;
 	ft_tr_addleft(tree, ft_tr_new(arg, token->type, i));
 	return (1);
 }
