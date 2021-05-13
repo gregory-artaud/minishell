@@ -38,8 +38,22 @@ int	create_file_redirect(t_tree *root)
 	i = 0;
 	while (redirect[i])
 	{
-		i++;
-		fd = open(redirect[i], O_RDWR | O_CREAT, S_IRWXU);
+		if (ft_strncmp(redirect[i], ">", 1) && ft_strncmp(redirect[i], ">>", 2))
+		{
+			i++;
+			fd = open(redirect[i], O_RDWR);
+			if (fd < 0)
+			{
+				printf("minishell: %s: No such file or directory\n", redirect[i]);
+				return (fd);
+			}
+			fd = 1;
+		}
+		else
+		{
+			i++;
+			fd = open(redirect[i], O_RDWR | O_CREAT, S_IRWXU);
+		}
 		i++;
 	}
 	return (fd);
