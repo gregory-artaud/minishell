@@ -64,7 +64,7 @@ int		ft_verif_builtin(char *builtin);
 int		fill_cmd(t_shell *sh, t_tree *tree, t_list **tk);
 void	clear_ast(t_tree **tree);
 void	ft_fill_sep(t_shell sh, t_tree *tree);
-int		ft_nb_arg(t_shell sh, t_token *token);
+int		ft_nb_arg(t_list *tk);
 void	fill_new_branche(t_token *token, t_tree **tree);
 int		ft_nb_redirect(t_list *tk);
 /*

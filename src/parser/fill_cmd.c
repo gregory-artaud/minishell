@@ -1,26 +1,34 @@
 #include "minishell.h"
 
-int	fill_arg(t_shell *sh, t_tree *tree, t_token *token)
+int	fill_arg(t_tree *tree, t_list *tk)
 {
+	t_token	*token;
 	char	**arg;
 	int		nb_arg;
 	int		i;
 
-	nb_arg = ft_nb_arg(*sh, token);
-	arg = malloc(sizeof(char *) * (nb_arg + 1));
-	if (arg == NULL)
-		return (MALLOC_BREAK);
-	i = 0;
-	while (i < nb_arg)
+	nb_arg = ft_nb_arg(tk);
+	if (nb_arg)
 	{
-		token = sh->tokens->content;
-		arg[i] = malloc(sizeof(char) * (ft_strlen(token->value) + 1));
-		ft_strncpy(arg[i], token->value, ft_strlen(token->value));
-		i++;
-		sh->tokens = sh->tokens->next;
+		arg = malloc(sizeof(char *) * (nb_arg + 1));
+		if (arg == NULL)
+			return (MALLOC_BREAK);
+		i = 0;
+		token = tk->content;
+		while (tk && token->type != SEPARATOR)
+		{
+			token = tk->content;
+			if (token->type == ARGUMENT)
+			{
+				arg[i] = malloc(sizeof(char) * (ft_strlen(token->value) + 1));
+				ft_strncpy(arg[i], token->value, ft_strlen(token->value));
+				i++;
+			}
+			tk = tk->next;
+		}
+		arg[i] = NULL;
+		ft_tr_addleft(tree, ft_tr_new(arg, token->type, i));
 	}
-	arg[i] = NULL;
-	ft_tr_addleft(tree, ft_tr_new(arg, token->type, i));
 	return (1);
 }
 
@@ -101,6 +109,7 @@ int	fill_cmd(t_shell *sh, t_tree *tree, t_list **tk)
 	t_token	*token;
 	t_list	*tk_begin;
 
+	(void)sh;
 	tk_begin = *tk;
 	token = (*tk)->content;
 	while (token->type != EXECUTABLE)
@@ -113,8 +122,8 @@ int	fill_cmd(t_shell *sh, t_tree *tree, t_list **tk)
 	*tk = (*tk)->next;
 	if (*tk)
 		token = (*tk)->content;
-	if (token->type == ARGUMENT)
-		fill_arg(sh, tree, token);
+	fill_arg(tree, tk_begin);
+	token = tk_begin->content;
 	fill_redirect(&tree, &tk_begin);
 	*tk = tk_begin;
 	return (EXIT_SUCCESS);
