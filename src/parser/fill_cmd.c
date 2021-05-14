@@ -27,7 +27,7 @@ int	fill_arg(t_tree *tree, t_list *tk)
 			tk = tk->next;
 		}
 		arg[i] = NULL;
-		ft_tr_addleft(tree, ft_tr_new(arg, token->type, i));
+		ft_tr_addleft(tree, ft_tr_new(arg, ARGUMENT, i));
 	}
 	return (1);
 }
