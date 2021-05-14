@@ -41,7 +41,6 @@ int	b_echo(void *sh, t_tree *root)
 	int		fd;
 
 	shell = sh;
-	fd = 1;
 	if (root->branches)
 	{
 		tmp = root->branches->content;
@@ -56,6 +55,6 @@ int	b_echo(void *sh, t_tree *root)
 			print_echo(tmp, 1);
 	}
 	else
-		write(fd, "\n", 1);
+		write(1, "\n", 1);
 	return (0);
 }

@@ -17,6 +17,7 @@
 extern t_shell	*g_sh;
 
 void	init_shell(t_shell *sh, char **env);
+void	set_current_dir(t_shell *sh);
 void	clear_shell(t_shell *sh);
 void	free_shell(t_shell *sh);
 void	set_terminal_settings(void);
