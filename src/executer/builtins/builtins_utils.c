@@ -44,15 +44,24 @@ int	create_file_redirect(t_tree *root)
 			fd = open(redirect[i], O_RDWR);
 			if (fd < 0)
 			{
-				printf("minishell: %s: No such file or directory\n", redirect[i]);
+				printf("minishell: %s: %s\n", redirect[i], strerror(errno));
 				return (fd);
 			}
 			fd = 1;
 		}
+		else if (!ft_strncmp(redirect[i], ">>", 2))
+		{
+			i++;
+			fd = open(redirect[i], O_RDWR | O_APPEND | O_CREAT, S_IRWXU);
+			if (fd < 0)
+				printf("minishell: %s: %s\n", redirect[i], strerror(errno));
+		}
 		else
 		{
 			i++;
-			fd = open(redirect[i], O_RDWR | O_CREAT, S_IRWXU);
+			fd = open(redirect[i], O_RDWR | O_TRUNC | O_CREAT, S_IRWXU);
+			if (fd < 0)
+				printf("minishell: %s: %s\n", redirect[i], strerror(errno));
 		}
 		i++;
 	}
