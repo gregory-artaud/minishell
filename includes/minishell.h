@@ -49,16 +49,19 @@ void	cursor_to_begin(void);
 ** lexer
 */
 int		lexer(t_shell *sh);
-int		process_line(char tmp[CMD_MAX_LENGTH], t_shell *sh, int *i, int *j);
 int		no_env_var_name(char tmp[CMD_MAX_LENGTH], int *j);
 int		is_special(char c);
-int		tokenize(char s[CMD_MAX_LENGTH], t_shell *sh);
+int		tokenize(t_shell *sh);
 void	skip_spaces(char s[CMD_MAX_LENGTH], int *i);
-void	goto_space(char s[CMD_MAX_LENGTH], int *i);
 t_token	*create_token(int type, char *value);
 int		is_redirect(char s[CMD_MAX_LENGTH], int *i);
 int		is_separator(char s[CMD_MAX_LENGTH], int *i);
 void	free_token(void *t);
+int		get_word(char s[CMD_MAX_LENGTH], int *i, char **res);
+int		process_single_quote(char s[CMD_MAX_LENGTH], int *i, char *wd, int *j);
+int		process_double_quote(char s[CMD_MAX_LENGTH], int *i, char *wd, int *j);
+int		process_backslash(char s[CMD_MAX_LENGTH], int *i, char *wd, int *j);
+int		process_env(char s[CMD_MAX_LENGTH], int *i, char *wd, int *j);
 /*
 ** parser/
 */

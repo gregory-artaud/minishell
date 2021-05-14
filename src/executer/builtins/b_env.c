@@ -10,7 +10,7 @@ int	b_env(void *sh, t_tree *root)
 	tmp = shell->env;
 	while (tmp)
 	{
-		printf("%s\n", tmp->content);
+		printf("%s\n", (char *)tmp->content);
 		tmp = tmp->next;
 	}
 	return (0);

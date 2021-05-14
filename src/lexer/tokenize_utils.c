@@ -20,7 +20,9 @@ t_token	*create_token(int type, char *value)
 	if (!new)
 		return (NULL);
 	new->type = type;
-	new->value = value;
+	new->value = ft_strdup(value);
+	if (!new->value)
+		return (NULL);
 	return (new);
 }
 

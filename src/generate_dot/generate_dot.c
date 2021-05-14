@@ -84,7 +84,7 @@ void	generate_dot(t_tree *ast)
 {
 	int	fd;
 
-	fd = open("ast.dot", O_RDWR | O_CREAT, 0777);
+	fd = open("ast.dot", O_RDWR | O_CREAT | O_TRUNC, 0777);
 	if (fd == -1)
 		return ;
 	g_sh->i = 0;
@@ -92,4 +92,5 @@ void	generate_dot(t_tree *ast)
 	parse_labels(ast, fd);
 	write_tree(fd, ast);
 	ft_putstr_fd("}", fd);
+	close(fd);
 }

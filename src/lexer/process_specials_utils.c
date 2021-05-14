@@ -9,5 +9,5 @@ int	no_env_var_name(char tmp[CMD_MAX_LENGTH], int *j)
 int	is_special(char c)
 {
 	return (c == BACKSLASH || c == DOUBLE_QUOTE
-		|| c == ENV_VARIABLE_PREFIX);
+		|| c == ENV_VARIABLE_PREFIX || c == SINGLE_QUOTE);
 }
