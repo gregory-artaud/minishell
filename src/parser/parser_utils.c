@@ -1,18 +1,20 @@
 #include "minishell.h"
 
-int	ft_nb_arg(t_shell sh, t_token *token)
+int	ft_nb_arg(t_list *tk)
 {
-	int	i;
+	t_token	*token;
+	int		nb_arg;
 
-	i = 0;
-	while (token->type == ARGUMENT && sh.tokens)
+	nb_arg = 0;
+	token = tk->content;
+	while (tk && token->type != SEPARATOR)
 	{
-		i++;
-		sh.tokens = sh.tokens->next;
-		if (sh.tokens)
-			token = sh.tokens->content;
+		token = tk->content;
+		if (token->type == ARGUMENT)
+			nb_arg++;			
+		tk = tk->next;
 	}
-	return (i);
+	return (nb_arg);
 }
 
 int	ft_nb_redirect(t_list *tk)
@@ -21,7 +23,8 @@ int	ft_nb_redirect(t_list *tk)
 	int		nb_redirect;
 
 	nb_redirect = 0;
-	while (tk)
+	token = tk->content;
+	while (tk && token->type != SEPARATOR)
 	{
 		token = tk->content;
 		if (token->type == REDIRECT)

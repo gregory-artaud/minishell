@@ -1,5 +1,5 @@
 #include "minishell.h"
-// FLECHE GAUCHE DROTE MARCHE PAS
+
 void	refresh_input(int i)
 {
 	int		len;

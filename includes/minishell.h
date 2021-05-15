@@ -8,6 +8,8 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <signal.h>
+# include <errno.h>
+# include <string.h>
 # include "libft.h"
 # include "defs.h"
 # include "execution.h"
@@ -20,6 +22,7 @@ extern t_shell	*g_sh;
 void	generate_dot(t_tree *tr);
 
 void	init_shell(t_shell *sh, char **env);
+void	set_current_dir(t_shell *sh);
 void	clear_shell(t_shell *sh);
 void	free_shell(t_shell *sh);
 void	set_terminal_settings(void);
@@ -72,13 +75,18 @@ int		ft_verif_builtin(char *builtin);
 int		fill_cmd(t_shell *sh, t_tree *tree, t_list **tk);
 void	clear_ast(t_tree **tree);
 void	ft_fill_sep(t_shell sh, t_tree *tree);
-int		ft_nb_arg(t_shell sh, t_token *token);
+int		ft_nb_arg(t_list *tk);
 void	fill_new_branche(t_token *token, t_tree **tree);
 int		ft_nb_redirect(t_list *tk);
 /*
 ** execution/
 */
 int		executer(t_shell *sh);
+int		ft_strncmpsep(char *s1, char *s2, unsigned int n, char sep);
+int		ft_strlen_sep(char *str, char sep);
+void	display_export(t_list *env, int fd);
+int		create_file_redirect(t_tree *root);
+
 /*
 ** error_interpreter/
 */
