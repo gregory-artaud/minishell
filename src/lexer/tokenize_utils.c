@@ -6,12 +6,6 @@ void	skip_spaces(char s[CMD_MAX_LENGTH], int *i)
 		(*i)++;
 }
 
-void	goto_space(char s[CMD_MAX_LENGTH], int *i)
-{
-	while (s[*i] && !ft_isspace(s[*i]))
-		(*i)++;
-}
-
 t_token	*create_token(int type, char *value)
 {
 	t_token	*new;

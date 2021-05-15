@@ -1,15 +1,14 @@
 #include "minishell.h"
-
-void	refresh_input(void)
+// FLECHE GAUCHE DROTE MARCHE PAS
+void	refresh_input(int i)
 {
 	int		len;
 	char	*s;
 
 	s = (char *)g_sh->current_line->content;
 	len = ft_strlen(s);
-	delete_l();
-	cursor_to_begin();
-	prompt();
+	move_cursor_left(i);
+	clear_line();
 	ft_putstr_fd(s, 1);
 	move_cursor_left(len - g_sh->i);
 }
@@ -54,6 +53,9 @@ void	print_history()
 
 int	controller(char c)
 {
+	int	i;
+
+	i = g_sh->i;
 	if (c == '\t')
 		return (0);
 	else if (c == 13 || c == '\n')
@@ -71,6 +73,6 @@ int	controller(char c)
 	else
 		ft_strinsert_fixed(g_sh->current_line->content, CMD_MAX_LENGTH, c,
 			(g_sh->i)++);
-	refresh_input();
+	refresh_input(i);
 	return (0);
 }

@@ -42,7 +42,7 @@ void	move_cursor_left(int i);
 int		del(void);
 void	del_screen_left(int i);
 void	del_screen_right(int i);
-void	delete_c(void);
+void	clear_line(void);
 void	delete_l(void);
 void	cursor_to_begin(void);
 /*
