@@ -1,148 +1,159 @@
 #include "minishell.h"
 
-char	*extract_word(char s[CMD_MAX_LENGTH], int *i)
+int	tokenize_redirect_file(char s[CMD_MAX_LENGTH], t_shell *sh, int *i)
 {
-	int	start;
+	int		error;
+	char	*tmp;
+	t_token	*tok;
 
 	skip_spaces(s, i);
-	if (!s[*i] || is_redirect(s, i))
-		return (NULL);
-	start = *i;
-	while (s[*i] && !ft_isspace(s[*i]) && !is_redirect(s, i)
-		&& !is_separator(s, i))
-		(*i)++;
-	if (start == *i)
-		return (NULL);
-	return (ft_substr(s, start, *i - start));
-}
-
-char	*extract_redirect(char s[CMD_MAX_LENGTH], int *i)
-{
-	if (!ft_memcmp(s + *i, REDIRECT_INPUT_TOKEN, R_I_T_LEN))
-	{
-		(*i)++;
-		return (ft_strdup(REDIRECT_INPUT_TOKEN));
-	}
-	if (!ft_memcmp(s + *i, REDIRECT_OUTPUT_APPEND_TOKEN, R_O_A_T_LEN))
-	{
-		*i = *i + 2;
-		return (ft_strdup(REDIRECT_OUTPUT_APPEND_TOKEN));
-	}
-	if (!ft_memcmp(s + *i, REDIRECT_OUTPUT_TOKEN, R_O_T_LEN))
-	{
-		(*i)++;
-		return (ft_strdup(REDIRECT_OUTPUT_TOKEN));
-	}
-	return (NULL);
-}
-
-int	tokenize_args(char s[CMD_MAX_LENGTH], t_shell *sh, int *i)
-{
-	char	*word;
-	t_token	*arg;
-
-	skip_spaces(s, i);
-	while (s[*i] && !is_redirect(s, i) && !is_separator(s, i))
-	{
-		word = extract_word(s, i);
-		if (!word)
-			word = ft_strdup("");
-		arg = create_token(ARGUMENT, word);
-		if (!arg)
-			return (MALLOC_BREAK);
-		ft_lstadd_back(&(sh->tokens), ft_lstnew(arg));
-		skip_spaces(s, i);
-	}
+	if (!s[*i])
+		return (LEX_ERR_MISSING_REDIRECT_FILE);
+	tmp = NULL;
+	error = get_word(s, i, &tmp);
+	if (error)
+		return (error);
+	if (!tmp)
+		return (LEX_ERR_MISSING_REDIRECT_FILE);
+	tok = create_token(FILE_PATH, tmp);
+	free(tmp);
+	if (!tok)
+		return (MALLOC_BREAK);
+	ft_lstadd_back(&(sh->tokens), ft_lstnew(tok));
 	return (EXIT_SUCCESS);
 }
 
 int	tokenize_redirect(char s[CMD_MAX_LENGTH], t_shell *sh, int *i)
 {
-	char	*word;
-	t_token	*token;
+	int		error;
+	char	*tmp;
+	t_token	*tok;
 
+	error = 0;
+	tmp = NULL;
 	skip_spaces(s, i);
 	if (!s[*i] || !is_redirect(s, i))
 		return (EXIT_SUCCESS);
-	word = extract_redirect(s, i);
-	if (!word)
+	if (!ft_memcmp(s + *i, REDIRECT_OUTPUT_APPEND_TOKEN, R_O_A_T_LEN))
+		tmp = ft_strdup(REDIRECT_OUTPUT_APPEND_TOKEN);
+	else if (!ft_memcmp(s + *i, REDIRECT_OUTPUT_TOKEN, R_O_T_LEN))
+		tmp = ft_strdup(REDIRECT_OUTPUT_TOKEN);
+	else if (!ft_memcmp(s + *i, REDIRECT_INPUT_TOKEN, R_I_T_LEN))
+		tmp = ft_strdup(REDIRECT_INPUT_TOKEN);
+	if (!tmp)
 		return (MALLOC_BREAK);
-	token = create_token(REDIRECT, word);
-	if (!token)
+	tok = create_token(REDIRECT, tmp);
+	*i += ft_strlen(tmp);
+	free(tmp);
+	if (!tok)
 		return (MALLOC_BREAK);
-	ft_lstadd_back(&(sh->tokens), ft_lstnew(token));
-	skip_spaces(s, i);
-	if (!s[*i] || is_separator(s, i))
-		return (LEX_ERR_MISSING_REDIRECT_FILE);
-	word = extract_word(s, i);
-	if (!word)
-		return (MALLOC_BREAK);
-	token = create_token(FILE_PATH, word);
-	if (!token)
-		return (MALLOC_BREAK);
-	ft_lstadd_back(&(sh->tokens), ft_lstnew(token));
+	ft_lstadd_back(&(sh->tokens), ft_lstnew(tok));
+	error = tokenize_redirect_file(s, sh, i);
+	if (error)
+		return (error);
 	return (tokenize_redirect(s, sh, i));
+}
+
+int	tokenize_exec(char s[CMD_MAX_LENGTH], t_shell *sh, int *i)
+{
+	int		error;
+	char	*tmp;
+	t_token	*tok;
+
+	skip_spaces(s, i);
+	error = tokenize_redirect(s, sh, i);
+	if (error)
+		return (error);
+	tmp = NULL;
+	error = get_word(s, i, &tmp);
+	if (error)
+		return (error);
+	if (!tmp)
+		tmp = ft_strdup("");
+	tok = create_token(EXECUTABLE, tmp);
+	free(tmp);
+	if (!tok)
+		return (MALLOC_BREAK);
+	ft_lstadd_back(&(sh->tokens), ft_lstnew(tok));
+	return (EXIT_SUCCESS);
+}
+
+
+int	tokenize_args(char s[CMD_MAX_LENGTH], t_shell *sh, int *i)
+{
+	char	*arg;
+	int		error;
+	t_token	*tok;
+
+	error = tokenize_redirect(s, sh, i);
+	if (error)
+		return (error);
+	skip_spaces(s, i);
+	arg = NULL;
+	error = get_word(s, i, &arg);
+	if (error)
+		return (error);
+	if (!arg)
+		return (EXIT_SUCCESS);
+	tok = create_token(ARGUMENT, arg);
+	free(arg);
+	if (!tok)
+		return (MALLOC_BREAK);
+	ft_lstadd_back(&(sh->tokens), ft_lstnew(tok));
+	return (tokenize_args(s, sh, i));
 }
 
 int	tokenize_separator(char s[CMD_MAX_LENGTH], t_shell *sh, int *i)
 {
-	char	*word;
-	t_token	*token;
+	int		error;
+	char	*sep;
+	t_token	*tok;
 
+	error = tokenize_redirect(s, sh, i);
+	if (error)
+		return (error);
 	skip_spaces(s, i);
 	if (!s[*i])
 		return (EXIT_SUCCESS);
 	if (!is_separator(s, i))
 		return (LEX_ERR_EXPECTED_SEPARATOR);
-	word = ft_strndup(s + *i, 1);
-	if (!word)
+	sep = ft_strndup(s + (*i)++, 1);
+	if (!sep)
 		return (MALLOC_BREAK);
-	(*i)++;
-	token = create_token(SEPARATOR, word);
-	if (!token)
+	tok = create_token(SEPARATOR, sep);
+	if (!tok)
 		return (MALLOC_BREAK);
-	ft_lstadd_back(&(sh->tokens), ft_lstnew(token));
+	ft_lstadd_back(&(sh->tokens), ft_lstnew(tok));
 	return (EXIT_SUCCESS);
 }
 
-int	tokenize_cmd(char s[CMD_MAX_LENGTH], t_shell *sh, int *i)
+int tokenize_cmd(char s[CMD_MAX_LENGTH], t_shell *sh, int *i)
 {
-	char	*word;
-	t_token	*exec;
 	int		error;
 
+	skip_spaces(s, i);
 	if (!s[*i])
 		return (EXIT_SUCCESS);
-	error = tokenize_redirect(s, sh, i);
+	error = tokenize_exec(s, sh, i);
 	if (error)
 		return (error);
-	word = extract_word(s, i);
-	if (!word)
-		return (LEX_ERR_UNKNOWN_COMMAND);
-	exec = create_token(EXECUTABLE, word);
-	if (!exec)
-		return (MALLOC_BREAK);
-	ft_lstadd_back(&(sh->tokens), ft_lstnew(exec));
 	error = tokenize_args(s, sh, i);
 	if (error)
 		return (error);
-	error = tokenize_redirect(s, sh, i);
+	error = tokenize_separator(s, sh, i);
 	if (error)
 		return (error);
-	error = tokenize_separator(s, sh, i);
-	if (!error)
-		return (tokenize_cmd(s, sh, i));
-	return (error);
+	return (tokenize_cmd(s, sh, i));
 }
 
-int	tokenize(char s[CMD_MAX_LENGTH], t_shell *sh)
+int	tokenize(t_shell *sh)
 {
 	int	error;
 	int	i;
 
-	if (!*s)
+	if (!*(sh->cmd))
 		return (EXIT_SUCCESS);
 	i = 0;
-	error = tokenize_cmd(s, sh, &i);
+	error = tokenize_cmd(sh->cmd, sh, &i);
 	return (error);
 }

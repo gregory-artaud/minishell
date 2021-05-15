@@ -31,9 +31,6 @@ void	print_token(t_list *lst)
 
 int	lexer(t_shell *sh)
 {
-	char	tmp[CMD_MAX_LENGTH];
-	int		i;
-	int		j;
 	int		error;
 
 	read_line(sh);
@@ -46,17 +43,7 @@ int	lexer(t_shell *sh)
 		free_shell(sh);
 		exit(0);
 	}
-	ft_bzero(tmp, CMD_MAX_LENGTH);
-	error = 0;
-	i = 0;
-	j = 0;
-	while (sh->cmd[i])
-	{
-		error = process_line(tmp, sh, &i, &j);
-		if (error)
-			return (error);
-	}
-	error = tokenize(tmp, sh);
-	//print_token(sh->tokens);
+	error = tokenize(sh);
+	print_token(sh->tokens);
 	return (error);
 }

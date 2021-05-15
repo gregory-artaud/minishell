@@ -20,9 +20,11 @@ void	print_error(int error)
 	else if (error == INIT_ERR_TERM_ENV)
 		ft_putstr_fd("missing \"TERM\" environement variable.\n", STDERR_FILENO);
 	else if (error == INIT_ERR_TERM_DB)
-		ft_putstr_fd("Could not access to the termcap database.\n",
+		ft_putstr_fd("could not access to the termcap database.\n",
 			STDERR_FILENO);
 	else if (error == INIT_ERR_TERM_UNKNOWN_NAME)
-		ft_putstr_fd("Terminal type is not definded in the termcap database.\n",
+		ft_putstr_fd("terminal type is not definded in the termcap database.\n",
 			STDERR_FILENO);
+	else if (error == LEX_ERR_UNKNOWN_SPECIAL_CHAR)
+		ft_putstr_fd("unknown special character.\n", STDERR_FILENO);
 }

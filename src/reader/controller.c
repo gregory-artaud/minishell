@@ -1,15 +1,14 @@
 #include "minishell.h"
 
-void	refresh_input(void)
+void	refresh_input(int i)
 {
 	int		len;
 	char	*s;
 
 	s = (char *)g_sh->current_line->content;
 	len = ft_strlen(s);
-	delete_l();
-	cursor_to_begin();
-	prompt();
+	move_cursor_left(i);
+	clear_line();
 	ft_putstr_fd(s, 1);
 	move_cursor_left(len - g_sh->i);
 }
@@ -26,7 +25,7 @@ int	termcap(char c)
 		term_right();
 	else if (c == 'D')
 		term_left();
-	return (0);
+	return (c != 'C' && c != 'D');
 }
 
 void	ft_strinsert_fixed(char *s, int size, char c, int index)
@@ -54,6 +53,11 @@ void	print_history()
 
 int	controller(char c)
 {
+	int	i;
+	int	refresh;
+
+	i = g_sh->i;
+	refresh = 1;
 	if (c == '\t')
 		return (0);
 	else if (c == 13 || c == '\n')
@@ -65,12 +69,13 @@ int	controller(char c)
 	else if (c == EOT)
 		return (ctrl_d());
 	else if (c == 27)
-		termcap(c);
+		refresh = termcap(c);
 	else if (c == 127)
 		del();
 	else
 		ft_strinsert_fixed(g_sh->current_line->content, CMD_MAX_LENGTH, c,
 			(g_sh->i)++);
-	refresh_input();
+	if (refresh)
+		refresh_input(i);
 	return (0);
 }

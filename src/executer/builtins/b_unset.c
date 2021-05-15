@@ -9,6 +9,7 @@ void	unset_var(t_shell *sh, t_tree *root)
 
 	root = root->branches->content;
 	var = (char **)(root->content);
+	before = NULL;
 	i = 0;
 	while (i < root->size)
 	{

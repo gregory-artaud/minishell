@@ -26,6 +26,14 @@ void	delete_l(void)
 	tputs(tc, 1, ft_putchar);
 }
 
+void	clear_line(void)
+{
+	char	*tc;
+
+	tc = tgetstr("ce", NULL);
+	tputs(tc, 1, ft_putchar);
+}
+
 void	cursor_to_begin(void)
 {
 	char	*tc;
