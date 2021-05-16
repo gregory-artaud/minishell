@@ -14,7 +14,6 @@ int	b_pwd(void *sh, t_tree *root)
 		if (tmp->type == REDIRECT || root->branches->next)
 			fd = create_file_redirect(tmp);
 	}
-	write(fd, shell->pwd_path, ft_strlen(shell->pwd_path));
-	write(fd, "\n", 1);
+	ft_putendl_fd(shell->pwd_path, fd);
 	return (0);
 }

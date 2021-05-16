@@ -34,6 +34,7 @@ int	create_file_redirect(t_tree *root)
 	int		i;
 	int		fd;
 
+	fd = -1;
 	redirect = root->content;
 	i = 0;
 	while (redirect[i])

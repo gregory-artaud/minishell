@@ -20,17 +20,17 @@ char	**list_to_char(t_list *env)
 
 void	print_export(char *str, int fd)
 {
-	write(fd, "declare -x ", 11);
+	ft_putstr_fd("declare -x ", fd);
 	while (*str != '=')
 	{
-		write(fd, str, 1);
+		ft_putchar_fd(*str, fd);
 		str++;
 	}
-	write(fd, str, 1);
+	ft_putchar_fd(*str, fd);
 	str++;
-	write(fd, "\"", 1);
-	write(fd, str, ft_strlen(str));
-	write(fd, "\"\n", 2);
+	ft_putchar_fd(DOUBLE_QUOTE, fd);
+	ft_putstr_fd(str, fd);
+	ft_putendl_fd("\"", fd);
 }
 
 char	**sort_env(t_list *env)

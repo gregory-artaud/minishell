@@ -16,13 +16,13 @@ void	print_echo(t_tree *arg, int fd)
 	}
 	while (tableau[i])
 	{
-		write(fd, tableau[i], ft_strlen(tableau[i]));
+		ft_putstr_fd(tableau[i], fd);
 		if (tableau[i + 1])
-			write(fd, " ", 1);
+			ft_putchar_fd(' ', fd);
 		i++;
 	}
 	if (!option)
-		write(fd, "\n", 1);
+		ft_putchar_fd('\n', fd);
 }
 
 void	display_echo(t_tree *redir, t_tree *arg)
@@ -40,14 +40,16 @@ int	b_echo(void *sh, t_tree *root)
 	t_tree	*tmp;
 	int		fd;
 
+	fd = -1;
 	shell = sh;
+	(void)shell;
 	if (root->branches)
 	{
 		tmp = root->branches->content;
 		if (tmp->type == REDIRECT)
 		{
 			fd = create_file_redirect(tmp);
-			write(fd, "\n", 1);
+			ft_putchar_fd('\n', fd);
 		}
 		else if (root->branches->next)
 			display_echo(root, tmp);
@@ -55,6 +57,6 @@ int	b_echo(void *sh, t_tree *root)
 			print_echo(tmp, 1);
 	}
 	else
-		write(1, "\n", 1);
+		ft_putchar_fd('\n', STDOUT_FILENO);
 	return (0);
 }
