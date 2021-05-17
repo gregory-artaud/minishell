@@ -9,7 +9,7 @@ void	print_echo(t_tree *arg, int fd)
 	i = 0;
 	tableau = arg->content;
 	option = 0;
-	if (!ft_strncmp("-n", tableau[i], 2))
+	if (ft_strncmp("-n", tableau[i], 3) == 0)
 	{
 		option = 1;
 		i++;
