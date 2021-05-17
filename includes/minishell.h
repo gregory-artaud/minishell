@@ -10,6 +10,7 @@
 # include <signal.h>
 # include <errno.h>
 # include <string.h>
+# include <wait.h>
 # include "libft.h"
 # include "defs.h"
 # include "execution.h"
