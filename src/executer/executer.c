@@ -29,7 +29,7 @@ void	exec_file(t_tree *tr)
 		if (!ft_tr_isleaf(tr))
 			args = (char **)ft_tr_leftchild(tr)->content;
 		exec = (char *)tr->content;
-		printf("execve:%d\n", execve(exec, args, g_sh->penv));
+		printf("execve:%d\n", execve(exec, args, NULL));
 	}
 	else
 	{

@@ -64,7 +64,6 @@ void	init_shell(t_shell *sh, char **env)
 	sh->i = 0;
 	sh->status = 0;
 	sh->ast = NULL;
-	sh->penv = env;
 	init_env(sh, env);
 	sh->tokens = NULL;
 	sh->cmd_history = ft_dlstnew(ft_calloc(CMD_MAX_LENGTH, sizeof(char)));
