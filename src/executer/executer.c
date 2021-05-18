@@ -51,7 +51,6 @@ int	exec_file(t_tree *tr)
 		printf("Internal error (cannot create new process)\n");
 	else if (pid == 0)
 	{
-		set_signals();
 		argv = fill_argv(tr);
 		exec = ft_strdup((char *)tr->content);
 		//print_args(argv);
@@ -64,6 +63,8 @@ int	exec_file(t_tree *tr)
 	}
 	else
 	{
+		g_sh->child_pid = pid;
+		set_signals();
 		waitpid(pid, &status, 0);
 		reset_signals();
 		return (WEXITSTATUS(status));

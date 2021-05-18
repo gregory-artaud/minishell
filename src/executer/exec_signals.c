@@ -6,11 +6,23 @@ void	segfault(int i)
 	exit(i);
 }
 
+void	send_int(int i)
+{
+	(void)i;
+	kill(g_sh->child_pid, SIGINT);
+}
+
+void	send_quit(int i)
+{
+	(void)i;
+	kill(g_sh->child_pid, SIGQUIT);
+}
+
 void	set_signals(void)
 {
 	signal(SIGSEGV, segfault);
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, send_int);
+	signal(SIGQUIT, send_quit);
 }
 
 void	reset_signals(void)

@@ -42,6 +42,7 @@ void	init_builtins(t_shell *sh)
 
 void	clear_shell(t_shell *sh)
 {
+	reset_signals();
 	ft_lstclear(&(sh->tokens), free_token);
 	clear_ast(&(sh->ast));
 }
