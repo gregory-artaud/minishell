@@ -47,8 +47,9 @@ int	verif_separator(char **redir, int *i, int *fd)
 		*fd = open(redir[*i], O_RDWR | O_APPEND | O_CREAT, S_IRWXU);
 		if (*fd < 0)
 			printf("minishell: %s: %s\n", redir[*i], strerror(errno));
+		return (1);
 	}
-	return (1);
+	return (0);
 }
 
 int	create_file_redirect(t_tree *root)
@@ -66,7 +67,7 @@ int	create_file_redirect(t_tree *root)
 		verif = verif_separator(redirect, &i, &fd);
 		if (verif < 0)
 			return (verif);
-		else
+		else if (verif == 0)
 		{
 			i++;
 			fd = open(redirect[i], O_RDWR | O_TRUNC | O_CREAT, S_IRWXU);

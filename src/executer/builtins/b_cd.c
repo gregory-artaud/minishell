@@ -17,7 +17,11 @@ void	verif_redirect(t_tree *root)
 
 	tmp = root->branches->content;
 	if (tmp->type == REDIRECT)
+	{
 		create_file_redirect(tmp);
+		if (chdir(ft_lstgetenv("HOME")) < 0)
+			printf("minishell: %s: %s\n", (char *)root->content, strerror(errno));
+	}
 	else if (root->branches->next)
 	{
 		tmp = root->branches->next->content;
