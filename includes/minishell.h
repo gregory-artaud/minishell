@@ -88,6 +88,7 @@ int		ft_strncmpsep(char *s1, char *s2, unsigned int n, char sep);
 int		ft_strlen_sep(char *str, char sep);
 void	display_export(t_list *env, int fd);
 int		create_file_redirect(t_tree *root);
+char	**list_to_char(t_list *env);
 
 /*
 ** error_interpreter/

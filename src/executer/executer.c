@@ -55,7 +55,7 @@ int	exec_file(t_tree *tr)
 		exec = ft_strdup((char *)tr->content);
 		//print_args(argv);
 		free_shell(g_sh);
-		execve(exec, argv, NULL);
+		execve(exec, argv, list_to_char(g_sh->env));
 		ft_free_strarray(argv);
 		printf("minishell: command not found: %s\n", exec);
 		free(exec);
