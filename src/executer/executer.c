@@ -57,7 +57,9 @@ int	exec_file(t_tree *tr)
 		//print_args(argv);
 		free_shell(g_sh);
 		execve(exec, argv, NULL);
+		ft_free_strarray(argv);
 		printf("minishell: command not found: %s\n", exec);
+		free(exec);
 		exit(127);
 	}
 	else

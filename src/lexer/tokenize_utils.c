@@ -16,7 +16,10 @@ t_token	*create_token(int type, char *value)
 	new->type = type;
 	new->value = ft_strdup(value);
 	if (!new->value)
+	{
+		free(new);
 		return (NULL);
+	}
 	return (new);
 }
 

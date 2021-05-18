@@ -42,11 +42,8 @@ void	init_builtins(t_shell *sh)
 
 void	clear_shell(t_shell *sh)
 {
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, new_cmd);
 	ft_lstclear(&(sh->tokens), free_token);
 	clear_ast(&(sh->ast));
-	sh->ast = NULL;
 }
 
 void	init_env(t_shell *sh, char **env)
@@ -57,7 +54,7 @@ void	init_env(t_shell *sh, char **env)
 	sh->env = 0;
 	while (env[i])
 	{
-		ft_lstadd_back(&sh->env, ft_lstnew(env[i]));
+		ft_lstadd_back(&(sh->env), ft_lstnew(ft_strdup(env[i])));
 		i++;
 	}
 }
@@ -82,6 +79,7 @@ void	init_shell(t_shell *sh, char **env)
 void	free_shell(t_shell *sh)
 {
 	ft_lstclear(&(sh->tokens), free_token);
+	ft_lstclear(&(sh->env), free);
 	ft_dlstclear(&(sh->cmd_history), free);
 	ft_free_strarray(sh->b_str);
 	clear_ast(&(sh->ast));

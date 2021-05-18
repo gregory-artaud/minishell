@@ -6,7 +6,7 @@
 /*   By: gartaud <gartaud@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 11:40:16 by gartaud           #+#    #+#             */
-/*   Updated: 2021/05/09 14:39:11 by gartaud          ###   ########lyon.fr   */
+/*   Updated: 2021/05/18 16:20:44 by gartaud          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 	while (current)
 	{
 		next = current->next;
-		del(current->content);
+		if (current->content)
+			del(current->content);
 		free(current);
 		current = next;
 	}

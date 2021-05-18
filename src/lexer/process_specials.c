@@ -20,7 +20,7 @@ int	process_env(char s[CMD_MAX_LENGTH], int *i, char *wd, int *j)
 	name = ft_substr(s, start, len);
 	if (!value)
 	{
-		value = ft_strdup(ft_lstgetenv(name));
+		value = ft_lstgetenv(name);
 		free(name);
 	}
 	ft_strlcpy(wd + *j, value, ft_strlen(value) + 1);

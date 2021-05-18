@@ -5,10 +5,11 @@ int	init_terminal(void)
 	char	*name;
 	int		ret;
 
-	name = getenv("TERM");
+	name = ft_lstgetenv("TERM");
 	if (!name)
 		return (INIT_ERR_TERM_ENV);
 	ret = tgetent(NULL, name);
+	free(name);
 	if (ret == -1)
 		return (INIT_ERR_TERM_DB);
 	if (ret == 0)

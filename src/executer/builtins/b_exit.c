@@ -16,7 +16,7 @@ int	b_exit(void *sh, t_tree *root)
 	}
 	if (fd > 0)
 	{
-		clear_ast(&shell->ast);
+		free_shell(shell);
 		exit(0);
 	}
 	return (0);
