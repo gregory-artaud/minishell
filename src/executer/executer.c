@@ -53,8 +53,9 @@ int	exec_file(t_tree *tr)
 	{
 		set_signals();
 		argv = fill_argv(tr);
-		exec = (char *)tr->content;
+		exec = ft_strdup((char *)tr->content);
 		//print_args(argv);
+		free_shell(g_sh);
 		execve(exec, argv, NULL);
 		printf("minishell: command not found: %s\n", exec);
 		exit(127);

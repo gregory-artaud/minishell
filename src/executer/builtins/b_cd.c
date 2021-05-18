@@ -37,7 +37,7 @@ int	b_cd(void *sh, t_tree *root)
 		verif_redirect(root);
 	else
 		if (chdir(ft_lstgetenv("HOME")) < 0)
-			printf("minishell: %s: %s\n", root->content, strerror(errno));
+			printf("minishell: %s: %s\n", (char *)root->content, strerror(errno));
 	if (!getcwd(shell->pwd_path, PWD_PATH_MAX_LENGTH))
 		ft_bzero(shell->pwd_path, PWD_PATH_MAX_LENGTH);
 	free(shell->pwd);
