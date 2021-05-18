@@ -10,6 +10,7 @@
 # include <signal.h>
 # include <errno.h>
 # include <string.h>
+# include <wait.h>
 # include "libft.h"
 # include "defs.h"
 # include "execution.h"
@@ -61,6 +62,7 @@ int		is_redirect(char s[CMD_MAX_LENGTH], int *i);
 int		is_separator(char s[CMD_MAX_LENGTH], int *i);
 void	free_token(void *t);
 int		get_word(char s[CMD_MAX_LENGTH], int *i, char **res);
+char	*ft_lstgetenv(char *name);
 int		process_single_quote(char s[CMD_MAX_LENGTH], int *i, char *wd, int *j);
 int		process_double_quote(char s[CMD_MAX_LENGTH], int *i, char *wd, int *j);
 int		process_backslash(char s[CMD_MAX_LENGTH], int *i, char *wd, int *j);
