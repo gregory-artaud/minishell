@@ -70,11 +70,12 @@ void	init_shell(t_shell *sh, char **env)
 	init_env(sh, env);
 	sh->tokens = NULL;
 	sh->cmd_history = ft_dlstnew(ft_calloc(CMD_MAX_LENGTH, sizeof(char)));
+	sh->pwd_path = ft_calloc(PWD_PATH_MAX_LENGTH, sizeof(char));
 	sh->current_line = sh->cmd_history;
 	init_terminal();
 	init_builtins(sh);
 	if (!getcwd(sh->pwd_path, PWD_PATH_MAX_LENGTH))
-		ft_bzero(sh->pwd_path, PWD_PATH_MAX_LENGTH);
+		sh->pwd_path = ft_strdup("/");
 	set_current_dir(sh);
 }
 
