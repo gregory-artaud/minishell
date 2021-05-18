@@ -44,6 +44,6 @@ int	lexer(t_shell *sh)
 		exit(0);
 	}
 	error = tokenize(sh);
-	print_token(sh->tokens);
+	//print_token(sh->tokens);
 	return (error);
 }

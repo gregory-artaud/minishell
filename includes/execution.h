@@ -14,5 +14,11 @@ int	b_export(void *sh, t_tree *root);
 int	b_unset(void *sh, t_tree *root);
 int	b_env(void *sh, t_tree *root);
 int	b_exit(void *sh, t_tree *root);
+/*
+** exec_signals
+*/
+void	segfault(int i);
+void	set_signals(void);
+void	reset_signals(void);
 
 #endif

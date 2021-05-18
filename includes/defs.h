@@ -40,6 +40,7 @@ enum e_errors {
 	LEX_ERR_UNKNOWN_COMMAND,
 	LEX_ERR_UNKNOWN_SPECIAL_CHAR,
 	EXE_ERR_MISSING_AST,
+	EXE_ERR_EXEC_FAILED,
 	MALLOC_BREAK
 };
 
@@ -82,6 +83,7 @@ typedef struct s_shell
 	int				b_strlen[NO_BUILTINS]; // builtin functions names length
 	t_dlist			*cmd_history; // double list of previous commands
 	t_dlist			*current_line;
+	int				does_last_exec_failed;
 }				t_shell;
 
 #endif

@@ -35,8 +35,6 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	g_sh = &sh;
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, new_cmd);
 	init_shell(&sh, env);
 	while (1)
 	{
