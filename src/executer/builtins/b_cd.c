@@ -36,10 +36,12 @@ int	b_cd(void *sh, t_tree *root)
 	if (root->branches)
 		verif_redirect(root);
 	else
-		if (chdir(getenv("HOME")) < 0)
-			printf("minishell: %s: %s\n", "test", strerror(errno));
+		if (chdir(ft_lstgetenv("HOME")) < 0)
+			printf("minishell: %s: %s\n", root->content, strerror(errno));
 	if (!getcwd(shell->pwd_path, PWD_PATH_MAX_LENGTH))
 		ft_bzero(shell->pwd_path, PWD_PATH_MAX_LENGTH);
+	free(shell->pwd);
+	shell->pwd = NULL;
 	set_current_dir(shell);
 	return (0);
 }
