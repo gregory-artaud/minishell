@@ -1,77 +1,104 @@
 #include "minishell.h"
 
-void	exec_builtin(t_tree *tr, int i)
+int	exec_builtin(t_tree *tr, int i)
 {
-	g_sh->status = g_sh->b_fct[i](g_sh, tr);
-	return ;
+	return (g_sh->b_fct[i](g_sh, tr));
 }
 
-void	test(int i)
+char	**fill_argv(t_tree *tr)
 {
-	(void)i;
-	printf("segfault!\n");
-	exit(1);
+	char	**argv;
+	int		argc;
+	int		len;
+	t_tree	*node;
+	int		i;
+
+	node = ft_tr_leftchild(tr);
+	if (!node || node->type != ARGUMENT)
+		argc = 0;
+	else
+		argc = node->size;
+	len = argc + 1;
+	argv = malloc(sizeof(char *) * (len + 1));
+	if (!argv)
+		return (NULL);
+	argv[0] = ft_strdup((char *)tr->content);
+	argv[len] = NULL;
+	i = -1;
+	while (++i < argc)
+		argv[i + 1] = ft_strdup(((char **)node->content)[i]);
+	return (argv);
 }
 
-void	exec_file(t_tree *tr)
+void	print_args(char **args)
+{
+	int	i;
+
+	i = 0;
+	while (args[i])
+		printf("%s\n", args[i++]);
+}
+
+int	exec_file(t_tree *tr)
 {
 	int		pid;
-	char	**args;
+	int		status;
+	char	**argv;
 	char	*exec;
 
-	args = NULL;
 	pid = fork();
 	if (pid == -1)
-		return ;
-	if (pid == 0)
+		printf("Internal error (cannot create new process)\n");
+	else if (pid == 0)
 	{
-		signal(SIGSEGV, test);
-		if (!ft_tr_isleaf(tr))
-			args = (char **)ft_tr_leftchild(tr)->content;
+		set_signals();
+		argv = fill_argv(tr);
 		exec = (char *)tr->content;
-		printf("execve:%d\n", execve(exec, args, NULL));
+		//print_args(argv);
+		execve(exec, argv, NULL);
+		printf("minishell: command not found: %s\n", exec);
+		exit(127);
 	}
 	else
 	{
-		// parent
-		//printf("parent! (pid:%d)\n", pid);
-		waitpid(pid, &(g_sh->status), 0);
+		waitpid(pid, &status, 0);
+		reset_signals();
+		return (WEXITSTATUS(status));
 	}
-	return ;
+	return (EXIT_FAILURE);
 }
 
-void	execute_command(t_tree *tr)
+int	execute_command(t_tree *tr)
 {
 	int		i;
 	char	*exec;
 
 	if (tr->type != EXECUTABLE) // TO REMOVE !
-		return ;
+		return (EXIT_FAILURE);
 	exec = (char *)tr->content;
 	i = 0;
-	while (i < NO_BUILTINS && ft_memcmp(exec, g_sh->b_str[i], g_sh->b_strlen[i]))
+	while (i < NO_BUILTINS && ft_memcmp(exec, g_sh->b_str[i], g_sh->b_strlen[i] + 1))
 		i++;
 	if (i < NO_BUILTINS)
-		exec_builtin(tr, i);
-	else
-		exec_file(tr);
-	return ;
+		return (exec_builtin(tr, i));
+	return (exec_file(tr));
 }
 
-void	run_tree(t_shell *sh)
+int	run_tree(t_shell *sh)
 {
 	t_tree	*tr;
 
 	tr = sh->ast;
-	execute_command(tr);
+	return (execute_command(tr));
 }
 
 int	executer(t_shell *sh)
 {
+	int	status;
 
 	if (!sh->ast)
 		return (EXE_ERR_MISSING_AST);
-	generate_dot(sh->ast);
-	run_tree(sh);
-	return (EXIT_SUCCESS);
+	//generate_dot(sh->ast);
+	status = run_tree(sh);
+	return (status);
 }

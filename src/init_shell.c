@@ -42,8 +42,11 @@ void	init_builtins(t_shell *sh)
 
 void	clear_shell(t_shell *sh)
 {
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, new_cmd);
 	ft_lstclear(&(sh->tokens), free_token);
-	//free_ast(sh->ast);
+	clear_ast(&(sh->ast));
+	sh->ast = NULL;
 }
 
 void	init_env(t_shell *sh, char **env)
@@ -80,5 +83,6 @@ void	free_shell(t_shell *sh)
 	ft_lstclear(&(sh->tokens), free_token);
 	ft_dlstclear(&(sh->cmd_history), free);
 	ft_free_strarray(sh->b_str);
+	clear_ast(&(sh->ast));
 	free(sh->pwd);
 }
