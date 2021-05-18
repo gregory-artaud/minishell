@@ -85,4 +85,5 @@ void	free_shell(t_shell *sh)
 	ft_free_strarray(sh->b_str);
 	clear_ast(&(sh->ast));
 	free(sh->pwd);
+	free(sh->pwd_path);
 }
