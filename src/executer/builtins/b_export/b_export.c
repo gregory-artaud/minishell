@@ -72,16 +72,16 @@ int	b_export(void *sh, t_tree *root)
 	shell = sh;
 	if (root->branches)
 	{
-			tmp = root->branches->content;
-			if (tmp->type == REDIRECT)
-				ft_export_red(tmp, shell->env, 1);
-			else if (root->branches->next)
-			{
-				new_env(shell, root);
-				ft_export_red(tmp, shell->env, 0);
-			}
-			else
-				new_env(shell, root);
+		tmp = root->branches->content;
+		if (tmp->type == REDIRECT)
+			ft_export_red(tmp, shell->env, 1);
+		else if (root->branches->next)
+		{
+			new_env(shell, root);
+			ft_export_red(tmp, shell->env, 0);
+		}
+		else
+			new_env(shell, root);
 	}
 	else
 		display_export(shell->env, 1);

@@ -28,35 +28,44 @@ int	ft_strlen_sep(char *str, char sep)
 	return (i);
 }
 
+int	verif_separator(char **redir, int *i, int *fd)
+{
+	if (ft_strncmp(redir[*i], ">", 1) && ft_strncmp(redir[*i], ">>", 2))
+	{
+		(*i)++;
+		*fd = open(redir[*i], O_RDWR);
+		if (*fd < 0)
+		{
+			printf("minishell: %s: %s\n", redir[*i], strerror(errno));
+			return (*fd);
+		}
+		*fd = 1;
+	}
+	else if (!ft_strncmp(redir[*i], ">>", 2))
+	{
+		(*i)++;
+		*fd = open(redir[*i], O_RDWR | O_APPEND | O_CREAT, S_IRWXU);
+		if (*fd < 0)
+			printf("minishell: %s: %s\n", redir[*i], strerror(errno));
+	}
+	return (1);
+}
+
 int	create_file_redirect(t_tree *root)
 {
 	char	**redirect;
 	int		i;
 	int		fd;
+	int		verif;
 
 	fd = -1;
 	redirect = root->content;
 	i = 0;
 	while (redirect[i])
 	{
-		if (ft_strncmp(redirect[i], ">", 1) && ft_strncmp(redirect[i], ">>", 2))
-		{
-			i++;
-			fd = open(redirect[i], O_RDWR);
-			if (fd < 0)
-			{
-				printf("minishell: %s: %s\n", redirect[i], strerror(errno));
-				return (fd);
-			}
-			fd = 1;
-		}
-		else if (!ft_strncmp(redirect[i], ">>", 2))
-		{
-			i++;
-			fd = open(redirect[i], O_RDWR | O_APPEND | O_CREAT, S_IRWXU);
-			if (fd < 0)
-				printf("minishell: %s: %s\n", redirect[i], strerror(errno));
-		}
+		verif = verif_separator(redirect, &i, &fd);
+		if (verif < 0)
+			return (verif);
 		else
 		{
 			i++;

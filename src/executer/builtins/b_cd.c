@@ -3,6 +3,7 @@
 int	change_dir(t_tree *root)
 {
 	char	**path;
+
 	root = root->branches->content;
 	path = root->content;
 	if (chdir(path[0]) < 0)
@@ -16,11 +17,7 @@ void	verif_redirect(t_tree *root)
 
 	tmp = root->branches->content;
 	if (tmp->type == REDIRECT)
-	{
 		create_file_redirect(tmp);
-		if (chdir(getenv("HOME")) < 0)
-			printf("minishell: %s: %s\n", "test", strerror(errno));
-	}
 	else if (root->branches->next)
 	{
 		tmp = root->branches->next->content;

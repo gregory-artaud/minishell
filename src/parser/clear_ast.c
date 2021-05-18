@@ -55,7 +55,6 @@ void	clear_ast(t_tree **tree)
 		clear_ast(&next);
 		if ((*tree)->branches->next)
 		{
-			// clear_redirect(*tree);
 			new = (*tree)->branches->next;
 			next = new->content;
 			free(new);

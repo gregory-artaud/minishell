@@ -25,7 +25,7 @@ int	b_env(void *sh, t_tree *root)
 
 	shell = sh;
 	if (root->branches)
-  {
+	{
 		tmp = root->branches->content;
 		if (tmp->type == REDIRECT)
 			display_env(tmp, shell->env, 1);

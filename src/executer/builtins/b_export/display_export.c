@@ -10,7 +10,8 @@ char	**list_to_char(t_list *env)
 	while (env)
 	{
 		tableau[i] = malloc(sizeof(char) * (ft_strlen(env->content) + 1));
-		tableau[i] = ft_strncpy(tableau[i], env->content, ft_strlen(env->content));
+		tableau[i] = ft_strncpy(tableau[i], env->content,
+				ft_strlen(env->content));
 		i++;
 		env = env->next;
 	}
