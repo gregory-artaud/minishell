@@ -35,13 +35,18 @@ void	verif_redirect(t_tree *root)
 int	b_cd(void *sh, t_tree *root)
 {
 	t_shell	*shell;
+	char	*env_home;
 
 	shell = sh;
 	if (root->branches)
 		verif_redirect(root);
 	else
-		if (chdir(ft_lstgetenv("HOME")) < 0)
+	{
+		env_home = ft_lstgetenv("HOME");
+		if (chdir(env_home) < 0)
 			printf("minishell: %s: %s\n", (char *)root->content, strerror(errno));
+		free(env_home);
+	}
 	if (!getcwd(shell->pwd_path, PWD_PATH_MAX_LENGTH))
 		ft_bzero(shell->pwd_path, PWD_PATH_MAX_LENGTH);
 	free(shell->pwd);
