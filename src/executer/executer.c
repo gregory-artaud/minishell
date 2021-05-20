@@ -77,9 +77,14 @@ int	execute_command(t_tree *tr)
 	int		i;
 	char	*exec;
 
-	if (tr->type != EXECUTABLE) // TO REMOVE !
+	if (tr->type != EXECUTABLE)
 		return (EXIT_FAILURE);
 	exec = (char *)tr->content;
+	if (!ft_strlen(exec))
+	{
+		create_file_redirect(ft_tr_leftchild(tr));
+		return (EXIT_SUCCESS);
+	}
 	i = 0;
 	while (i < NO_BUILTINS && ft_memcmp(exec, g_sh->b_str[i], g_sh->b_strlen[i] + 1))
 		i++;
