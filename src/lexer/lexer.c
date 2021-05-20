@@ -39,6 +39,6 @@ int	lexer(t_shell *sh)
 		return (EXIT_SUCCESS);
 	push_to_history(sh);
 	error = tokenize(sh);
-	//print_token(sh->tokens);
+	print_token(sh->tokens);
 	return (error);
 }
