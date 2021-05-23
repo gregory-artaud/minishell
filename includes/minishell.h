@@ -89,7 +89,9 @@ int		ft_strlen_sep(char *str, char sep);
 void	display_export(t_list *env, int fd);
 int		create_file_redirect(t_tree *root);
 char	**list_to_char(t_list *env);
-
+int		create_files(t_tree *tr);
+int		execute_command(t_tree *tr);
+int		exec_file(t_tree *tr);
 /*
 ** error_interpreter/
 */

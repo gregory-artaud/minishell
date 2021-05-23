@@ -41,6 +41,10 @@ enum e_errors {
 	LEX_ERR_UNKNOWN_SPECIAL_CHAR,
 	EXE_ERR_MISSING_AST,
 	EXE_ERR_EXEC_FAILED,
+	EXE_ERR_FILE_CREATION,
+	EXE_ERR_DUP_FD,
+	EXE_ERR_OPEN_FILE,
+	EXE_ERR_FORK,
 	MALLOC_BREAK
 };
 
@@ -84,6 +88,8 @@ typedef struct s_shell
 	t_dlist			*cmd_history; // double list of previous commands
 	t_dlist			*current_line;
 	int				child_pid;
+	int				old_stdin;
+	int				old_stdout;
 }				t_shell;
 
 #endif

@@ -62,6 +62,8 @@ void	init_env(t_shell *sh, char **env)
 
 void	init_shell(t_shell *sh, char **env)
 {
+	sh->old_stdin = -1;
+	sh->old_stdout = -1;
 	sh->i = 0;
 	sh->status = 0;
 	sh->ast = NULL;

@@ -13,6 +13,7 @@ int	ctrl_d(void)
 int	ctrl_c(void)
 {
 	ft_bzero(g_sh->cmd_history->content, CMD_MAX_LENGTH);
+	g_sh->status = 130;
 	g_sh->current_line = g_sh->cmd_history;
 	g_sh->i = 0;
 	clear_shell(g_sh);
