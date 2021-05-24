@@ -62,7 +62,7 @@ t_tree	*fill_tree(t_shell *sh)
 	ft_fill_sep(*sh, root);
 	while (nb_sep--)
 	{
-		if (fill_cmd(sh, root, &sh->tokens))
+		if (fill_cmd(root, &sh->tokens))
 			ft_brw_token(sh, &nb_sep);
 		if (root->branches)
 			if (root->branches->next)

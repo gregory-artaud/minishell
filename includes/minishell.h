@@ -73,7 +73,7 @@ int		process_env(char s[CMD_MAX_LENGTH], int *i, char *wd, int *j);
 int		parser(t_shell *sh);
 char	*my_strdup(char *src, int n);
 void	ft_errorzsh(char *cmd);
-int		fill_cmd(t_shell *sh, t_tree *tree, t_list **tk);
+int		fill_cmd(t_tree *tree, t_list **tk);
 void	clear_ast(t_tree **tree);
 void	ft_fill_sep(t_shell sh, t_tree *tree);
 int		ft_nb_arg(t_list *tk);

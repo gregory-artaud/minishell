@@ -72,12 +72,11 @@ void	fill_redirect(t_tree **tree, t_list **tk)
 	}
 }
 
-int	fill_cmd(t_shell *sh, t_tree *tree, t_list **tk)
+int	fill_cmd(t_tree *tree, t_list **tk)
 {
 	t_token	*token;
 	t_list	*tk_begin;
 
-	(void)sh;
 	tk_begin = *tk;
 	token = (*tk)->content;
 	while (token->type != EXECUTABLE)
@@ -93,6 +92,10 @@ int	fill_cmd(t_shell *sh, t_tree *tree, t_list **tk)
 	fill_arg(tree, tk_begin);
 	token = tk_begin->content;
 	fill_redirect(&tree, &tk_begin);
-	*tk = tk_begin;
+	while (token->type != SEPARATOR && *tk)
+	{
+		token = (*tk)->content;
+		(*tk) = (*tk)->next;
+	}
 	return (EXIT_SUCCESS);
 }
