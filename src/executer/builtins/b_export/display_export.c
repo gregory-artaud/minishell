@@ -22,16 +22,21 @@ char	**list_to_char(t_list *env)
 void	print_export(char *str, int fd)
 {
 	ft_putstr_fd("declare -x ", fd);
-	while (*str != '=')
+	while (*str != '=' && *str)
 	{
 		ft_putchar_fd(*str, fd);
 		str++;
 	}
-	ft_putchar_fd(*str, fd);
-	str++;
-	ft_putchar_fd(DOUBLE_QUOTE, fd);
-	ft_putstr_fd(str, fd);
-	ft_putendl_fd("\"", fd);
+	if (*str == '=')
+	{
+		ft_putchar_fd(*str, fd);
+		str++;
+		ft_putchar_fd(DOUBLE_QUOTE, fd);
+		ft_putstr_fd(str, fd);
+		ft_putendl_fd("\"", fd);
+	}
+	else
+		ft_putchar_fd('\n', fd);
 }
 
 char	**sort_env(t_list *env)

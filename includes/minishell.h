@@ -10,7 +10,6 @@
 # include <signal.h>
 # include <errno.h>
 # include <string.h>
-# include <wait.h>
 # include "libft.h"
 # include "defs.h"
 # include "execution.h"
@@ -80,6 +79,7 @@ int		ft_nb_arg(t_list *tk);
 void	fill_new_branche(t_token *token, t_tree **tree);
 int		ft_nb_redirect(t_list *tk);
 int		fill_arg(t_tree *tree, t_list *tk);
+int		find_sep(char *str, char sep);
 /*
 ** execution/
 */

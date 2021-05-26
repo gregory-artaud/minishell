@@ -1,10 +1,25 @@
 #include "minishell.h"
 
+int	find_sep(char *str, char sep)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == sep)
+			return (EXIT_SUCCESS);
+		i++;
+	}
+	return (EXIT_FAILURE);
+}
+
 void	print_env(t_list *env, int fd)
 {
 	while (env)
 	{
-		ft_putendl_fd(env->content, fd);
+		if (!find_sep(env->content, '='))
+			ft_putendl_fd(env->content, fd);
 		env = env->next;
 	}
 }

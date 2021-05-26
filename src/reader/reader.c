@@ -12,6 +12,8 @@ void	read_line(t_shell *sh)
 	while (1)
 	{
 		c = ft_getchar();
+		if (c == -1)
+			break;
 		if (controller(c))
 			break ;
 	}

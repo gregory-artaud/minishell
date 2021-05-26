@@ -1,28 +1,46 @@
 #include "minishell.h"
 
+//TO DO LEAKS
+
 int	ft_verif_var_env(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (str[i])
+	if ((str[i] > 47 && str[i] < 58) || str[i] == '=')
+		return (0);
+	while (str[i] != '=' && str[i])
 	{
-		if (str[i] == '=' && i != 0)
-			return (1);
+		if (str[i] > 122 || str[i] == 96 || (str[i] > 90 && str[i] < 95) \
+		|| (str[i] > 57 && str[i] < 65) || (str[i] > 32 && str[i] < 43) \
+		|| (str[i] > 43 && str[i] < 48) || (str[i] == 43 && str[i + 1] != '='))
+			return (0);
 		i++;
 	}
-	return (0);
+	if (str[i] == '=' && str[i - 1] == '+')
+		return (2);
+	return (1);
 }
 
-int	brw_env(t_list *env, char *var)
+
+
+int	brw_env(t_list *env, char *var, int plus)
 {
+	(void)plus;
 	while (env)
 	{
-		if (ft_strlen_sep(env->content, '=') == ft_strlen_sep(var, '='))
+		if (ft_strlen_sep(env->content, '=') == ft_strlen_sep(var, '=') \
+		|| (ft_strlen_sep(env->content, '=') == ft_strlen_sep(var, '+')))
 		{
-			if (!ft_strncmp(env->content, var, ft_strlen_sep(var, '=')))
+			if (!ft_strncmp(env->content, var, ft_strlen_sep(var, '=')) \
+			|| !ft_strncmp(env->content, var, ft_strlen_sep(var, '+')))
 			{
-				env->content = ft_strncpy(env->content, var, ft_strlen(var));
+				if (find_sep(env->content, '=') && plus == 2)
+					env->content = ft_strjoin(env->content, "=");
+				if (plus == 2)
+					env->content = ft_strjoin(env->content, ft_substr(var, ft_strlen_sep(var, '=') + 1, ft_strlen(var)));
+				if (!find_sep(var, '='))
+					env->content = ft_strncpy(env->content, var, ft_strlen(var));
 				return (EXIT_SUCCESS);
 			}
 		}
@@ -36,21 +54,32 @@ void	new_env(t_shell *sh, t_tree *root)
 	char	**var;
 	int		i;
 	char	*content;
+	int		plus;
+	char	*tmp;
 
 	root = root->branches->content;
 	var = root->content;
 	i = 0;
 	while (i < root->size)
 	{
-		if (ft_verif_var_env(var[i]))
+		plus = ft_verif_var_env(var[i]);
+		if (plus)
 		{
-			if (brw_env(sh->env, var[i]))
+			if (brw_env(sh->env, var[i], plus))
 			{
+				if (plus == 2)
+				{
+					tmp = ft_substr(var[i], 0, ft_strlen_sep(var[i], '=') - 1);
+					var[i] = ft_strjoin(tmp, ft_substr(var[i], ft_strlen_sep(var[i], '='), ft_strlen(var[i])));
+					free(tmp);
+				}
 				content = malloc(sizeof(char) * (ft_strlen(var[i]) + 1));
 				content = ft_strncpy(content, var[i], ft_strlen(var[i]));
 				ft_lstadd_back(&sh->env, ft_lstnew(content));
 			}
 		}
+		else
+			printf("minishell: export: '%s': not a valid identifier\n", var[i]);
 		i++;
 	}
 }
