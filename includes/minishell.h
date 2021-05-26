@@ -92,6 +92,9 @@ char	**list_to_char(t_list *env);
 int		create_files(t_tree *tr);
 int		execute_command(t_tree *tr);
 int		exec_file(t_tree *tr);
+char	*free_not_env(char *var);
+char	*free_env_join(char *dst, char *str);
+char	*free_env_join_sep(char *str);
 /*
 ** error_interpreter/
 */

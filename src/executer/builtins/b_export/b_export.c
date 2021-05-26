@@ -22,8 +22,6 @@ int	ft_verif_var_env(char *str)
 	return (1);
 }
 
-
-
 int	brw_env(t_list *env, char *var, int plus)
 {
 	(void)plus;
@@ -36,10 +34,10 @@ int	brw_env(t_list *env, char *var, int plus)
 			|| !ft_strncmp(env->content, var, ft_strlen_sep(var, '+')))
 			{
 				if (find_sep(env->content, '=') && plus == 2)
-					env->content = ft_strjoin(env->content, "=");
+					env->content = free_env_join_sep(env->content);
 				if (plus == 2)
-					env->content = ft_strjoin(env->content, ft_substr(var, ft_strlen_sep(var, '=') + 1, ft_strlen(var)));
-				if (!find_sep(var, '='))
+					env->content = free_env_join(env->content, var);
+				else if (!find_sep(var, '='))
 					env->content = ft_strncpy(env->content, var, ft_strlen(var));
 				return (EXIT_SUCCESS);
 			}
@@ -55,7 +53,6 @@ void	new_env(t_shell *sh, t_tree *root)
 	int		i;
 	char	*content;
 	int		plus;
-	char	*tmp;
 
 	root = root->branches->content;
 	var = root->content;
@@ -68,11 +65,7 @@ void	new_env(t_shell *sh, t_tree *root)
 			if (brw_env(sh->env, var[i], plus))
 			{
 				if (plus == 2)
-				{
-					tmp = ft_substr(var[i], 0, ft_strlen_sep(var[i], '=') - 1);
-					var[i] = ft_strjoin(tmp, ft_substr(var[i], ft_strlen_sep(var[i], '='), ft_strlen(var[i])));
-					free(tmp);
-				}
+					var[i] = free_not_env(var[i]);
 				content = malloc(sizeof(char) * (ft_strlen(var[i]) + 1));
 				content = ft_strncpy(content, var[i], ft_strlen(var[i]));
 				ft_lstadd_back(&sh->env, ft_lstnew(content));
