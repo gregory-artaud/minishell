@@ -55,9 +55,11 @@ void	init_env(t_shell *sh, char **env)
 	sh->env = 0;
 	while (env[i])
 	{
-		ft_lstadd_back(&(sh->env), ft_lstnew(ft_strdup(env[i])));
+		if (ft_memcmp(env[i], "PATH=", 5))
+			ft_lstadd_back(&(sh->env), ft_lstnew(ft_strdup(env[i])));
 		i++;
 	}
+	ft_lstadd_back(&(sh->env), ft_lstnew(ft_strdup(PATH)));
 }
 
 void	init_shell(t_shell *sh, char **env)

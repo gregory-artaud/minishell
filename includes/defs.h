@@ -27,6 +27,7 @@
 # define LAST_RETURN_CODE_VAR_NAME '?'
 # define NO_BUILTINS 7
 # define B_STR "echo cd pwd export unset env exit"
+# define PATH "PATH=/bin/:/usr/bin/:/usr/local/bin/"
 
 
 enum e_errors {

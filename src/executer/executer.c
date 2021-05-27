@@ -10,7 +10,6 @@ int	run_tree(t_shell *sh, t_tree *tr)
 		return (EXIT_SUCCESS);
 	if (tr->type == EXECUTABLE)
 		return (execute_command(tr));
-	printf("tr->type: %d\n", tr->type);
 	if (!ft_memcmp(tr->content, SEPARATOR_SEPARATOR_TOKEN, S_S_T_LEN + 1))
 	{
 		tmp = ft_tr_leftchild(tr);

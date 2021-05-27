@@ -25,6 +25,27 @@ char	**fill_argv(t_tree *tr)
 	return (argv);
 }
 
+void	execute_path(char *exe, char **argv)
+{
+	char	**path;
+	char	*file;
+	int		i;
+
+	path = ft_split(ft_lstgetenv("PATH"), ':');
+	if (!path)
+		return ;
+	i = 0;
+	while (path[i])
+	{
+		file = ft_strjoin(path[i], exe);
+		if (!file)
+			return ;
+		execve(file, argv, list_to_char(g_sh->env));
+		free(file);
+		i++;
+	}
+}
+
 void	child_process(t_tree *tr)
 {
 	char	**argv;
@@ -32,8 +53,8 @@ void	child_process(t_tree *tr)
 
 	argv = fill_argv(tr);
 	exec = ft_strdup((char *)tr->content);
-	free_shell(g_sh);
 	set_signals();
+	execute_path(exec, argv);
 	execve(exec, argv, list_to_char(g_sh->env));
 	ft_free_strarray(argv);
 	printf("minishell: command not found: %s\n", exec);
