@@ -1,7 +1,5 @@
 #include "minishell.h"
 
-//TO DO LEAKS
-
 int	ft_verif_var_env(char *str)
 {
 	int	i;
@@ -24,7 +22,6 @@ int	ft_verif_var_env(char *str)
 
 int	brw_env(t_list *env, char *var, int plus)
 {
-	(void)plus;
 	while (env)
 	{
 		if (ft_strlen_sep(env->content, '=') == ft_strlen_sep(var, '=') \
