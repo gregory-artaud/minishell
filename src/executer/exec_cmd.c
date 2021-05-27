@@ -175,7 +175,6 @@ int	execute_command(t_tree *tr)
 	int		error;
 	int		status;
 
-	printf("test\n");
 	if (tr->type != EXECUTABLE)
 		return (EXIT_FAILURE);
 	exec = (char *)tr->content;
