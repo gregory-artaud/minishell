@@ -25,7 +25,8 @@ int	process_word(char s[CMD_MAX_LENGTH], int *i, char *res, int *j)
 	error = 0;
 	if (is_special(s[*i]))
 		error = process_special_word(s, i, res, j);
-	res[(*j)++] = s[(*i)++];
+	else
+		res[(*j)++] = s[(*i)++];
 	return (error);
 }
 

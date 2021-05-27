@@ -50,6 +50,7 @@ int	process_backslash(char s[CMD_MAX_LENGTH], int *i, char *wd, int *j)
 	(*i)++;
 	if (!s[*i])
 		return (LEX_ERR_EOL_AFTER_ESCAPE);
+	wd[(*j)++] = s[(*i)++];
 	return (EXIT_SUCCESS);
 }
 
