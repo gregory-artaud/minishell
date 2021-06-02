@@ -1,5 +1,22 @@
 #include "minishell.h"
 
+int	ft_carriage_return(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[0] != '-')
+		return (EXIT_FAILURE);
+	i++;
+	while (str[i])
+	{
+		if (str[i] != 'n')
+			return (EXIT_FAILURE);
+		i++;
+	}
+	return (EXIT_SUCCESS);
+}
+
 void	print_echo(t_tree *arg, int fd)
 {
 	char	**tableau;
@@ -9,7 +26,7 @@ void	print_echo(t_tree *arg, int fd)
 	i = 0;
 	tableau = arg->content;
 	option = 0;
-	if (ft_strncmp("-n", tableau[i], 3) == 0)
+	while (tableau[i] && !ft_carriage_return(tableau[i]))
 	{
 		option = 1;
 		i++;
