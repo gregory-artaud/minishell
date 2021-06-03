@@ -1,7 +1,7 @@
 #ifndef DEFS_H
 # define DEFS_H
 
-//# include <wait.h>
+# include <wait.h>
 # include <termios.h>
 # include "libft.h"
 # define EOT 4
@@ -47,6 +47,7 @@ enum e_errors {
 	EXE_ERR_DUP_FD,
 	EXE_ERR_OPEN_FILE,
 	EXE_ERR_FORK,
+	EXE_ERR_FILE_DO_NOT_EXISTS,
 	MALLOC_BREAK
 };
 

@@ -15,7 +15,6 @@ void	send_int(int i)
 void	send_quit(int i)
 {
 	(void)i;
-	printf("\n\n\n==== SENT ! ====\n\n\n");
 	kill(g_sh->child_pid, SIGQUIT);
 }
 
