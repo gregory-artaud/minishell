@@ -30,6 +30,12 @@ int	process_word(char s[CMD_MAX_LENGTH], int *i, char *res, int *j)
 	return (error);
 }
 
+int	end_of_loop(char *s, int j)
+{
+	return (!(s[j] && !ft_isspace(s[j]) && !is_separator(s, &j)
+			&& !is_redirect(s, &j)));
+}
+
 int	get_word(char s[CMD_MAX_LENGTH], int *i, char **res)
 {
 	char	*wd;
@@ -46,8 +52,7 @@ int	get_word(char s[CMD_MAX_LENGTH], int *i, char **res)
 	j = *i;
 	k = 0;
 	error = 0;
-	while (s[j] && !ft_isspace(s[j]) && !is_separator(s, &j) &&
-		!is_redirect(s, &j))
+	while (!end_of_loop(s, j))
 	{
 		error = process_word(s, &j, wd, &k);
 		if (error)

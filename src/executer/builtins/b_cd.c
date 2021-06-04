@@ -20,7 +20,8 @@ void	verif_redirect(t_tree *root)
 	{
 		create_file_redirect(tmp);
 		if (chdir(ft_lstgetenv("HOME")) < 0)
-			printf("minishell: %s: %s\n", (char *)root->content, strerror(errno));
+			printf("minishell: %s: %s\n", (char *)root->content,
+				strerror(errno));
 	}
 	else if (root->branches->next)
 	{
@@ -44,7 +45,8 @@ int	b_cd(void *sh, t_tree *root)
 	{
 		env_home = ft_lstgetenv("HOME");
 		if (chdir(env_home) < 0)
-			printf("minishell: %s: %s\n", (char *)root->content, strerror(errno));
+			printf("minishell: %s: %s\n", (char *)root->content,
+				strerror(errno));
 		free(env_home);
 	}
 	if (!getcwd(shell->pwd_path, PWD_PATH_MAX_LENGTH))

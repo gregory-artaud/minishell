@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int		does_file_exists(char *f)
+int	does_file_exists(char *f)
 {
 	int	fd;
 
@@ -11,7 +11,7 @@ int		does_file_exists(char *f)
 	return (1);
 }
 
-int		create_file(char *file)
+int	create_file(char *file)
 {
 	int	fd;
 
@@ -22,7 +22,7 @@ int		create_file(char *file)
 	return (EXIT_SUCCESS);
 }
 
-int		create_files(t_tree *tr)
+int	create_files(t_tree *tr)
 {
 	char	**files;
 	int		i;
@@ -45,7 +45,7 @@ int		create_files(t_tree *tr)
 		error = create_file(files[i + 1]);
 		if (error)
 			return (error);
-		i += 2;;
+		i += 2;
 	}
 	return (EXIT_SUCCESS);
 }

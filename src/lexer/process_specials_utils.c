@@ -3,7 +3,7 @@
 char	*extract_value(char *env)
 {
 	char	**s;
-	char 	*res;
+	char	*res;
 
 	s = ft_split(env, '=');
 	if (!s)
