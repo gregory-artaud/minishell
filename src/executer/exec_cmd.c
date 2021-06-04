@@ -124,6 +124,29 @@ int	redirect_output(t_tree *tr)
 	return (EXIT_SUCCESS);
 }
 
+int	redirect_pipe(void)
+{
+	int	old_stdout;
+	int	new_output;
+	int	tmp;
+
+	new_output = g_sh->pfd[1];
+	old_stdout = dup(STDOUT_FILENO);
+	if (old_stdout == -1)
+		return (EXE_ERR_DUP_FD);
+	tmp = dup2(new_output, STDOUT_FILENO);
+	if (tmp == -1)
+	{
+		close(g_sh->pfd[0]);
+		close(g_sh->pfd[1]);
+		close(old_stdout);
+		return (EXE_ERR_DUP_FD);
+	}
+	close(new_output);
+	g_sh->old_stdout = old_stdout;
+	return (EXIT_SUCCESS);
+}
+
 int	process_redirect(t_tree *tr)
 {
 	int		error;
@@ -141,7 +164,9 @@ int	process_redirect(t_tree *tr)
 	error = redirect_output(red);
 	if (error)
 		return (error);
-	return (EXIT_SUCCESS);
+	if (g_sh->has_pipe)
+		error = redirect_pipe();
+	return (error);
 }
 
 int	restore_std(void)
@@ -163,6 +188,11 @@ int	restore_std(void)
 			return (EXE_ERR_DUP_FD);
 		close(g_sh->old_stdout);
 		g_sh->old_stdout = -1;
+	}
+	if (g_sh->has_pipe)
+	{
+		close(g_sh->pfd[0]);
+		g_sh->has_pipe = 0;
 	}
 	return (EXIT_SUCCESS);
 	

@@ -1,7 +1,7 @@
 #ifndef DEFS_H
 # define DEFS_H
 
-//# include <wait.h>
+# include <wait.h>
 # include <termios.h>
 # include "libft.h"
 # define EOT 4
@@ -92,6 +92,8 @@ typedef struct s_shell
 	int				child_pid;
 	int				old_stdin;
 	int				old_stdout;
+	int				has_pipe;
+	int				pfd[2];
 }				t_shell;
 
 #endif
