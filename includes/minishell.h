@@ -1,6 +1,8 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <sys/types.h>
+# include <sys/stat.h>
 # include <sys/ioctl.h>
 # include <term.h>
 # include <stdio.h>

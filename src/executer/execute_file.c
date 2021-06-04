@@ -25,6 +25,25 @@ char	**fill_argv(t_tree *tr)
 	return (argv);
 }
 
+char	*build_path(char *path, char *exe)
+{
+	char	*tmp;
+	char	*res;
+
+	tmp = ft_strjoin(path, "/");
+	res = ft_strjoin(tmp, exe);
+	free(tmp);
+	return (res);
+}
+
+int	get_file_type(char *f)
+{
+	struct stat path_stat;
+
+	stat(f, &path_stat);
+	return (path_stat.st_mode);
+}
+
 void	execute_path(char *exe, char **argv)
 {
 	char	**path;
@@ -37,7 +56,7 @@ void	execute_path(char *exe, char **argv)
 	i = 0;
 	while (path[i])
 	{
-		file = ft_strjoin(path[i], exe);
+		file = build_path(path[i], exe);
 		if (!file)
 			return ;
 		execve(file, argv, list_to_char(g_sh->env));
@@ -46,17 +65,40 @@ void	execute_path(char *exe, char **argv)
 	}
 }
 
+void	exit_not_a_file_error(int type, char *f)
+{
+	int	fd;
+
+	fd = g_sh->old_stdout;
+	if (fd != -1)
+		dup2(fd, STDOUT_FILENO);
+	printf("minishell: %s:", f);
+	if (S_ISDIR(type))
+		printf(" is a directory\n");
+	exit(126);
+}
+
 void	child_process(t_tree *tr)
 {
 	char	**argv;
 	char	*exec;
+	int		type;
 
 	argv = fill_argv(tr);
 	exec = ft_strdup((char *)tr->content);
 	set_signals();
-	execute_path(exec, argv);
+	if (*exec != '/' && *exec != '.')
+		execute_path(exec, argv);
+	else
+	{
+		type = get_file_type(exec);
+		if (!S_ISREG(type))
+			exit_not_a_file_error(type, exec);
+	}
 	execve(exec, argv, list_to_char(g_sh->env));
 	ft_free_strarray(argv);
+	if (g_sh->old_stdout != -1)
+		dup2(g_sh->old_stdout, STDOUT_FILENO);
 	printf("minishell: command not found: %s\n", exec);
 	free(exec);
 	exit(127);
