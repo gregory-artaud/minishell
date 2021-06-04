@@ -16,6 +16,10 @@ void	send_quit(int i)
 {
 	(void)i;
 	kill(g_sh->child_pid, SIGQUIT);
+	if (g_sh->old_stdout != -1)
+		ft_putendl_fd("", g_sh->old_stdout);
+	else
+		ft_putendl_fd("", STDOUT_FILENO);
 }
 
 void	set_signals(void)
