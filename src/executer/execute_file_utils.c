@@ -39,8 +39,11 @@ char	*build_path(char *path, char *exe)
 int	get_file_type(char *f)
 {
 	struct stat	path_stat;
+	int			res;
 
-	stat(f, &path_stat);
+	res = stat(f, &path_stat);
+	if (res == -1)
+		return (-1);
 	return (path_stat.st_mode);
 }
 
@@ -72,8 +75,11 @@ void	exit_not_a_file_error(int type, char *f)
 	fd = g_sh->old_stdout;
 	if (fd != -1)
 		dup2(fd, STDOUT_FILENO);
-	printf("minishell: %s:", f);
-	if (S_ISDIR(type))
-		printf(" is a directory\n");
+	printf("type: %d\n", type);
+	printf("minishell: %s: ", f);
+	if (type == -1)
+		printf("No such file or directory\n");
+	else if (S_ISDIR(type))
+		printf("is a directory\n");
 	exit(126);
 }
