@@ -38,12 +38,12 @@ void	ft_strinsert_fixed(char *s, int size, char c, int index)
 	return ;
 }
 
-void	print_history()
+void	print_history(void)
 {
 	t_dlist	*current;
 
 	current = g_sh->cmd_history;
-	ft_putchar_fd('\n',1 );
+	ft_putchar_fd('\n', 1);
 	while (current)
 	{
 		ft_putendl_fd(current->content, 1);

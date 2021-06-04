@@ -13,7 +13,7 @@ void	read_line(t_shell *sh)
 	{
 		c = ft_getchar();
 		if (c == -1)
-			break;
+			break ;
 		if (controller(c))
 			break ;
 	}

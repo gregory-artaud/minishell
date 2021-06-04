@@ -1,7 +1,6 @@
 #ifndef DEFS_H
 # define DEFS_H
 
-# include <wait.h>
 # include <termios.h>
 # include "libft.h"
 # define EOT 4
@@ -27,8 +26,8 @@
 # define LAST_RETURN_CODE_VAR_NAME '?'
 # define NO_BUILTINS 7
 # define B_STR "echo cd pwd export unset env exit"
-# define PATH "PATH=/bin/:/usr/bin/:/usr/local/bin/"
-
+# define PATH "PATH=usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin\
+:/usr/local/munki:/opt/X11/bin"
 
 enum e_errors {
 	INIT_ERR_TERM_ENV = 1,
@@ -47,6 +46,7 @@ enum e_errors {
 	EXE_ERR_DUP_FD,
 	EXE_ERR_OPEN_FILE,
 	EXE_ERR_FORK,
+	EXE_ERR_FILE_DO_NOT_EXISTS,
 	MALLOC_BREAK
 };
 
@@ -76,18 +76,18 @@ typedef struct s_token
 
 typedef struct s_shell
 {
-	t_list			*env; //environnement variables
-	char			*pwd_path; // path to current directory
-	char			*pwd; // current directory name
-	char			*cmd; // current cmd
-	int				i; // index of read in cmd
-	t_list			*tokens; // command after lexer
-	t_tree			*ast; // command after parser
-	int				status; // status after execution
-	int				(*b_fct[NO_BUILTINS])(void *, t_tree *); // builtin functions
-	char			**b_str; // builtin functions names
-	int				b_strlen[NO_BUILTINS]; // builtin functions names length
-	t_dlist			*cmd_history; // double list of previous commands
+	t_list			*env;
+	char			*pwd_path;
+	char			*pwd;
+	char			*cmd;
+	int				i;
+	t_list			*tokens;
+	t_tree			*ast;
+	int				status;
+	int				(*b_fct[NO_BUILTINS])(void *, t_tree *);
+	char			**b_str;
+	int				b_strlen[NO_BUILTINS];
+	t_dlist			*cmd_history;
 	t_dlist			*current_line;
 	int				child_pid;
 	int				old_stdin;

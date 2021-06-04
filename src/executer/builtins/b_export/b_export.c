@@ -35,7 +35,8 @@ int	brw_env(t_list *env, char *var, int plus)
 				if (plus == 2)
 					env->content = free_env_join(env->content, var);
 				else if (!find_sep(var, '='))
-					env->content = ft_strncpy(env->content, var, ft_strlen(var));
+					env->content = ft_strncpy(env->content, var,
+							ft_strlen(var));
 				return (EXIT_SUCCESS);
 			}
 		}
@@ -53,8 +54,8 @@ void	new_env(t_shell *sh, t_tree *root)
 
 	root = root->branches->content;
 	var = root->content;
-	i = 0;
-	while (i < root->size)
+	i = -1;
+	while (++i < root->size)
 	{
 		plus = ft_verif_var_env(var[i]);
 		if (plus)
@@ -70,7 +71,6 @@ void	new_env(t_shell *sh, t_tree *root)
 		}
 		else
 			printf("minishell: export: '%s': not a valid identifier\n", var[i]);
-		i++;
 	}
 }
 

@@ -2,7 +2,6 @@
 
 void	print_error2(int error)
 {
-
 	if (error == INIT_ERR_TERM_ENV)
 		ft_putstr_fd("missing \"TERM\" environement variable.\n", STDERR_FILENO);
 	else if (error == INIT_ERR_TERM_DB)

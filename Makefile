@@ -6,7 +6,7 @@
 #    By: gartaud <gartaud@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/14 22:19:13 by gartaud           #+#    #+#              #
-#    Updated: 2021/05/07 11:46:51 by gartaud          ###   ########lyon.fr    #
+#    Updated: 2021/06/04 09:41:33 by gartaud          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,5 +47,8 @@ fclean: clean
 	make -sC $(LIBFT_DIR) fclean
 
 re: fclean all
+
+norme:
+	norminette $(FILES) $(DEPS)
 
 .PHONY: clean fclean all re

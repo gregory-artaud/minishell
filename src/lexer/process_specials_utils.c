@@ -3,7 +3,7 @@
 char	*extract_value(char *env)
 {
 	char	**s;
-	char 	*res;
+	char	*res;
 
 	s = ft_split(env, '=');
 	if (!s)
@@ -11,7 +11,7 @@ char	*extract_value(char *env)
 	if (ft_arrlen(s) != 2)
 	{
 		ft_free_strarray(s);
-		return (NULL);
+		return (ft_strdup(""));
 	}
 	res = s[1];
 	free(s[0]);
@@ -34,7 +34,7 @@ char	*ft_lstgetenv(char *name)
 			return (extract_value(cname));
 		current = current->next;
 	}
-	return (NULL);
+	return (ft_strdup(""));
 }
 
 int	no_env_var_name(char tmp[CMD_MAX_LENGTH], int *j)

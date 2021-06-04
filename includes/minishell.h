@@ -1,6 +1,8 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <sys/types.h>
+# include <sys/stat.h>
 # include <sys/ioctl.h>
 # include <term.h>
 # include <stdio.h>
@@ -55,6 +57,7 @@ int		lexer(t_shell *sh);
 int		no_env_var_name(char tmp[CMD_MAX_LENGTH], int *j);
 int		is_special(char c);
 int		tokenize(t_shell *sh);
+int		tokenize_redirect(char s[CMD_MAX_LENGTH], t_shell *sh, int *i);
 void	skip_spaces(char s[CMD_MAX_LENGTH], int *i);
 t_token	*create_token(int type, char *value);
 int		is_redirect(char s[CMD_MAX_LENGTH], int *i);
@@ -96,6 +99,16 @@ int		exec_file(t_tree *tr);
 char	*free_not_env(char *var);
 char	*free_env_join(char *dst, char *str);
 char	*free_env_join_sep(char *str);
+void	exit_not_a_file_error(int type, char *f);
+void	execute_path(char *exe, char **argv);
+int		get_file_type(char *f);
+char	*build_path(char *path, char *exe);
+char	**fill_argv(t_tree *tr);
+int		redirect_output(t_tree *tr);
+int		get_last_output(char **t, int size);
+t_tree	*get_tr_redirect(t_tree *tr);
+int		redirect_input(t_tree *tr);
+int		get_last_input(char **t, int size);
 /*
 ** error_interpreter/
 */
