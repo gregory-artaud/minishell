@@ -33,6 +33,18 @@ int	run_pipe(t_tree *tr)
 	return (res);
 }
 
+int	do_pipe(t_tree *tr)
+{
+	t_tree	*tmp;
+
+	// no output redirect on the left and no input redirect on the right
+	tmp = ft_tr_leftchild(tr);
+	if (has_output_redirect(tmp))
+		return (0);
+	tmp = ft_tr_next_sibling(tmp);
+	
+}
+
 int	run_tree(t_shell *sh, t_tree *tr)
 {
 	int		res;
@@ -44,7 +56,7 @@ int	run_tree(t_shell *sh, t_tree *tr)
 		return (execute_command(tr));
 	if (!ft_memcmp(tr->content, SEPARATOR_PIPE_TOKEN, S_P_T_LEN + 1))
 	{
-		if (do_pipe())
+		if (do_pipe(tr))
 			res = run_pipe(tr);
 		else
 			((char *)tr->content)[0] = ';';
