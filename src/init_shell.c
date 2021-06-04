@@ -41,7 +41,8 @@ void	init_env(t_shell *sh, char **env)
 
 void	init_shell(t_shell *sh, char **env)
 {
-	sh->has_pipe = 0;
+	sh->has_pleft = 0;
+	sh->has_pright = 0;
 	sh->old_stdin = -1;
 	sh->old_stdout = -1;
 	sh->i = 0;

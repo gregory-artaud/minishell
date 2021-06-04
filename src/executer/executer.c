@@ -2,7 +2,7 @@
 
 int	run_semi_column(t_tree *tr)
 {
-	t_tree *tmp;
+	t_tree	*tmp;
 	int		res;
 
 	tmp = ft_tr_leftchild(tr);
@@ -13,31 +13,12 @@ int	run_semi_column(t_tree *tr)
 	return (res);
 }
 
-int	run_pipe(t_tree *tr)
-{
-	t_tree	*cmd1;
-	t_tree	*cmd2;
-	int		res;
-	int		error;
-
-	error = pipe(g_sh->pfd);
-	if (error == -1)
-		return (-1);
-	g_sh->has_pipe = 1;
-	cmd1 = ft_tr_leftchild(tr);
-	cmd2 = ft_tr_next_sibling(cmd1);
-	if (!cmd2)
-		return (-1);
-	res = execute_command(cmd1);
-	res = run_tree(g_sh, cmd2);
-	return (res);
-}
-
 int	run_tree(t_shell *sh, t_tree *tr)
 {
 	int		res;
 	int		flag;
 
+	(void)sh;
 	flag = 0;
 	res = 0;
 	if (!tr || tr->type > 4)

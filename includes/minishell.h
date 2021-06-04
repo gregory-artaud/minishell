@@ -88,6 +88,9 @@ int		find_sep(char *str, char sep);
 */
 int		executer(t_shell *sh);
 int		do_pipe(t_tree *tr);
+int		run_pipe(t_tree *tr);
+int		redirect_out_pipe(void);
+int		redirect_in_pipe(void);
 int		run_tree(t_shell *sh, t_tree *tr);
 int		ft_strncmpsep(char *s1, char *s2, unsigned int n, char sep);
 int		ft_strlen_sep(char *str, char sep);

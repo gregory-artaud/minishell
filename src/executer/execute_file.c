@@ -6,8 +6,6 @@ void	child_process(t_tree *tr)
 	char	*exec;
 	int		type;
 
-	if (g_sh->has_pipe)
-		// redirect stdin to pipe
 	argv = fill_argv(tr);
 	exec = ft_strdup((char *)tr->content);
 	set_signals();
