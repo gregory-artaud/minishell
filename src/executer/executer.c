@@ -46,7 +46,6 @@ int	executer(t_shell *sh)
 
 	if (!sh->ast)
 		return (EXIT_SUCCESS);
-	generate_dot(sh->ast);
 	status = run_tree(sh, sh->ast);
 	return (status);
 }
