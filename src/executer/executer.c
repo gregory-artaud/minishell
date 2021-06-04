@@ -46,7 +46,7 @@ int	run_tree(t_shell *sh, t_tree *tr)
 		return (execute_command(tr));
 	if (!ft_memcmp(tr->content, SEPARATOR_PIPE_TOKEN, S_P_T_LEN + 1))
 	{
-		//flag = do_pipe(tr);
+		flag = do_pipe(tr);
 		if (flag == 1)
 			res = run_pipe(tr);
 		else if (flag == 0)

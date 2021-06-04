@@ -2,35 +2,40 @@
 
 int	has_output_redirect(t_tree *tr)
 {
-	if(tr->type != EXECUTABLE)
-		return (1);
-		tr = ft_tr_next_sibling(ft_tr_leftchild(tr));
-	if (!tr)
-		return (0);
-	return (is_in((char **)tr->content, ">>")
-			|| is_in((char **)tr->content, ">"));
+	(void)tr;
+	return (1);
+}
+
+int	has_input_redirect(t_tree *tr)
+{
+	(void)tr;
+	return (1);
+}
+
+t_tree	*get_right(t_tree *tr)
+{
+	t_tree	*r;
+
+	r = ft_tr_leftchild(tr);
+	r = ft_tr_next_sibling(r);
+	if (!r)
+		return (NULL);
+	if (r->type == SEPARATOR)
+		r = ft_tr_leftchild(r);
+	
 }
 
 int	do_pipe(t_tree *tr)
 {
-	t_tree	*tmp;
+	t_tree	*left;
+	t_tree	*right;
 
-	tmp = ft_tr_leftchild(tr);
-	if (!tmp)
+	left = ft_tr_leftchild(tr);
+	right = get_right(tr);
+	if (!left || !right)
 	{
 		printf("minishell: syntax error near unexpected token '|'\n");
 		return (-1);
 	}
-	if (has_output_redirect(tmp))
-		return (0);
-	tmp = ft_tr_next_sibling(tmp);
-	if (!tmp)
-	{
-		printf("minishell: syntax error near unexpected token '|'\n");
-		return (-1);
-	}
-	tmp = ft_tr_leftchild(tmp);
-	if (has_input_redirect(tmp))
-		return (0);
-	return (1);
+	return (!(has_output_redirect(left) || has_input_redirect(right)));
 }
