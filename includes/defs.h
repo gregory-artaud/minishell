@@ -30,7 +30,6 @@
 :/usr/local/munki:/opt/X11/bin"
 # define DEAD_DIRECTORY_ERROR "cd: error retrieving current directory: getcwd:\
 cannot access parent directories: No such file or directory\n"
-
 enum e_errors {
 	INIT_ERR_TERM_ENV = 1,
 	INIT_ERR_TERM_DB,

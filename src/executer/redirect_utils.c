@@ -17,7 +17,10 @@ int	create_file(char *file)
 
 	fd = open(file, O_RDONLY | O_CREAT, 0777);
 	if (fd == -1)
-		return (EXE_ERR_FILE_CREATION);
+	{
+		printf("minishell: %s: %s\n", file, strerror(errno));
+		return (1);
+	}
 	close(fd);
 	return (EXIT_SUCCESS);
 }
