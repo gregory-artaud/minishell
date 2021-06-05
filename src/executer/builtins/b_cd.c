@@ -57,6 +57,15 @@ int	quit_cd(char *home)
 	return (0);
 }
 
+void	update_pwd(void)
+{
+	if (!getcwd(g_sh->pwd_path, PWD_PATH_MAX_LENGTH))
+		ft_bzero(g_sh->pwd_path, PWD_PATH_MAX_LENGTH);
+	free(g_sh->pwd);
+	g_sh->pwd = NULL;
+	set_current_dir(g_sh);
+}
+
 int	b_cd(void *sh, t_tree *root)
 {
 	t_shell	*shell;
@@ -79,10 +88,6 @@ int	b_cd(void *sh, t_tree *root)
 	}
 	if (error)
 		return (error - 1);
-	if (!getcwd(shell->pwd_path, PWD_PATH_MAX_LENGTH))
-		ft_bzero(shell->pwd_path, PWD_PATH_MAX_LENGTH);
-	free(shell->pwd);
-	shell->pwd = NULL;
-	set_current_dir(shell);
+	update_pwd();
 	return (0);
 }
