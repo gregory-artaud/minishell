@@ -66,6 +66,7 @@ int	tokenize_separator(char s[CMD_MAX_LENGTH], t_shell *sh, int *i)
 	if (!sep)
 		return (MALLOC_BREAK);
 	tok = create_token(SEPARATOR, sep);
+	free(sep);
 	if (!tok)
 		return (MALLOC_BREAK);
 	ft_lstadd_back(&(sh->tokens), ft_lstnew(tok));

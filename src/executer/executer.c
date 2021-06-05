@@ -5,6 +5,7 @@ int	run_semi_column(t_tree *tr)
 	t_tree	*tmp;
 	int		res;
 
+	printf("addresse de %s: %p\n", tr->content, tr->content);
 	tmp = ft_tr_leftchild(tr);
 	res = execute_command(tmp);
 	tmp = ft_tr_next_sibling(tmp);
