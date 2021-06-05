@@ -18,8 +18,10 @@ void	unset_var(t_shell *sh, t_tree *root)
 		{
 			if (!ft_strncmpsep(var[i], tmp->content, ft_strlen(var[i]), '='))
 			{
+				free(tmp->content);
 				tmp->content = NULL;
 				before->next = tmp->next;
+				free(tmp);
 			}
 			else
 				before = tmp;
