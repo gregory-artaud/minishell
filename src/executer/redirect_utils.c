@@ -32,6 +32,8 @@ int	create_files(t_tree *tr)
 	char	*current;
 	int		error;
 
+	if (!tr)
+		return (EXIT_SUCCESS);
 	files = (char **)tr->content;
 	i = 0;
 	while (i < tr->size)
