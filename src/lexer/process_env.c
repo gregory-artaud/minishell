@@ -16,9 +16,14 @@ char	*extract_name(char s[CMD_MAX_LENGTH], int *i)
 
 char	*get_value(char *name)
 {
+	char	*value;
+
 	if (!ft_memcmp(name, "?", 2))
 		return (ft_itoa(g_sh->status));
-	return (ft_lstgetenv(name));
+	value = ft_lstgetenv(name);
+	if (!value)
+		value = ft_strdup("");
+	return (value);
 }
 
 int	process_env(char s[CMD_MAX_LENGTH], int *i, char *wd, int *j)

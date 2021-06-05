@@ -34,7 +34,7 @@ char	*ft_lstgetenv(char *name)
 			return (extract_value(cname));
 		current = current->next;
 	}
-	return (ft_strdup(""));
+	return (NULL);
 }
 
 int	no_env_var_name(char tmp[CMD_MAX_LENGTH], int *j)
