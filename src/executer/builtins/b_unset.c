@@ -9,9 +9,8 @@ void	unset_var(t_shell *sh, t_tree *root)
 
 	root = root->branches->content;
 	var = (char **)(root->content);
-	before = NULL;
-	i = 0;
-	while (i < root->size)
+	i = -1;
+	while (++i < root->size)
 	{
 		tmp = sh->env;
 		while (tmp)
@@ -27,7 +26,6 @@ void	unset_var(t_shell *sh, t_tree *root)
 				before = tmp;
 			tmp = tmp->next;
 		}
-		i++;
 	}
 }
 
