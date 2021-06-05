@@ -68,12 +68,11 @@ void	update_pwd(void)
 
 int	b_cd(void *sh, t_tree *root)
 {
-	t_shell	*shell;
 	char	*env_home;
 	int		error;
 
+	(void)sh;
 	error = 0;
-	shell = sh;
 	if (root->branches)
 		error = verif_redirect(root);
 	else

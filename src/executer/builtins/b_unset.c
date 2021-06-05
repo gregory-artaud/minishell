@@ -9,6 +9,7 @@ void	unset_var(t_shell *sh, t_tree *root)
 
 	root = root->branches->content;
 	var = (char **)(root->content);
+	before = NULL;
 	i = -1;
 	while (++i < root->size)
 	{
@@ -17,14 +18,12 @@ void	unset_var(t_shell *sh, t_tree *root)
 		{
 			if (!ft_strncmpsep(var[i], tmp->content, ft_strlen(var[i]), '='))
 			{
-				free(tmp->content);
-				tmp->content = NULL;
 				before->next = tmp->next;
-				free(tmp);
+				ft_lstdelone(tmp, free);
 			}
 			else
 				before = tmp;
-			tmp = tmp->next;
+			tmp = before->next;
 		}
 	}
 }
