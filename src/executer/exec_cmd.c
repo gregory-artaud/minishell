@@ -22,19 +22,25 @@ int	process_redirect(t_tree *tr)
 	int		error;
 	t_tree	*red;
 
+	error = 0;
 	red = get_tr_redirect(tr);
-	if (!red)
-		return (EXIT_SUCCESS);
-	error = create_files(red);
-	if (error)
-		return (error);
-	error = redirect_input(red);
-	if (error)
-		return (error);
-	error = redirect_output(red);
-	if (error)
-		return (error);
-	return (EXIT_SUCCESS);
+	if (red)
+	{
+		error = create_files(red);
+		if (error)
+			return (error);
+		error = redirect_input(red);
+		if (error)
+			return (error);
+		error = redirect_output(red);
+		if (error)
+			return (error);
+	}
+	if (g_sh->has_pleft)
+		error = redirect_in_pipe();
+	if (g_sh->has_pright)
+		error = redirect_out_pipe();
+	return (error);
 }
 
 int	restore_std(void)
@@ -57,6 +63,10 @@ int	restore_std(void)
 		close(g_sh->old_stdout);
 		g_sh->old_stdout = -1;
 	}
+	if (g_sh->has_pleft)
+		g_sh->has_pleft = 0;
+	if (g_sh->has_pright)
+		g_sh->has_pright = 0;
 	return (EXIT_SUCCESS);
 }
 

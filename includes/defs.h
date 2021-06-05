@@ -92,6 +92,10 @@ typedef struct s_shell
 	int				child_pid;
 	int				old_stdin;
 	int				old_stdout;
+	int				pleft[2];
+	int				pright[2];
+	int				has_pleft;
+	int				has_pright;
 }				t_shell;
 
 #endif
