@@ -6,7 +6,11 @@ int	has_output_redirect(t_tree *tr)
 	int		i;
 	char	**s;
 
-	red = ft_tr_next_sibling(ft_tr_leftchild(tr));
+	red = ft_tr_leftchild(tr);
+	if (!red)
+		return (0);
+	if (red->type != REDIRECT)
+		red = ft_tr_next_sibling(red);
 	if (!red || red->type != REDIRECT)
 		return (0);
 	s = (char **)red->content;
@@ -24,7 +28,11 @@ int	has_input_redirect(t_tree *tr)
 	int		i;
 	char	**s;
 
-	red = ft_tr_next_sibling(ft_tr_leftchild(tr));
+	red = ft_tr_leftchild(tr);
+	if (!red)
+		return (0);
+	if (red->type != REDIRECT)
+		red = ft_tr_next_sibling(red);
 	if (!red || red->type != REDIRECT)
 		return (0);
 	s = (char **)red->content;
