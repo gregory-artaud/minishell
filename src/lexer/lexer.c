@@ -37,7 +37,9 @@ int	lexer(t_shell *sh)
 	sh->cmd = (char *)sh->cmd_history->content;
 	if (!sh->cmd[0] || ft_str_isspace(sh->cmd))
 		return (EXIT_SUCCESS);
-	push_to_history(sh);
+	error = push_to_history(sh);
+	if (error)
+		return (error);
 	error = tokenize(sh);
 	return (error);
 }

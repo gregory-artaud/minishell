@@ -1,15 +1,30 @@
 #include "minishell.h"
 
+char	**free_and_exit(char **t)
+{
+	int	i;
+
+	i = -1;
+	while (t[++i])
+		free(t[i]);
+	free(t);
+	return (NULL);
+}
+
 char	**list_to_char(t_list *env)
 {
 	char	**tableau;
 	int		i;
 
 	tableau = malloc(sizeof(char *) * (ft_lstsize(env) + 1));
+	if (!tableau)
+		return (NULL);
 	i = 0;
 	while (env)
 	{
 		tableau[i] = malloc(sizeof(char) * (ft_strlen(env->content) + 1));
+		if (!tableau[i])
+			return (free_and_exit(tableau));
 		tableau[i] = ft_strncpy(tableau[i], env->content,
 				ft_strlen(env->content));
 		i++;

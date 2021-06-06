@@ -45,7 +45,7 @@ int	brw_env(t_list *env, char *var, int plus)
 	return (EXIT_FAILURE);
 }
 
-void	new_env(t_shell *sh, t_tree *root)
+int	new_env(t_shell *sh, t_tree *root)
 {
 	char	**var;
 	int		i;
@@ -65,6 +65,8 @@ void	new_env(t_shell *sh, t_tree *root)
 				if (plus == 2)
 					var[i] = free_not_env(var[i]);
 				content = malloc(sizeof(char) * (ft_strlen(var[i]) + 1));
+				if (!content)
+					return (MALLOC_BREAK);
 				content = ft_strncpy(content, var[i], ft_strlen(var[i]));
 				ft_lstadd_back(&sh->env, ft_lstnew(content));
 			}
@@ -72,6 +74,7 @@ void	new_env(t_shell *sh, t_tree *root)
 		else
 			printf("minishell: export: '%s': not a valid identifier\n", var[i]);
 	}
+	return (EXIT_SUCCESS);
 }
 
 void	ft_export_red(t_tree *root, t_list *env, int display)

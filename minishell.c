@@ -31,11 +31,18 @@ int	run_parser(t_shell *sh)
 int	main(int argc, char **argv, char **env)
 {
 	t_shell	sh;
+	int		error;
 
 	(void)argc;
 	(void)argv;
 	g_sh = &sh;
-	init_shell(&sh, env);
+	error = init_shell(&sh, env);
+	if (error)
+	{
+		print_error(error);
+		free_shell(&sh);
+		return (EXIT_FAILURE);
+	}
 	while (1)
 	{
 		clear_shell(&sh);

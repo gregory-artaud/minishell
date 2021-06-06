@@ -40,11 +40,14 @@ void	restore_terminal_settings(void)
 	tcsetattr(STDIN_FILENO, TCSANOW, &settings);
 }
 
-void	push_to_history(t_shell *sh)
+int	push_to_history(t_shell *sh)
 {
 	char	*cmd;
 
 	cmd = ft_calloc(CMD_MAX_LENGTH, sizeof(char));
+	if (!cmd)
+		return (MALLOC_BREAK);
 	ft_strlcpy(cmd, sh->cmd, CMD_MAX_LENGTH);
 	ft_dlstadd_front(&(sh->cmd_history), ft_dlstnew(cmd));
+	return (EXIT_SUCCESS);
 }

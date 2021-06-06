@@ -23,14 +23,14 @@ extern t_shell	*g_sh;
 */
 void	generate_dot(t_tree *tr);
 
-void	init_shell(t_shell *sh, char **env);
+int		init_shell(t_shell *sh, char **env);
 void	set_current_dir(t_shell *sh);
 void	clear_shell(t_shell *sh);
 void	free_shell(t_shell *sh);
 void	set_terminal_settings(void);
 void	restore_terminal_settings(void);
 int		init_terminal(void);
-void	push_to_history(t_shell *sh);
+int		push_to_history(t_shell *sh);
 void	prompt(void);
 /*
 ** reader

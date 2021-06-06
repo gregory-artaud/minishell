@@ -6,7 +6,7 @@
 /*   By: gartaud <gartaud@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 13:08:01 by gartaud           #+#    #+#             */
-/*   Updated: 2021/04/02 11:05:56 by gartaud          ###   ########lyon.fr   */
+/*   Updated: 2021/06/06 12:02:50 by gartaud          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ char	*ft_strndup(char *str, int n)
 	int		i;
 
 	res = malloc(sizeof(char) * (n + 1));
+	if (!res)
+		return (NULL);
 	i = 0;
 	while (i < n)
 	{
@@ -60,6 +62,17 @@ char	*ft_strndup(char *str, int n)
 	}
 	res[i] = 0;
 	return (res);
+}
+
+static char	**free_and_exit(char **t)
+{
+	int	i;
+
+	i = -1;
+	while (t[++i])
+		free(t[i]);
+	free(t);
+	return (NULL);
 }
 
 char	**ft_cs_split(char *str, char *charset)
@@ -84,6 +97,8 @@ char	**ft_cs_split(char *str, char *charset)
 			i++;
 		if (i > word_start_i)
 			res[j++] = ft_strndup(str + word_start_i, i - word_start_i);
+		if (!res[j - 1])
+			return (free_and_exit(res));
 	}
 	res[j] = NULL;
 	return (res);

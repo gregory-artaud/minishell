@@ -1,10 +1,12 @@
 #include "minishell.h"
 
-void	init_builtins(t_shell *sh)
+int	init_builtins(t_shell *sh)
 {
 	int	i;
 
 	sh->b_str = ft_split(B_STR, ' ');
+	if (!sh->b_str)
+		return (MALLOC_BREAK);
 	sh->b_fct[B_ECHO] = b_echo;
 	sh->b_fct[B_CD] = b_cd;
 	sh->b_fct[B_PWD] = b_pwd;
@@ -15,6 +17,7 @@ void	init_builtins(t_shell *sh)
 	i = -1;
 	while (sh->b_str[++i])
 		sh->b_strlen[i] = ft_strlen(sh->b_str[i]);
+	return (EXIT_SUCCESS);
 }
 
 void	clear_shell(t_shell *sh)
@@ -39,7 +42,7 @@ void	init_env(t_shell *sh, char **env)
 	ft_lstadd_back(&(sh->env), ft_lstnew(ft_strdup(PATH)));
 }
 
-void	init_shell(t_shell *sh, char **env)
+int	init_shell(t_shell *sh, char **env)
 {
 	sh->has_pleft = 0;
 	sh->has_pright = 0;
@@ -51,13 +54,18 @@ void	init_shell(t_shell *sh, char **env)
 	init_env(sh, env);
 	sh->tokens = NULL;
 	sh->cmd_history = ft_dlstnew(ft_calloc(CMD_MAX_LENGTH, sizeof(char)));
+	if (!sh->cmd_history)
+		return (MALLOC_BREAK);
 	sh->pwd_path = ft_calloc(PWD_PATH_MAX_LENGTH, sizeof(char));
+	if (!sh->pwd_path)
+		return (MALLOC_BREAK);
 	sh->current_line = sh->cmd_history;
 	init_terminal();
 	init_builtins(sh);
 	if (!getcwd(sh->pwd_path, PWD_PATH_MAX_LENGTH))
 		sh->pwd_path = ft_strdup("/");
 	set_current_dir(sh);
+	return (EXIT_SUCCESS);
 }
 
 void	free_shell(t_shell *sh)
@@ -67,6 +75,8 @@ void	free_shell(t_shell *sh)
 	ft_dlstclear(&(sh->cmd_history), free);
 	ft_free_strarray(sh->b_str);
 	clear_ast(&(sh->ast));
-	free(sh->pwd);
-	free(sh->pwd_path);
+	if (sh->pwd)
+		free(sh->pwd);
+	if (sh->pwd_path)
+		free(sh->pwd_path);
 }

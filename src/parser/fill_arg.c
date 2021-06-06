@@ -12,6 +12,8 @@ void	fill_tab(t_list *tk, char **arg, int *i)
 		if (token->type == ARGUMENT)
 		{
 			arg[*i] = malloc(sizeof(char) * (ft_strlen(token->value) + 1));
+			if (!arg[*i])
+				return ;
 			ft_strncpy(arg[*i], token->value, ft_strlen(token->value));
 			(*i)++;
 		}
@@ -30,7 +32,7 @@ int	fill_arg(t_tree *tree, t_list *tk)
 	if (nb_arg)
 	{
 		arg = malloc(sizeof(char *) * (nb_arg + 1));
-		if (arg == NULL)
+		if (!arg)
 			return (MALLOC_BREAK);
 		fill_tab(tk, arg, &i);
 		ft_tr_addleft(tree, ft_tr_new(arg, ARGUMENT, i));

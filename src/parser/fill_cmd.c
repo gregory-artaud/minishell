@@ -54,6 +54,8 @@ void	fill_redirect(t_tree **tree, t_list **tk)
 	if (nb_redirect)
 	{
 		redirec = malloc(sizeof(char *) * (nb_redirect + 1));
+		if (!redirec)
+			return ;
 		i = 0;
 		token = (*tk)->content;
 		while (*tk && token->type != SEPARATOR)
@@ -62,6 +64,8 @@ void	fill_redirect(t_tree **tree, t_list **tk)
 			if (token->type == REDIRECT || token->type == FILE_PATH)
 			{
 				redirec[i] = malloc(sizeof(char) * ft_strlen(token->value) + 1);
+				if (!redirec[i])
+					return ;
 				ft_strncpy(redirec[i], token->value, ft_strlen(token->value));
 				i++;
 			}
