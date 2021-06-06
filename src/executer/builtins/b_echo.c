@@ -17,7 +17,7 @@ int	ft_carriage_return(char *str)
 	return (EXIT_SUCCESS);
 }
 
-void	print_echo(t_tree *arg, int fd)
+void	print_echo(t_tree *arg)
 {
 	char	**tableau;
 	int		i;
@@ -33,45 +33,37 @@ void	print_echo(t_tree *arg, int fd)
 	}
 	while (tableau[i])
 	{
-		ft_putstr_fd(tableau[i], fd);
+		ft_putstr_fd(tableau[i], STDOUT_FILENO);
 		if (tableau[i + 1])
-			ft_putchar_fd(' ', fd);
+			ft_putchar_fd(' ', STDOUT_FILENO);
 		i++;
 	}
 	if (!option)
-		ft_putchar_fd('\n', fd);
+		ft_putchar_fd('\n', STDOUT_FILENO);
 }
 
 void	display_echo(t_tree *redir, t_tree *arg)
 {
-	int	fd;
-
 	redir = redir->branches->next->content;
-	fd = create_file_redirect(redir);
-	print_echo(arg, fd);
+	print_echo(arg);
 }
 
 int	b_echo(void *sh, t_tree *root)
 {
 	t_shell	*shell;
 	t_tree	*tmp;
-	int		fd;
-
-	fd = -1;
+	
 	shell = sh;
 	(void)shell;
 	if (root->branches)
 	{
 		tmp = root->branches->content;
 		if (tmp->type == REDIRECT)
-		{
-			fd = create_file_redirect(tmp);
-			ft_putchar_fd('\n', fd);
-		}
+			ft_putchar_fd('\n', STDOUT_FILENO);
 		else if (root->branches->next)
 			display_echo(root, tmp);
 		else
-			print_echo(tmp, 1);
+			print_echo(tmp);
 	}
 	else
 		ft_putchar_fd('\n', STDOUT_FILENO);

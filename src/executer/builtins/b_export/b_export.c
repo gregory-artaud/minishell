@@ -77,13 +77,10 @@ int	new_env(t_shell *sh, t_tree *root)
 	return (EXIT_SUCCESS);
 }
 
-void	ft_export_red(t_tree *root, t_list *env, int display)
+void	ft_export_red(t_list *env, int display)
 {
-	int	fd;
-
-	fd = create_file_redirect(root);
 	if (display)
-		display_export(env, fd);
+		display_export(env);
 }
 
 int	b_export(void *sh, t_tree *root)
@@ -96,16 +93,16 @@ int	b_export(void *sh, t_tree *root)
 	{
 		tmp = root->branches->content;
 		if (tmp->type == REDIRECT)
-			ft_export_red(tmp, shell->env, 1);
+			ft_export_red(shell->env, 1);
 		else if (root->branches->next)
 		{
 			new_env(shell, root);
-			ft_export_red(tmp, shell->env, 0);
+			ft_export_red(shell->env, 0);
 		}
 		else
 			new_env(shell, root);
 	}
 	else
-		display_export(shell->env, 1);
+		display_export(shell->env);
 	return (0);
 }

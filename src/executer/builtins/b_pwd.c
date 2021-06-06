@@ -3,17 +3,9 @@
 int	b_pwd(void *sh, t_tree *root)
 {
 	t_shell	*shell;
-	t_tree	*tmp;
-	int		fd;
 
+	(void)root;
 	shell = sh;
-	fd = 1;
-	if (root->branches)
-	{
-		tmp = root->branches->content;
-		if (tmp->type == REDIRECT || root->branches->next)
-			fd = create_file_redirect(tmp);
-	}
-	ft_putendl_fd(shell->pwd_path, fd);
+	ft_putendl_fd(shell->pwd_path, STDOUT_FILENO);
 	return (0);
 }

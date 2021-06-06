@@ -34,24 +34,24 @@ char	**list_to_char(t_list *env)
 	return (tableau);
 }
 
-void	print_export(char *str, int fd)
+void	print_export(char *str)
 {
-	ft_putstr_fd("declare -x ", fd);
+	ft_putstr_fd("declare -x ", STDOUT_FILENO);
 	while (*str != '=' && *str)
 	{
-		ft_putchar_fd(*str, fd);
+		ft_putchar_fd(*str, STDOUT_FILENO);
 		str++;
 	}
 	if (*str == '=')
 	{
-		ft_putchar_fd(*str, fd);
+		ft_putchar_fd(*str, STDOUT_FILENO);
 		str++;
-		ft_putchar_fd(DOUBLE_QUOTE, fd);
-		ft_putstr_fd(str, fd);
-		ft_putendl_fd("\"", fd);
+		ft_putchar_fd(DOUBLE_QUOTE, STDOUT_FILENO);
+		ft_putstr_fd(str, STDOUT_FILENO);
+		ft_putendl_fd("\"", STDOUT_FILENO);
 	}
 	else
-		ft_putchar_fd('\n', fd);
+		ft_putchar_fd('\n', STDOUT_FILENO);
 }
 
 char	**sort_env(t_list *env)
@@ -83,7 +83,7 @@ char	**sort_env(t_list *env)
 	return (tableau);
 }
 
-void	display_export(t_list *env, int fd)
+void	display_export(t_list *env)
 {
 	char	**tableau;
 	int		i;
@@ -92,7 +92,7 @@ void	display_export(t_list *env, int fd)
 	i = 0;
 	while (tableau[i])
 	{
-		print_export(tableau[i], fd);
+		print_export(tableau[i]);
 		free(tableau[i]);
 		i++;
 	}

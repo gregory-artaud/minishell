@@ -34,18 +34,13 @@ int	b_unset(void *sh, t_tree *root)
 	t_tree	*tmp;
 
 	shell = sh;
-	if (root->branches)
+	tmp = ft_tr_leftchild(root);
+	if (tmp)
 	{
-		tmp = root->branches->content;
-		if (tmp->type == REDIRECT)
-			create_file_redirect(tmp);
-		else if (root->branches->next)
-		{
-			unset_var(shell, root);
-			create_file_redirect(tmp);
-		}
-		else
-			unset_var(shell, root);
+		tmp = tmp->content;
+		if (tmp->type != ARGUMENT)
+			return (EXIT_SUCCESS);
+		unset_var(shell, root);
 	}
 	return (0);
 }
