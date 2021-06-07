@@ -32,13 +32,15 @@ int	b_unset(void *sh, t_tree *root)
 {
 	t_shell	*shell;
 	t_tree	*tmp;
+	int		type;
 
 	shell = sh;
 	tmp = ft_tr_leftchild(root);
 	if (tmp)
 	{
+		type = tmp->type;
 		tmp = tmp->content;
-		if (tmp->type != ARGUMENT)
+		if (type != ARGUMENT)
 			return (EXIT_SUCCESS);
 		unset_var(shell, root);
 	}
