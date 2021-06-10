@@ -29,17 +29,21 @@ void	clear_shell(t_shell *sh)
 
 void	init_env(t_shell *sh, char **env)
 {
-	int	i;
+	int		i;
+	int		flag;
 
 	i = 0;
 	sh->env = 0;
+	flag = 0;
 	while (env[i])
 	{
-		if (ft_memcmp(env[i], "PATH=", 5))
-			ft_lstadd_back(&(sh->env), ft_lstnew(ft_strdup(env[i])));
+		if (!ft_memcmp(env[i], "PATH=", 5))
+			flag = 1;
+		ft_lstadd_back(&(sh->env), ft_lstnew(ft_strdup(env[i])));
 		i++;
 	}
-	ft_lstadd_back(&(sh->env), ft_lstnew(ft_strdup(PATH)));
+	if (!flag)
+		ft_lstadd_back(&(sh->env), ft_lstnew(ft_strdup(PATH)));
 }
 
 int	init_shell(t_shell *sh, char **env)
