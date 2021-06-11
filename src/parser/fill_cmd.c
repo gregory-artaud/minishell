@@ -51,29 +51,25 @@ void	fill_redirect(t_tree **tree, t_list **tk)
 	int		i;
 
 	nb_redirect = ft_nb_redirect(*tk);
-	if (nb_redirect)
+	if (!nb_redirect)
+		return ;
+	redirec = ft_calloc(nb_redirect + 1, sizeof(char *));
+	if (!redirec)
+		return ;
+	i = 0;
+	while (*tk && ((t_token *)(*tk)->content)->type != SEPARATOR)
 	{
-		redirec = malloc(sizeof(char *) * (nb_redirect + 1));
-		if (!redirec)
-			return ;
-		i = 0;
 		token = (*tk)->content;
-		while (*tk && token->type != SEPARATOR)
+		if (token->type == REDIRECT || token->type == FILE_PATH)
 		{
-			token = (*tk)->content;
-			if (token->type == REDIRECT || token->type == FILE_PATH)
-			{
-				redirec[i] = malloc(sizeof(char) * ft_strlen(token->value) + 1);
-				if (!redirec[i])
-					return ;
-				ft_strncpy(redirec[i], token->value, ft_strlen(token->value));
-				i++;
-			}
-			*tk = (*tk)->next;
+			redirec[i] = malloc(sizeof(char) * ft_strlen(token->value) + 1);
+			if (!redirec[i])
+				return ;
+			ft_strncpy(redirec[i++], token->value, ft_strlen(token->value));
 		}
-		redirec[i] = NULL;
-		ft_tr_addright(*tree, ft_tr_new(redirec, REDIRECT, i));
+		*tk = (*tk)->next;
 	}
+	ft_tr_addright(*tree, ft_tr_new(redirec, REDIRECT, i));
 }
 
 int	fill_cmd(t_tree *tree, t_list **tk)

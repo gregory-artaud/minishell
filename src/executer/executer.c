@@ -3,7 +3,7 @@
 int	is_empty_command(t_tree *tr)
 {
 	if (ft_strlen(tr->content) || ft_tr_leftchild(tr))
-	 	return (0);
+		return (0);
 	return (1);
 }
 

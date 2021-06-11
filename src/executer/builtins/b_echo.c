@@ -52,7 +52,7 @@ int	b_echo(void *sh, t_tree *root)
 {
 	t_shell	*shell;
 	t_tree	*tmp;
-	
+
 	shell = sh;
 	(void)shell;
 	if (root->branches)

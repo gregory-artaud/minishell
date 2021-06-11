@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int		verif_num(char *str)
+int	verif_num(char *str)
 {
 	int	i;
 

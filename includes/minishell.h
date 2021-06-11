@@ -113,6 +113,7 @@ int		get_last_output(char **t, int size);
 t_tree	*get_tr_redirect(t_tree *tr);
 int		redirect_input(t_tree *tr);
 int		get_last_input(char **t, int size);
+int		does_file_exists(char *f);
 /*
 ** error_interpreter/
 */

@@ -1,7 +1,6 @@
 #ifndef DEFS_H
 # define DEFS_H
 
-# include <wait.h>
 # include <termios.h>
 # include "libft.h"
 # define EOT 4

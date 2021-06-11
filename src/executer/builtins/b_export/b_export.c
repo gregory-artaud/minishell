@@ -45,42 +45,39 @@ int	brw_env(t_list *env, char *var, int plus)
 	return (EXIT_FAILURE);
 }
 
+int	create_env(int plus, char **var, int i)
+{
+	char	*content;
+
+	if (plus == 2)
+		var[i] = free_not_env(var[i]);
+	content = malloc(sizeof(char) * (ft_strlen(var[i]) + 1));
+	if (!content)
+		return (MALLOC_BREAK);
+	content = ft_strncpy(content, var[i], ft_strlen(var[i]));
+	ft_lstadd_back(&(g_sh->env), ft_lstnew(content));
+	return (EXIT_SUCCESS);
+}
+
 int	new_env(t_shell *sh, t_tree *root)
 {
 	char	**var;
 	int		i;
-	char	*content;
 	int		plus;
 
-	root = root->branches->content;
+	(void)sh;
+	root = ft_tr_leftchild(root);
 	var = root->content;
 	i = -1;
 	while (++i < root->size)
 	{
 		plus = ft_verif_var_env(var[i]);
-		if (plus)
-		{
-			if (brw_env(sh->env, var[i], plus))
-			{
-				if (plus == 2)
-					var[i] = free_not_env(var[i]);
-				content = malloc(sizeof(char) * (ft_strlen(var[i]) + 1));
-				if (!content)
-					return (MALLOC_BREAK);
-				content = ft_strncpy(content, var[i], ft_strlen(var[i]));
-				ft_lstadd_back(&sh->env, ft_lstnew(content));
-			}
-		}
+		if (plus && create_env(plus, var, i))
+			return (MALLOC_BREAK);
 		else
 			printf("minishell: export: '%s': not a valid identifier\n", var[i]);
 	}
 	return (EXIT_SUCCESS);
-}
-
-void	ft_export_red(t_list *env, int display)
-{
-	if (display)
-		display_export(env);
 }
 
 int	b_export(void *sh, t_tree *root)
@@ -93,12 +90,7 @@ int	b_export(void *sh, t_tree *root)
 	{
 		tmp = root->branches->content;
 		if (tmp->type == REDIRECT)
-			ft_export_red(shell->env, 1);
-		else if (root->branches->next)
-		{
-			new_env(shell, root);
-			ft_export_red(shell->env, 0);
-		}
+			display_export(shell->env);
 		else
 			new_env(shell, root);
 	}

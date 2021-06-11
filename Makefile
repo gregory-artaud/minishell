@@ -6,7 +6,7 @@
 #    By: gartaud <gartaud@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/14 22:19:13 by gartaud           #+#    #+#              #
-#    Updated: 2021/06/05 10:41:45 by gartaud          ###   ########lyon.fr    #
+#    Updated: 2021/06/11 07:51:35 by gartaud          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ FILES		= src/error_interpreter/print_error.c \
 				src/executer/pipe_utils.c \
 				src/executer/redirect_utils.c \
 				src/executer/redirect_utils2.c \
+				src/executer/redirect_utils3.c \
 				src/executer/run_pipe.c \
 				src/generate_dot/generate_dot.c \
 				src/init_shell.c \
